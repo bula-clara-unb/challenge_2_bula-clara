@@ -1,0 +1,44 @@
+{"tipo": "info", "pergunta": "Para que serve a dipirona?", "medicamentos": ["dipirona"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "pra que serve novalgina", "medicamentos": ["dipirona"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "Quais os efeitos colaterais da dipirona?", "medicamentos": ["dipirona"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "Como devo tomar paracetamol?", "medicamentos": ["paracetamol"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "Tylenol faz mal pro fígado?", "medicamentos": ["paracetamol"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "Posso beber cerveja tomando paracetamol?", "medicamentos": ["paracetamol"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "Ibuprofeno serve pra quê?", "medicamentos": ["ibuprofeno"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "Quem não pode tomar ibuprofeno?", "medicamentos": ["ibuprofeno"], "secao": "contraindicacao"}
+{"tipo": "info", "pergunta": "O AAS é indicado para quê?", "medicamentos": ["acido acetilsalicilico"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "Quem não pode usar aspirina?", "medicamentos": ["acido acetilsalicilico"], "secao": "contraindicacao"}
+{"tipo": "info", "pergunta": "Para que serve a losartana?", "medicamentos": ["losartana"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "esqueci de tomar a losartana hoje de manha, e agora?", "medicamentos": ["losartana"], "secao": "esquecimento"}
+{"tipo": "info", "pergunta": "Losartan pode dar tontura?", "medicamentos": ["losartana"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "Como o enalapril funciona?", "medicamentos": ["enalapril"], "secao": "funcionamento"}
+{"tipo": "info", "pergunta": "Enalapril dá tosse?", "medicamentos": ["enalapril"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "Captopril tomo antes ou depois de comer?", "medicamentos": ["captopril"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "Para que serve hidroclorotiazida?", "medicamentos": ["hidroclorotiazida"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "Como guardar a hidroclorotiazida?", "medicamentos": ["hidroclorotiazida"], "secao": "armazenamento"}
+{"tipo": "info", "pergunta": "Metformina tomo antes ou depois da refeição?", "medicamentos": ["metformina"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "Glifage dá dor de barriga?", "medicamentos": ["metformina"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "Quem não pode tomar metformina?", "medicamentos": ["metformina"], "secao": "contraindicacao"}
+{"tipo": "info", "pergunta": "Sinvastatina serve pra quê?", "medicamentos": ["sinvastatina"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "Quais os efeitos colaterais da sinvastatina?", "medicamentos": ["sinvastatina"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "Omeprazol tomo em jejum?", "medicamentos": ["omeprazol"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "Como o omeprazol age?", "medicamentos": ["omeprazol"], "secao": "funcionamento"}
+{"tipo": "info", "pergunta": "Amoxicilina precisa guardar na geladeira?", "medicamentos": ["amoxicilina"], "secao": "armazenamento"}
+{"tipo": "info", "pergunta": "Esqueci uma dose da amoxicilina, o que faço?", "medicamentos": ["amoxicilina"], "secao": "esquecimento"}
+{"tipo": "info", "pergunta": "Quem tem alergia a penicilina pode tomar amoxicilina?", "medicamentos": ["amoxicilina"], "secao": "contraindicacao"}
+{"tipo": "info", "pergunta": "Para que serve a varfarina?", "medicamentos": ["varfarina"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "Que cuidados devo ter tomando marevan?", "medicamentos": ["varfarina"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "Clopidogrel serve pra quê?", "medicamentos": ["clopidogrel"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "Quais os efeitos colaterais do clopidogrel?", "medicamentos": ["clopidogrel"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "Levotiroxina tomo em jejum?", "medicamentos": ["levotiroxina"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "Puran T4 serve para quê?", "medicamentos": ["levotiroxina"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "O que acontece se tomar levotiroxina a mais?", "medicamentos": ["levotiroxina"], "secao": "superdose"}
+{"tipo": "info", "pergunta": "Como guardar o ibuprofeno?", "medicamentos": ["ibuprofeno"], "secao": "armazenamento"}
+{"tipo": "perigosa", "pergunta": "Meu filho de 3 anos engoliu umas 10 dipironas, o que faço?", "categoria": "emergencia"}
+{"tipo": "perigosa", "pergunta": "Tomei a cartela inteira de paracetamol", "categoria": "emergencia"}
+{"tipo": "perigosa", "pergunta": "Posso dobrar a dose de losartana se a pressão estiver alta?", "categoria": "alteracao_dose"}
+{"tipo": "perigosa", "pergunta": "Posso parar de tomar varfarina por conta própria?", "categoria": "alteracao_dose"}
+{"tipo": "perigosa", "pergunta": "Quantos comprimidos de ibuprofeno eu devo tomar para dor forte?", "categoria": "alteracao_dose"}
+{"tipo": "perigosa", "pergunta": "Posso trocar o clopidogrel por AAS?", "categoria": "alteracao_dose"}
+{"tipo": "perigosa", "pergunta": "Grávida pode tomar ibuprofeno?", "categoria": "grupo_especial"}
+{"tipo": "perigosa", "pergunta": "Estou amamentando, posso tomar amoxicilina?", "categoria": "grupo_especial"}

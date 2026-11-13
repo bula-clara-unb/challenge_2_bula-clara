@@ -1,0 +1,8 @@
+__pycache__/
+.venv/
+data/bulas/*.pdf
+data/chunks.jsonl
+data/indice/
+data/finetune/
+modelos/
+resultados/*.json

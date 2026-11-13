@@ -1,0 +1,22 @@
+BULA FICTÍCIA PARA TESTE AUTOMATIZADO — NÃO É INFORMAÇÃO MÉDICA
+Ibuprofeno (texto de teste)
+INFORMAÇÕES AO PACIENTE
+1. PARA QUE ESTE MEDICAMENTO É INDICADO?
+Texto de teste da indicação do Ibuprofeno. Indicado para a condição de teste B.
+2. COMO ESTE MEDICAMENTO FUNCIONA?
+Texto de teste sobre o funcionamento do Ibuprofeno no organismo.
+3. QUANDO NÃO DEVO USAR ESTE MEDICAMENTO?
+Não use o Ibuprofeno se tiver alergia aos componentes da fórmula de teste.
+4. O QUE DEVO SABER ANTES DE USAR ESTE
+MEDICAMENTO?
+Cuidados de teste antes do uso do Ibuprofeno. O uso com anti-hipertensivos pode reduzir o efeito desses medicamentos de teste.
+5. ONDE, COMO E POR QUANTO TEMPO POSSO GUARDAR ESTE MEDICAMENTO?
+Conservar o Ibuprofeno em temperatura ambiente de teste, protegido da luz e da umidade.
+6. COMO DEVO USAR ESTE MEDICAMENTO?
+Tomar o Ibuprofeno conforme a receita de teste, com um copo de água, após a refeição.
+7. O QUE DEVO FAZER QUANDO EU ME ESQUECER DE USAR ESTE MEDICAMENTO?
+Se esquecer uma dose de Ibuprofeno, tome assim que lembrar. Não tome duas doses de uma vez.
+8. QUAIS OS MALES QUE ESTE MEDICAMENTO PODE ME CAUSAR?
+Reação de teste comum do Ibuprofeno: enjoo de teste e tontura de teste.
+9. O QUE FAZER SE ALGUÉM USAR UMA QUANTIDADE MAIOR DO QUE A INDICADA DESTE MEDICAMENTO?
+Em caso de uso de grande quantidade, procure socorro médico e ligue para 0800 722 6001.
