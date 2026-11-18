@@ -1,0 +1,9 @@
+# Semana 4 — multimodal (instalar além do requirements.txt)
+pillow>=10
+pytesseract>=0.3.10      # + instalar o programa Tesseract com o idioma Português (ver bula_clara/multimodal/ocr.py)
+python-multipart>=0.0.9  # upload de arquivos na API
+faster-whisper>=1.0      # fala -> texto
+gTTS>=2.5                # texto -> fala (online)
+# opcionais:
+# easyocr>=1.7           # OCR alternativo, mais robusto em foto ruim (mais pesado)
+# pyttsx3>=2.90          # texto -> fala offline

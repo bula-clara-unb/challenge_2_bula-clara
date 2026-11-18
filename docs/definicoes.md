@@ -16,7 +16,15 @@
   - **pesquisar no Google ou perguntar a um chatbot genérico**, que pode inventar informação (alucinação) e não diz de onde ela veio;
   - **perguntar ao farmacêutico**, que é o ideal, mas nem sempre está disponível quando surge a dúvida.
 
-> ⚠️ **A fazer pelo grupo:** acrescentar 2–3 estatísticas com fonte (por exemplo, dados de automedicação do ICTQ/Datafolha, intoxicações por medicamentos do SINITOX/Fiocruz, alfabetismo funcional do INAF). A restrição do desafio exige "evidências confiáveis", então os números precisam vir de fonte verificada.
+**O problema em números:**
+
+| Dado | Valor | Fonte |
+|---|---|---|
+| Brasileiros (16+ anos) que tomam medicamentos por conta própria | **86%** | Pesquisa ICTQ/Datafolha — [ICTQ](https://ictq.com.br/farmacia-clinica/5144-dia-do-uso-racional-de-medicamentos-pesquisas-do-ictq-reforcam-alerta-historico-e-papel-do-farmaceutico-contra-a-automedicacao) |
+| Participação dos medicamentos nos casos de intoxicação humana registrados no Brasil (2016) | **33,2%** (32.311 de 97.398 casos) — o agente mais frequente | SINITOX/Fiocruz, Tabela 10 — [PDF](https://sinitox.icict.fiocruz.br/sites/sinitox.icict.fiocruz.br/files/Brasil10_9.pdf) |
+| Brasileiros de 15 a 64 anos que são analfabetos funcionais (2024) | **29%** | Inaf 2024 (Ação Educativa / Conhecimento Social) — [UNICEF](https://www.unicef.org/brazil/comunicados-de-imprensa/analfabetismo-funcional-nao-apresenta-melhora-e-alcanca-29-por-cento-dos-brasileiros-mesmo-patamar-de-2018-aponta-novo-levantamento-do-inaf) |
+
+Juntos, esses dados mostram o problema: a maioria das pessoas decide sozinha sobre o uso de medicamentos, os medicamentos lideram as intoxicações registradas, e quase 1 em cada 3 adultos não consegue compreender bem um texto como a bula. Os analfabetos funcionais, segundo o Inaf, compreendem só frases curtas e números familiares, como telefones ou preços.
 
 **Decisão que a solução apoia:** *"Posso usar este medicamento do jeito que pretendo, junto com os outros que uso, ou preciso falar com um profissional antes?"*
 
