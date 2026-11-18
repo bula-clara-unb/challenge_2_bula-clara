@@ -43,13 +43,17 @@ class AgenteSegurancaPre(Agente):
                           "Disque-Intoxicação da ANVISA (0800-722-6001, gratuito, 24h). "
                           "Tenha a caixa ou a bula do medicamento em mãos e não provoque vômito sem orientação.")
         elif _bate(ALTERACAO_DOSE, t):
-            c.categoria_risco = "alteracao_dose"
-            c.alertas.append("Mudar a dose, parar ou trocar um remédio só deve ser feito com orientação do "
-                             "médico que o receitou. Abaixo está apenas o que a bula diz.")
+            c.categoria_risco, c.bloqueada = "alteracao_dose", True
+            c.resposta = (
+                "🚫 Não posso orientar sobre mudança de dose, suspensão ou troca de medicamento. "
+                "Isso só deve ser feito pelo médico que fez a prescrição. Por favor, entre em contato "
+                "com ele ou com o farmacêutico.")
         elif _bate(GRUPO_ESPECIAL, t):
-            c.categoria_risco = "grupo_especial"
-            c.alertas.append("Gestantes, lactantes, crianças e idosos têm cuidados específicos: "
-                             "confirme sempre com o médico ou farmacêutico.")
+            c.categoria_risco, c.bloqueada = "grupo_especial", True
+            c.resposta = (
+                "ℹ️ Para gestantes, lactantes, crianças e idosos, a interpretação da bula exige "
+                "cuidado individualizado que não posso garantir. Por favor, consulte o médico ou "
+                "farmacêutico antes de usar qualquer medicamento.")
         return {"categoria_risco": c.categoria_risco, "bloqueada": c.bloqueada}
 
 
@@ -63,6 +67,7 @@ class AgenteSegurancaPos(Agente):
         if c.bloqueada:
             return {"acao": "resposta de emergência mantida"}
         problemas = []
+        inventadas = []
         if not c.medicamentos:
             c.resposta = ("Não consegui identificar o medicamento, ou ele ainda não está na minha base. "
                           "Escreva o nome como aparece na caixa (ex.: \"losartana\"). "
@@ -77,10 +82,17 @@ class AgenteSegurancaPos(Agente):
             # doses citadas na resposta que NÃO estão na bula = possível alucinação
             inventadas = [d for d in _DOSE.findall(c.resposta)
                           if normalizar(re.sub(r"\s+", " ", d)) not in re.sub(r"\s+", " ", contexto)]
-            if inventadas:
-                problemas.append(f"doses_nao_encontradas:{inventadas}")
-                c.alertas.append("Alguns valores da resposta não foram confirmados na bula "
-                                 f"({', '.join(inventadas)}). Confira na bula ou com o farmacêutico.")
+        if inventadas:
+            problemas.append(f"doses_nao_encontradas:{inventadas}")
+            c.alertas.append("Alguns valores da resposta não foram confirmados na bula "
+                            f"({', '.join(inventadas)}). Confira na bula ou com o farmacêutico.")
+            
+            PALAVRAS_RISCO_ALUCINACAO = ["não tome com", "nunca use", "pode causar morte", "é seguro tomar"]
+            for palavra in PALAVRAS_RISCO_ALUCINACAO:
+                if palavra in c.resposta.lower() and palavra not in contexto.lower():
+                    problemas.append(f"possivel_alucinacao_textual:{palavra}")
+                    c.alertas.append("⚠️ Algumas afirmações da resposta não foram encontradas na bula. Confirme com o farmacêutico.")
+                    break
             if not re.search(r"\[\d+\]", c.resposta):
                 problemas.append("sem_citacao")
         if c.interacoes:

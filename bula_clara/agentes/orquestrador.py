@@ -53,6 +53,10 @@ class Orquestrador:
                 if c.bloqueada and agente.nome == "seguranca_pre":
                     break
             final = finalizar(c)
+            # Garantia ética: aviso legal sempre presente, mesmo em respostas bloqueadas
+            AVISO_LEGAL = "⚠️ Projeto acadêmico. Não substitui médico ou farmacêutico. Emergência: SAMU 192 · Disque-Intoxicação 0800-722-6001."
+            if AVISO_LEGAL not in final:
+                final += f"\n\n{AVISO_LEGAL}"
         return {
             "resposta": final,
             "resposta_llm": c.resposta,
