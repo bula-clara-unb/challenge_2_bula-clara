@@ -42,3 +42,16 @@ pytest -q                               # testes (não precisam de modelo)
 Variáveis úteis: `BULA_LLM=hf|ollama|mock`, `BULA_RECUPERADOR=chroma|tfidf`, `BULA_LORA=caminho/do/adaptador`.
 
 > ⚠️ Projeto acadêmico. Não substitui médico ou farmacêutico. Emergência: SAMU 192 · Disque-Intoxicação 0800-722-6001.
+
+## Semana 4 — Multimodal (foto e voz)
+
+```bash
+pip install -r requirements-multimodal.txt
+# + instalar o Tesseract com Português (Windows: https://github.com/UB-Mannheim/tesseract/wiki)
+python -m bula_clara.cli --foto caixa.jpg --trace                  # identifica o remédio pela foto
+python -m bula_clara.cli "posso tomar com varfarina?" --foto caixa.jpg
+python -m bula_clara.cli --audio pergunta.ogg --falar              # pergunta falada, resposta em mp3
+python scripts/avaliar_imagens.py                                  # acurácia nas fotos de data/avaliacao/fotos/
+```
+API: `POST /perguntar-multimodal` (form-data: `pergunta`, `medicamentos_em_uso`, `imagem`, `audio`) e `POST /falar`.
+Código: `bula_clara/multimodal/` (OCR e voz), `bula_clara/agentes/leitor_imagem.py`, `bula_clara/assistente.py`.
