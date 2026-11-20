@@ -62,7 +62,9 @@ def processar_arquivo(arquivo: Path) -> list[dict]:
                 "texto": parte,
                 "fonte": arquivo.name,
             })
-    print(f"  ✓ {arquivo.name}: {len(secoes)}/9 seções, {len(chunks)} chunks")
+    faltando = [NOME_SECAO[s] for s in NOME_SECAO if s not in secoes]
+    print(f"  ✓ {arquivo.name}: {len(secoes)}/9 seções, {len(chunks)} chunks"
+          + (f"  (falta: {', '.join(faltando)})" if faltando else ""))
     return chunks
 
 

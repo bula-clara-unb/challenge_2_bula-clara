@@ -15,22 +15,33 @@ from pathlib import Path
 
 import requests
 
-PASTA = Path(__file__).resolve().parent.parent / "data" / "bulas"
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from bula_clara import config  # noqa: E402
+
+PASTA = config.PASTA_PDFS
 API = "https://consultas.anvisa.gov.br/api/consulta"
 CABECALHO = {"Authorization": "Guest", "User-Agent": "Mozilla/5.0 (projeto academico UnB)"}
 
-MVP = ["dipirona", "paracetamol", "ibuprofeno", "acido acetilsalicilico", "losartana", "enalapril",
-       "captopril", "hidroclorotiazida", "metformina", "sinvastatina", "omeprazol", "amoxicilina",
-       "varfarina", "clopidogrel", "levotiroxina"]
+MVP = config.MEDICAMENTOS_MVP
+
+
+class APIBloqueada(Exception):
+    """A ANVISA recusou o acesso (403/401): não adianta insistir nos outros medicamentos."""
+
+
+def arquivo_esperado(nome: str) -> Path:
+    return PASTA / f"{nome.replace(' ', '_')}.pdf"
 
 
 def baixar(nome: str) -> bool:
-    destino = PASTA / f"{nome.replace(' ', '_')}.pdf"
+    destino = arquivo_esperado(nome)
     if destino.exists():
         print(f"  = {nome}: já existe")
         return True
     r = requests.get(f"{API}/bulario", headers=CABECALHO, timeout=30,
                      params={"count": 10, "page": 1, "filter[nomeProduto]": nome})
+    if r.status_code in (401, 403):
+        raise APIBloqueada(f"HTTP {r.status_code}")
     r.raise_for_status()
     itens = [i for i in r.json().get("content", []) if i.get("idBulaPacienteProtegido")]
     if not itens:
@@ -52,16 +63,24 @@ def main():
     PASTA.mkdir(parents=True, exist_ok=True)
     nomes = sys.argv[1:] or MVP
     falhas = []
-    for n in nomes:
+    for idx, n in enumerate(nomes):
         try:
             if not baixar(n):
                 falhas.append(n)
+        except APIBloqueada as e:
+            print(f"  ! API do bulário recusou o acesso ({e}). Interrompendo para não insistir no site.")
+            falhas.extend(x for x in nomes[idx:] if not arquivo_esperado(x).exists())
+            break
         except Exception as e:  # noqa: BLE001
             print(f"  ! {n}: {e}")
             falhas.append(n)
         time.sleep(1.5)  # não sobrecarregar o site da ANVISA
     if falhas:
-        print("\nBaixe manualmente (veja instruções no topo deste arquivo):", ", ".join(falhas))
+        print("\nBaixe manualmente a *Bula do Paciente* em https://consultas.anvisa.gov.br/#/bulario/")
+        print("e salve com estes nomes (prefira o genérico ou o de referência):")
+        for n in falhas:
+            print(f"  - {arquivo_esperado(n).relative_to(config.RAIZ)}")
+        print("Depois confira com:  python scripts/validar_bulas.py")
 
 
 if __name__ == "__main__":
