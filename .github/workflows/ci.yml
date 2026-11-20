@@ -49,4 +49,4 @@ jobs:
       - name: Rodar testes
         env:
           BULA_RECUPERADOR: tfidf
-        run: pytest -q
+        run: python -m pytest -q
