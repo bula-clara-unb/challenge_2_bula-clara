@@ -8,6 +8,14 @@ PASTA_PDFS = DADOS / "bulas"            # PDFs baixados da ANVISA
 ARQ_CHUNKS = DADOS / "chunks.jsonl"     # saída da ingestão
 PASTA_INDICE = DADOS / "indice"         # ChromaDB persistente
 
+# Os 15 medicamentos do MVP (nome do arquivo esperado: data/bulas/<nome com _>.pdf)
+MEDICAMENTOS_MVP = [
+    "dipirona", "paracetamol", "ibuprofeno", "acido acetilsalicilico", "losartana", "enalapril",
+    "captopril", "hidroclorotiazida", "metformina", "sinvastatina", "omeprazol", "amoxicilina",
+    "varfarina", "clopidogrel", "levotiroxina",
+]
+MIN_SECOES = 8   # mínimo de seções (de 9) reconhecidas para a bula ser aceita
+
 # Embeddings (multilíngue, roda em CPU)
 MODELO_EMBEDDING = os.getenv("BULA_EMBEDDING", "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
 

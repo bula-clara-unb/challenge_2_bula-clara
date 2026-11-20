@@ -10,8 +10,8 @@ SECOES = [
     ("precaucoes_interacoes", "Antes de usar / Interações", r"O\s+QUE\s+DEVO\s+SABER\s+ANTES\s+DE\s+USAR"),
     ("armazenamento", "Como guardar", r"ONDE,?\s+COMO\s+E\s+POR\s+QUANTO\s+TEMPO"),
     ("posologia", "Como usar", r"COMO\s+DEVO\s+USAR\s+(ESTE|ESSE)\s+MEDICAMENTO"),
-    ("esquecimento", "Se esquecer uma dose", r"O\s+QUE\s+DEVO\s+FAZER\s+QUANDO\s+EU\s+ME\s+ESQUECER"),
-    ("reacoes_adversas", "Efeitos colaterais", r"QUAIS\s+OS\s+MALES\s+QUE\s+(ESTE|ESSE)\s+MEDICAMENTO"),
+    ("esquecimento", "Se esquecer uma dose", r"O\s+QUE\s+DEVO\s+FAZER\s+QUANDO\s+(EU\s+)?(ME\s+)?ESQUECER"),
+    ("reacoes_adversas", "Efeitos colaterais", r"QUAIS\s+(OS\s+)?MALES\s+QUE\s+(ESTE|ESSE)\s+MEDICAMENTO"),
     ("superdose", "Superdose", r"O\s+QUE\s+FAZER\s+SE\s+ALGU[ÉE]M\s+USAR\s+UMA\s+QUANTIDADE\s+MAIOR"),
 ]
 NOME_SECAO = {sid: nome for sid, nome, _ in SECOES}
@@ -29,7 +29,8 @@ def normalizar(txt: str) -> str:
 
 
 def limpar(txt: str) -> str:
-    txt = txt.replace("­", "")              # hífen invisível
+    txt = unicodedata.normalize("NFC", txt)  # PDFs às vezes trazem "É" como "E" + acento combinante
+    txt = txt.replace("\u00ad", "")         # hífen invisível (soft hyphen)
     txt = re.sub(r"-\n(\w)", r"\1", txt)          # palavra quebrada no fim da linha
     txt = re.sub(r"[ \t]+", " ", txt)
     txt = re.sub(r"\n{3,}", "\n\n", txt)
