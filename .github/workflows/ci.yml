@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [dev, main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # PRs para a main só podem vir da dev
+  origem-pr-main:
+    name: PR para main vem da dev
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verificar branch de origem
+        run: |
+          if [ "${{ github.head_ref }}" != "dev" ]; then
+            echo "::error::PRs para main devem partir da branch dev (origem: ${{ github.head_ref }})."
+            exit 1
+          fi
+
+  testes:
+    name: Testes (pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Dependências do sistema (Tesseract PT + fontes)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends tesseract-ocr tesseract-ocr-por fonts-dejavu-core
+
+      # Os testes usam LLM mock + TF-IDF: não precisam de torch/transformers/chromadb
+      - name: Dependências Python (leves)
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pypdf scikit-learn pydantic fastapi requests pillow pytesseract python-multipart
+
+      - name: Rodar testes
+        env:
+          BULA_RECUPERADOR: tfidf
+        run: pytest -q

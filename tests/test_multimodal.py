@@ -37,7 +37,10 @@ def orq(tmp_path_factory):
 
 def _caixa(tmp_path, linhas, inverter=False):
     from PIL import Image, ImageDraw, ImageFont
-    fonte = ImageFont.truetype("DejaVuSans-Bold.ttf", 64) if shutil.which("fc-list") else ImageFont.load_default()
+    try:
+        fonte = ImageFont.truetype("DejaVuSans-Bold.ttf", 64)
+    except OSError:  # fonte DejaVu não instalada no sistema
+        fonte = ImageFont.load_default(size=64)
     fundo, cor = ((20, 60, 160), (255, 255, 255)) if inverter else ((255, 255, 255), (20, 20, 20))
     img = Image.new("RGB", (1400, 700), fundo)
     d = ImageDraw.Draw(img)

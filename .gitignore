@@ -1,8 +1,44 @@
+# Python
 __pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# Ambientes virtuais
 .venv/
+venv/
+env/
+
+# Variáveis de ambiente / segredos
+.env
+.env.*
+!.env.example
+
+# Editores / SO
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Ferramentas locais
+.serena/
+.remember/
+.claude/settings.local.json
+
+# Dados e artefatos gerados
 data/bulas/*.pdf
 data/chunks.jsonl
 data/indice/
 data/finetune/
 modelos/
 resultados/*.json
+*.wav
+*.mp3
