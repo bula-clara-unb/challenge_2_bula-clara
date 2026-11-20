@@ -74,6 +74,41 @@ Variações que já são aceitas:
 | "ESTE" ou "ESSE" | `COMO ESSE MEDICAMENTO FUNCIONA?` |
 | Acento decomposto pelo PDF (NFD) | `É` extraído como `E` + `◌́` (o texto passa a ser normalizado para NFC) |
 | Hífen invisível (U+00AD) e palavra quebrada no fim da linha | `medica-`/`mento` |
+| Citação de outra seção no meio do texto | `(ver item` / `3. QUANDO NÃO DEVO USAR…)` dentro da seção 4: títulos fora da ordem 1→9 são ignorados |
+
+### O que é cortado
+
+Depois da seção 9, os PDFs reais trazem **Dizeres legais** (registro MS, CNPJ, farmacêutico responsável, SAC)
+e a tabela **Histórico de alteração de bula**, que às vezes repete títulos de seção. Nada disso é texto para o
+paciente: sem o corte, a seção "Superdose" chegava a ~5.000 caracteres de tabela. O texto agora é
+truncado no primeiro desses marcadores, e todas as bulas validadas terminam na frase padrão
+"Ligue para 0800 722 6001, se você precisar de mais orientações".
+
+## Resultado com as bulas reais (20/11/2026)
+
+12 de 15 bulas baixadas manualmente do Bulário Eletrônico, **todas com 9/9 seções**:
+
+| Medicamento | Seções | Chunks |
+|---|---|---|
+| ácido acetilsalicílico | 9/9 | 29 |
+| captopril | 9/9 | 19 |
+| clopidogrel | 9/9 | 32 |
+| dipirona | 9/9 | 35 |
+| enalapril | 9/9 | 23 |
+| hidroclorotiazida | 9/9 | 28 |
+| ibuprofeno | 9/9 | 18 |
+| levotiroxina | 9/9 | 29 |
+| losartana | 9/9 | 25 |
+| metformina | 9/9 | 24 |
+| paracetamol | 9/9 | 13 |
+| sinvastatina | 9/9 | 18 |
+| omeprazol | — | ainda não baixada |
+| amoxicilina | — | ainda não baixada |
+| varfarina | — | ainda não baixada |
+
+Total: 293 chunks. `cli "Posso tomar ibuprofeno com losartana?" --trace` (TF-IDF + LLM mock) identifica os dois
+medicamentos, recupera a seção 4 das duas bulas (o trecho da losartana sobre anti-inflamatórios reduzirem o
+efeito na pressão) e detecta a interação.
 
 ## O que foi feito nesta etapa
 
@@ -81,13 +116,15 @@ Variações que já são aceitas:
 - `scripts/baixar_bulas.py`: para no primeiro `401/403` e imprime o caminho exato de cada PDF que falta.
 - `scripts/validar_bulas.py` (novo): verifica o critério de pronto da issue e retorna código de saída.
 - `bula_clara/ingestao.py`: além de `n/9`, mostra **quais** seções não foram reconhecidas.
-- `bula_clara/secoes.py`: padrões mais tolerantes (tabela acima) e normalização Unicode.
+- `bula_clara/secoes.py`: padrões mais tolerantes (tabela acima), normalização Unicode, corte dos dizeres
+  legais/histórico e títulos aceitos só em ordem crescente.
 - `tests/test_secoes_validacao.py` (novo): cobre as variações e o validador.
 - Os passos 3–5 (ingestão → índice → CLI) foram verificados de ponta a ponta com as bulas fictícias de
   `tests/fixtures/` (TF-IDF + LLM mock): 4/4 bulas com 9/9 seções e a interação ibuprofeno × losartana detectada.
 
 ## Pendente
 
-- [ ] Baixar manualmente os 15 PDFs (a API está bloqueando com 403).
-- [ ] Rodar `python scripts/validar_bulas.py` com as bulas reais e ajustar `secoes.py` se alguma ficar abaixo de 8/9.
-- [ ] Registrar aqui o resultado final da validação.
+- [x] Baixar manualmente os PDFs (a API está bloqueando com 403): 12/15.
+- [ ] Baixar omeprazol, amoxicilina e varfarina.
+- [ ] Rodar `python scripts/validar_bulas.py` até dar 15/15 e atualizar a tabela acima.
+- [ ] Gerar o índice com o recuperador padrão (ChromaDB + embeddings); aqui foi validado com TF-IDF.

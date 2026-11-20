@@ -60,3 +60,23 @@ def test_validador_aceita_sufixo_no_nome(tmp_path):
     (tmp_path / "losartana_potassica.txt").write_text((FIX / "losartana.txt").read_text(encoding="utf-8"),
                                                       encoding="utf-8")
     assert validar_bulas.achar_arquivo(tmp_path, "losartana").name == "losartana_potassica.txt"
+
+
+def test_corta_dizeres_legais_e_historico():
+    """A seção 9 não pode engolir os dizeres legais nem a tabela de histórico (que repete títulos)."""
+    bula = (BULA_VARIANTE
+            + "\nDIZERES LEGAIS\nReg. MS 1.0000.0000\nFarm. Resp.: Fulano CRF 0000\nSAC 0800 000 0000\n"
+            + "HISTÓRICO DE ALTERAÇÃO DE BULA\nItens de bula: 8. QUAIS OS MALES QUE ESTE MEDICAMENTO PODE ME CAUSAR?\n")
+    secoes = dividir_em_secoes(bula)
+    assert secoes["superdose"] == "Procure socorro."
+    assert secoes["reacoes_adversas"] == "Náusea."
+
+
+def test_citacao_de_outra_secao_nao_corta_o_texto():
+    """'ver item 3. QUANDO NÃO DEVO USAR...' no início de linha dentro da seção 4 é citação, não título."""
+    bula = BULA_VARIANTE.replace(
+        "Evite álcool.\n",
+        "Evite álcool (ver item\n3. QUANDO NÃO DEVO USAR ESTE MEDICAMENTO?).\nInforme seu médico.\n")
+    secoes = dividir_em_secoes(bula)
+    assert "Informe seu médico." in secoes["precaucoes_interacoes"]
+    assert secoes["contraindicacao"] == "Alergia ao componente."
