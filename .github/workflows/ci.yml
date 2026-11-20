@@ -18,9 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Verificar branch de origem
+        env:
+          HEAD_REF: ${{ github.head_ref }}
         run: |
-          if [ "${{ github.head_ref }}" != "dev" ]; then
-            echo "::error::PRs para main devem partir da branch dev (origem: ${{ github.head_ref }})."
+          if [ "$HEAD_REF" != "dev" ]; then
+            echo "::error::PRs para main devem partir da branch dev (origem: $HEAD_REF)."
             exit 1
           fi
 
