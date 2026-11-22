@@ -84,13 +84,15 @@ paciente: sem o corte, a seção "Superdose" chegava a ~5.000 caracteres de tabe
 truncado no primeiro desses marcadores, e todas as bulas validadas terminam na frase padrão
 "Ligue para 0800 722 6001, se você precisar de mais orientações".
 
-## Resultado com as bulas reais (20/11/2026)
+## Resultado com as bulas reais (22/11/2026)
 
-12 de 15 bulas baixadas manualmente do Bulário Eletrônico, **todas com 9/9 seções**:
+As 15 bulas do MVP foram baixadas manualmente do Bulário Eletrônico, **todas com 9/9 seções**
+(`python scripts/validar_bulas.py` → `15/15`):
 
 | Medicamento | Seções | Chunks |
 |---|---|---|
 | ácido acetilsalicílico | 9/9 | 29 |
+| amoxicilina | 9/9 | 19 |
 | captopril | 9/9 | 19 |
 | clopidogrel | 9/9 | 32 |
 | dipirona | 9/9 | 35 |
@@ -100,13 +102,12 @@ truncado no primeiro desses marcadores, e todas as bulas validadas terminam na f
 | levotiroxina | 9/9 | 29 |
 | losartana | 9/9 | 25 |
 | metformina | 9/9 | 24 |
+| omeprazol | 9/9 | 19 |
 | paracetamol | 9/9 | 13 |
 | sinvastatina | 9/9 | 18 |
-| omeprazol | — | ainda não baixada |
-| amoxicilina | — | ainda não baixada |
-| varfarina | — | ainda não baixada |
+| varfarina | 9/9 | 17 |
 
-Total: 293 chunks. `cli "Posso tomar ibuprofeno com losartana?" --trace` (TF-IDF + LLM mock) identifica os dois
+Total: 348 chunks. `cli "Posso tomar ibuprofeno com losartana?" --trace` (TF-IDF + LLM mock) identifica os dois
 medicamentos, recupera a seção 4 das duas bulas (o trecho da losartana sobre anti-inflamatórios reduzirem o
 efeito na pressão) e detecta a interação.
 
@@ -122,9 +123,11 @@ efeito na pressão) e detecta a interação.
 - Os passos 3–5 (ingestão → índice → CLI) foram verificados de ponta a ponta com as bulas fictícias de
   `tests/fixtures/` (TF-IDF + LLM mock): 4/4 bulas com 9/9 seções e a interação ibuprofeno × losartana detectada.
 
-## Pendente
+## Status
 
-- [x] Baixar manualmente os PDFs (a API está bloqueando com 403): 12/15.
-- [ ] Baixar omeprazol, amoxicilina e varfarina.
-- [ ] Rodar `python scripts/validar_bulas.py` até dar 15/15 e atualizar a tabela acima.
-- [ ] Gerar o índice com o recuperador padrão (ChromaDB + embeddings); aqui foi validado com TF-IDF.
+- [x] Baixar manualmente os PDFs (a API está bloqueando com 403): 15/15.
+- [x] `python scripts/validar_bulas.py` → 15/15 com 9/9 seções.
+- [x] Ingestão → índice → CLI de ponta a ponta com as bulas reais.
+
+Fica para depois, fora do escopo da #1: gerar o índice com o recuperador padrão (ChromaDB + embeddings).
+Aqui ele foi validado com TF-IDF.
