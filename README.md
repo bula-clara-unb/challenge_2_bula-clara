@@ -22,6 +22,7 @@ pergunta ─► Segurança (pré) ─► Identificador ─► Recuperador (RAG) 
 | `bula_clara/llm.py` | backends `hf` (local + LoRA), `ollama`, `mock` |
 | `bula_clara/agentes/` | um arquivo por agente + `orquestrador.py` |
 | `scripts/baixar_bulas.py` | baixa as bulas do Bulário Eletrônico |
+| `scripts/validar_bulas.py` | confere as 9 seções das bulas do MVP ([`docs/base-bulas.md`](docs/base-bulas.md)) |
 | `scripts/gerar_dataset_finetune.py` / `treinar_lora.py` | fine-tuning |
 | `scripts/avaliar.py` | métricas: LLM puro × RAG × multiagentes |
 | `notebooks/treino_colab.ipynb` | treino no Colab (GPU T4 gratuita) |
@@ -31,7 +32,8 @@ pergunta ─► Segurança (pré) ─► Identificador ─► Recuperador (RAG) 
 ```bash
 python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-python scripts/baixar_bulas.py          # ou baixe os PDFs à mão para data/bulas/
+python scripts/baixar_bulas.py          # ou baixe os PDFs à mão para data/bulas/ (ver docs/base-bulas.md)
+python scripts/validar_bulas.py         # confere se os 15 do MVP têm ≥ 8/9 seções
 python -m bula_clara.ingestao
 python -m bula_clara.recuperador        # cria o índice
 python -m bula_clara.cli "Posso tomar ibuprofeno com losartana?" --trace
