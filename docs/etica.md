@@ -5,6 +5,7 @@ Este documento detalha como o projeto Bula Clara implementa os princípios étic
 ### 1. Privacidade e Proteção de Dados (LGPD Art. 11)
 *  **Dados Sensíveis:** Os medicamentos informados revelam condições de saúde.
 *  **Decisão:** O processamento é 100% local (modelo Qwen2.5-1.5B via 'transformers'). Não há envio de dados para APIs de terceiros. Não há login e o histórico é volátil (em memória), sem persistência em banco de dados.
+*  **Lista "Meus remédios" na interface:** a lista de remédios que a pessoa usa vai junto com cada pergunta para a API, porque é assim que as interações são checadas. O servidor não guarda essa lista. Por padrão, ela também some do navegador quando a página é fechada. Se a pessoa quiser não precisar digitar tudo de novo, pode ligar a opção "Lembrar neste aparelho". Aí a lista fica salva só no próprio navegador (`localStorage`), nunca num servidor ou banco de dados. A opção começa desligada, explica o que faz antes de ser ligada (consentimento explícito, LGPD art. 11) e vem com o botão "Apagar tudo" sempre visível. Desligar a opção apaga a lista do aparelho na hora. As respostas e o histórico de perguntas nunca são salvos.
 
 ## 2. Segurança do Paciente (Agentes de Segurança)
 A segurança não depende do LLM (probabilístico), mas de regras determinísticas e auditáveis no arquivo 'bula_clara/agentes/seguranca.py'.
