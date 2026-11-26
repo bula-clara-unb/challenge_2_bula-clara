@@ -1,0 +1,57 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Disclosure.stories';
+
+<Meta of={Stories} />
+
+# Disclosure
+
+Bloco que abre e fecha. Junto com o `Accordion`, organiza as seções da bula na ficha do remédio.
+
+## Exemplo
+
+O título do componente é um `h3`, por isso o exemplo fica dentro de uma seção.
+
+<Canvas of={Stories.Fechado} />
+
+## Quando usar
+
+- `Disclosure` sozinho: um detalhe que nem todo mundo quer ler, como "Como chegamos nesta resposta".
+- `Accordion`: várias seções em sequência, como as 9 seções da bula. Por padrão, abrir uma não fecha as outras.
+
+## Quando não usar
+
+- Para a resposta principal ou um aviso de segurança, deixe o texto aberto na tela. O que é importante não fica escondido.
+- Para trocar entre partes do mesmo conteúdo, lado a lado, use `Tabs`.
+
+## Anatomia
+
+- Contêiner com borda de 1px. Aberto, a borda fica azul e com 2px.
+- Título (um `h3`, por padrão) com o botão dentro, de 52px de altura, e a seta que gira ao abrir.
+- Painel com o conteúdo.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Aberto} />
+
+<Canvas of={Stories.FichaDoRemedio} />
+
+## Acessibilidade
+
+- O botão fica dentro de um título, e a pessoa acha as seções pela lista de títulos do leitor de tela.
+- O botão tem `aria-expanded` e controla o painel. Enter e Espaço abrem e fecham.
+- Aberto não depende só da cor: a seta vira para cima e a borda fica mais grossa.
+- O conteúdo fechado fica escondido de todo mundo, inclusive do leitor de tela.
+- O `nivelTitulo` acerta o nível do título com o resto da página.
+
+## Conteúdo
+
+Nas seções da bula, o título é a pergunta da seção, com o número ("4. O que devo saber antes de usar?"), igual ao padrão da ANVISA. Nos outros casos, o título diz o que tem dentro.
+
+## Faça e não faça
+
+- Faça: abrir a seção que responde à pergunta (`defaultExpandedKeys`).
+- Não faça: esconder dentro de um `Disclosure` fechado o aviso de que dois remédios não devem ser usados juntos.
