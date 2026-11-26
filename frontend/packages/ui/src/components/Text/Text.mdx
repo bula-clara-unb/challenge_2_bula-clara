@@ -1,0 +1,51 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Text.stories';
+
+<Meta of={Stories} />
+
+# Text
+
+Texto com um dos três estilos do sistema: corpo, apoio e rótulo de bloco.
+
+<Canvas of={Stories.Corpo} />
+
+## Quando usar
+
+- `corpo` para o texto normal, de 18px com o texto em 100%.
+- `apoio` para a fonte da informação, datas, metadados e dicas.
+- `rotulo` para o título curto em caixa alta acima de um bloco ("SUA PERGUNTA").
+
+## Quando não usar
+
+- Para títulos de seção, use `Heading`.
+- Para mais de um parágrafo, use `Prose`.
+- Não use `apoio` para informação que a pessoa precisa para decidir. Ele é menor e mais claro.
+
+## Anatomia
+
+Um `p`, `span` ou `div` com o estilo de texto escolhido.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Apoio} />
+
+<Canvas of={Stories.Rotulo} />
+
+## Acessibilidade
+
+- Os três estilos passam no contraste AA nos dois temas, inclusive o `apoio`, que é cinza.
+- O `rotulo` fica em caixa alta só pelo CSS. O leitor de tela lê a palavra normal, e não letra por letra.
+- Com `id`, o texto pode descrever um controle (`aria-describedby`).
+
+## Conteúdo
+
+O `rotulo` leva no máximo três palavras curtas. Texto em caixa alta é mais difícil de ler.
+
+## Faça e não faça
+
+- Faça: `<Text variante="apoio">Bula oficial ANVISA · Losartana, versão de 03/2025</Text>`.
+- Não faça: uma frase inteira na variante `rotulo`.
