@@ -46,6 +46,20 @@ const preview: Preview = {
     // 'error' faz qualquer violação do axe reprovar o teste da story no Vitest.
     a11y: { test: 'error' },
     controls: { expanded: true },
+    // A ordem da barra lateral segue a da spec, sem depender do nome das pastas.
+    options: {
+      storySort: {
+        order: [
+          'Introdução',
+          'Fundamentos',
+          'Conteúdo e voz',
+          'Componentes',
+          ['Modelo de página', 'Primitivos', 'Domínio'],
+          'Padrões',
+          'Changelog',
+        ],
+      },
+    },
   },
 };
 

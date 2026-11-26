@@ -65,6 +65,33 @@
       "borda": {
         "$value": "{color.border.subtle}"
       }
+    },
+    "emergencia": {
+      "fundo": {
+        "$value": "{color.emergency.solid}"
+      },
+      "texto": {
+        "$value": "{color.text.on-solid}"
+      },
+      "botao-fundo": {
+        "$value": "{color.surface.default}"
+      },
+      "botao-texto": {
+        "$value": "{color.emergency.solid}"
+      }
+    },
+    "faixa-emergencia": {
+      "fundo": {
+        "$value": "{color.danger.bg}"
+      },
+      "texto": {
+        "$value": "{color.danger.text}"
+      }
+    },
+    "selo": {
+      "icone": {
+        "$value": "{color.confirm}"
+      }
     }
   }
 }

@@ -5,3 +5,7 @@ export * from './grupos/acoes-e-tipografia';
 export * from './grupos/campos';
 export * from './grupos/sobreposicoes';
 export * from './grupos/estrutura-e-status';
+export * from './grupos/resposta';
+export * from './grupos/seguranca';
+export * from './grupos/entrada';
+export * from './grupos/lista';

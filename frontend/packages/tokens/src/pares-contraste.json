@@ -172,5 +172,29 @@
     "fundo": "componente.toast.fundo",
     "minimo": 7,
     "uso": "texto, borda e ícone do Toast"
+  },
+  {
+    "texto": "componente.emergencia.texto",
+    "fundo": "componente.emergencia.fundo",
+    "minimo": 7,
+    "uso": "texto do cartão de emergência"
+  },
+  {
+    "texto": "componente.emergencia.botao-texto",
+    "fundo": "componente.emergencia.botao-fundo",
+    "minimo": 7,
+    "uso": "botão de ligar do cartão de emergência"
+  },
+  {
+    "texto": "componente.faixa-emergencia.texto",
+    "fundo": "componente.faixa-emergencia.fundo",
+    "minimo": 7,
+    "uso": "faixa \"Emergência? Ligue 192\""
+  },
+  {
+    "texto": "componente.selo.icone",
+    "fundo": "color.surface.default",
+    "minimo": 3,
+    "uso": "ícone do selo de procedência"
   }
 ]
