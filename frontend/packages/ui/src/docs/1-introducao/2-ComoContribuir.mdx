@@ -1,0 +1,82 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { ListaNumerada } from '../blocos/ListaNumerada';
+
+<Meta title="Introdução/Como contribuir" />
+
+# Como contribuir
+
+## A regra principal
+
+O app (`apps/web`) só usa o que está no design system. Se faltar um componente, uma cor ou um tamanho, ele entra primeiro aqui, em `@bula-clara/tokens` ou `@bula-clara/ui`, com story, teste e documentação. Só depois o app passa a usar. Componente feito direto no app, "só desta vez", vira uma segunda versão de algo que já existe, e as duas acabam se afastando.
+
+## Antes de começar
+
+<ListaNumerada>
+
+1. Abra uma issue dizendo o que falta e onde vai ser usado. Se a issue já existe, comente nela.
+2. Crie a branch a partir da `dev`. A `main` só recebe PR vindo da `dev`.
+3. Leia a página do componente mais parecido com o seu e o **Modelo de página**, em Componentes. Ali está o que toda página de componente precisa ter.
+
+</ListaNumerada>
+
+## Onde cada coisa mora
+
+- **Tokens:** `frontend/packages/tokens/src/tokens/`. Os primitivos (`primitivos/`) guardam os valores brutos e nunca viram CSS. Os temas (`temas/`) dão o papel de cada cor. Componente nunca usa primitivo direto.
+- **Componentes:** `frontend/packages/ui/src/components/<Nome>/`, com quatro arquivos: `<Nome>.tsx`, `<Nome>.stories.tsx`, `<Nome>.test.tsx` e `index.ts`. Exporte o componente em `src/index.ts`.
+- **Documentação:** a página de um componente fica na pasta dele, como `<Nome>.mdx`. As páginas gerais (como esta) ficam em `frontend/packages/ui/src/docs/`.
+
+## O que o CI confere
+
+O job `frontend` roda a cada PR, e o PR só entra com tudo verde:
+
+<ListaNumerada>
+
+1. Contraste dos tokens. Se você criar um par de texto e fundo, declare o par em `packages/tokens/src/pares-contraste.json`, com a meta (7:1 para corpo e texto de segurança, 4,5:1 para o resto, 3:1 para borda e ícone). O teste recalcula todos os pares nos dois temas.
+2. Lint com `jsx-a11y` no modo estrito.
+3. Tipos com TypeScript strict.
+4. Testes de unidade (Vitest e Testing Library), sempre buscando por papel e por rótulo: `getByRole` e `getByLabelText`.
+5. Axe em todas as stories. Cada story roda num Chromium e passa pelo axe. Qualquer violação reprova o teste, e não existe exceção por story. Se o axe reclamar, corrija o componente.
+6. Build do Storybook, que sai como artefato do PR.
+
+</ListaNumerada>
+
+O axe acha só uma parte dos problemas de acessibilidade. Ordem de leitura, nomes que não fazem sentido em voz alta e foco que some se conferem à mão, com o checklist de `docs/acessibilidade/checklist-manual.md` (leitor de tela, só teclado, zoom de 200% e tela de 320px).
+
+Para rodar tudo na sua máquina, dentro de `frontend/`:
+
+```bash
+pnpm --filter @bula-clara/tokens test
+pnpm lint
+pnpm typecheck
+pnpm --filter @bula-clara/ui test
+pnpm build-storybook
+```
+
+## Changesets
+
+Toda mudança que alguém vá notar em `@bula-clara/tokens` ou `@bula-clara/ui` leva um changeset:
+
+```bash
+pnpm changeset
+```
+
+Escolha o pacote, o tipo e escreva uma frase para quem usa o pacote, dizendo o que mudou e, se for o caso, o que a pessoa precisa fazer.
+
+- **patch:** correção que não muda como se usa (um contraste ajustado, um bug de foco).
+- **minor:** algo novo que não quebra nada (um componente, uma variante, um token).
+- **major:** algo que obriga quem usa a mudar o código (uma prop renomeada, um token removido).
+
+Mudança só de documentação, de story ou de teste não precisa de changeset. A página **Changelog** explica onde essas frases aparecem depois.
+
+## Antes de pedir revisão
+
+Confira no seu PR:
+
+- O componente só usa tokens (nada de cor, fonte ou tamanho escrito à mão).
+- Tem story para cada variante e estado, e todas passam no axe.
+- Os testes cobrem teclado e o nome acessível.
+- A página do componente segue o modelo.
+- Os textos seguem **Conteúdo e voz**.
+- Funciona nos dois temas e nos três tamanhos de texto.
+- Tem changeset, se alguém vai notar a mudança.
+- Nada fere o `docs/etica.md`. Se você ficou na dúvida, escreva a dúvida no PR.
