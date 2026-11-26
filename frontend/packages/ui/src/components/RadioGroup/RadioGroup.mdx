@@ -1,0 +1,50 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './RadioGroup.stories';
+
+<Meta of={Stories} />
+
+# RadioGroup
+
+Grupo de opções em que a pessoa escolhe uma só. Inclui o `Radio`, que é cada opção.
+
+<Canvas of={Stories.Padrao} />
+
+## Quando usar
+
+Para duas a cinco opções que se excluem, todas à vista ("Para mim" ou "Para outra pessoa").
+
+## Quando não usar
+
+- Para uma opção de sim ou não, use `Checkbox` ou `Switch`.
+- Para muitas opções, como os remédios da base, use `ComboBox`.
+
+## Anatomia
+
+- Pergunta do grupo, visível, em negrito.
+- Dica opcional.
+- Opções (`Radio`): círculo de 28px com borda de 2px e o texto ao lado. A linha toda tem 48px.
+- Mensagem de erro, como nos campos.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.ComErro} />
+
+## Acessibilidade
+
+- Papel `radiogroup`, com a pergunta como nome. Cada opção tem papel `radio`.
+- Tab entra no grupo e as setas trocam a opção. A story **Padrão** confere isso.
+- A opção escolhida ganha o círculo cheio, e não só uma cor.
+- O erro é anunciado pela região `aria-live` dos campos.
+
+## Conteúdo
+
+A pergunta do grupo é uma pergunta de verdade ("Para quem é o remédio?"), e cada opção responde a ela em poucas palavras.
+
+## Faça e não faça
+
+- Faça: "Para mim" e "Para outra pessoa".
+- Não faça: opções que se sobrepõem, como "Para mim" e "Para a família".
