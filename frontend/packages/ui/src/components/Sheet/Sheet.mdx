@@ -1,0 +1,53 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Sheet.stories';
+
+<Meta of={Stories} />
+
+# Sheet
+
+Folha que sobe da borda de baixo da tela, para confirmar o que o app entendeu da foto ou da voz.
+
+<Canvas of={Stories.ConfirmarFoto} />
+
+Toque em "Fotografar a caixa" para abrir.
+
+## Quando usar
+
+Depois de ler a caixa pela câmera ou ouvir a pergunta pelo microfone: a folha mostra o que foi entendido e pergunta se está certo, com os botões perto do polegar.
+
+## Quando não usar
+
+- Para confirmar uma ação que não dá para desfazer, use `Dialog` com `papel="alertdialog"`.
+- Para conteúdo longo, como a bula, use uma página.
+
+## Anatomia
+
+- Véu escuro atrás.
+- Painel de até 672px, encostado na borda de baixo, com os cantos de cima arredondados. No alto contraste, borda preta de 3px.
+- Rótulo curto em caixa alta, opcional ("LI NA CAIXA").
+- Título no estilo da frase-resposta, que é o nome da folha.
+- Conteúdo, com os botões em largura total.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+Fechada e aberta. Abre com `DialogTrigger`, como o `Dialog`.
+
+## Acessibilidade
+
+- Papel `dialog`, com o título como nome. O foco entra na folha e volta para o botão que abriu.
+- Fecha com Esc, tocando no véu ou pelas ações do conteúdo. Com `rotuloFechar`, ganha também um X.
+- A folha é um `Modal` do React Aria, e não o `Sheet` do React Aria 1.22, que depende de rolagem suave e ignora o movimento reduzido.
+- Com movimento reduzido, a folha aparece sem subir.
+
+## Conteúdo
+
+O título é o que o app entendeu ("Losartana potássica 50 mg"). Os botões confirmam ou corrigem, com a ação escrita ("Sim, perguntar sobre ele" e "Não, vou digitar o nome"). Se houver foto, diga o que acontece com ela ("A foto é usada só para ler o nome e não é guardada.").
+
+## Faça e não faça
+
+- Faça: sempre um caminho para corrigir, como "Não, vou digitar o nome".
+- Não faça: seguir direto para a resposta sem a pessoa confirmar o nome lido.
