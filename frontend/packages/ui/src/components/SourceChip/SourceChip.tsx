@@ -5,7 +5,7 @@ import { Button as AriaButton } from 'react-aria-components';
 const classesDoChip =
   'inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-controle border border-transparent bg-chip-fundo ' +
   'px-3 py-2 text-start text-apoio text-chip-texto transition-colors duration-rapida ease-out ' +
-  'data-hovered:border-chip-texto data-pressed:border-chip-texto data-focus-visible:foco-visivel ' +
+  'data-hovered:border-chip-texto data-pressed:border-chip-texto outline-none data-focus-visible:foco-visivel ' +
   'alto-contraste:border-(length:--bc-borda-controle) alto-contraste:border-text-default';
 
 export interface SourceChipProps {

@@ -88,7 +88,7 @@ export function InputDock({
                   aria-current={atual ? 'page' : undefined}
                   className={
                     'flex min-h-14 flex-1 flex-col items-center justify-center gap-0.5 border-t-3 px-1 py-1 text-center ' +
-                    'text-apoio no-underline data-focus-visible:foco-visivel ' +
+                    'text-apoio no-underline outline-none data-focus-visible:foco-visivel ' +
                     (atual
                       ? 'border-action-primary font-bold text-action-primary'
                       : 'border-transparent text-text-muted data-hovered:text-action-primary')
