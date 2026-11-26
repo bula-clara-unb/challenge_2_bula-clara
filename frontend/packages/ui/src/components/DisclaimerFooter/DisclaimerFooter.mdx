@@ -1,0 +1,45 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './DisclaimerFooter.stories';
+
+<Meta of={Stories} />
+
+# DisclaimerFooter
+
+O aviso legal no fim de toda resposta, inclusive das bloqueadas.
+
+## Exemplo
+
+<Canvas of={Stories.Principal} />
+
+## Quando usar
+
+No fim de cada bloco de resposta, de emergência e de bloqueio, e no fim da ficha do remédio.
+
+## Quando não usar
+
+Não use para aviso de segurança ou de erro: esses são `Alert`, `SafetyNotice` ou `EmergencyCard`.
+
+## Anatomia
+
+Um parágrafo de texto de apoio. Não é `footer`: fora de um `main` ou `section`, o `footer` vira o rodapé da página (`contentinfo`), e cada resposta tem o seu aviso.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.AltoContraste} />
+
+## Acessibilidade
+
+Texto de apoio (16px, `text-muted`, 8:1), discreto mas legível, lido na ordem da resposta.
+
+## Conteúdo
+
+O texto é o `aviso_legal` do backend, mostrado como veio. Hoje o backend ainda manda o aviso com um emoji no começo; tirar é trabalho da #23, no backend, e não da interface.
+
+## Faça e não faça
+
+- Faça: mantenha o aviso mesmo nas respostas bloqueadas.
+- Não faça: esconder o aviso atrás de um "saiba mais".

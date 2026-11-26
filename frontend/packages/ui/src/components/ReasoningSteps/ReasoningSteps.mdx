@@ -1,0 +1,47 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './ReasoningSteps.stories';
+
+<Meta of={Stories} />
+
+# ReasoningSteps
+
+"Como chegamos nesta resposta": o caminho da resposta, em linguagem do dia a dia.
+
+## Exemplo
+
+<Canvas of={Stories.Recolhido} />
+
+## Quando usar
+
+Em toda resposta, depois do selo de procedência. Começa recolhido.
+
+## Quando não usar
+
+Para o trace técnico (agentes, tempos, trechos), use `DemoTrace`, que só aparece no modo demonstração.
+
+## Anatomia
+
+- O botão "Como chegamos nesta resposta", que abre e fecha.
+- Uma lista numerada de passos.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Aberto} />
+
+## Acessibilidade
+
+- Usa o `Disclosure`: o botão fica dentro de um `h3` e tem `aria-expanded`. Abre com Enter ou Espaço.
+- A lista é um `ol` com números visíveis (`list-decimal`), porque o reset do Tailwind tira os números.
+
+## Conteúdo
+
+Os passos são montados pelo app a partir do trace, já em linguagem simples: "Identificamos: losartana e ibuprofeno.", "Lemos a seção 4 das duas bulas.", "Checamos se uma bula fala da outra.", "Conferimos as regras de segurança.". Sem nome de agente, tempo ou termo técnico.
+
+## Faça e não faça
+
+- Faça: "Checamos se uma bula fala da outra."
+- Não faça: "AgenteInteracoes retornou 1 match em precaucoes_interacoes."
