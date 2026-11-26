@@ -1,0 +1,56 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './SafetyNotice.stories';
+
+<Meta of={Stories} />
+
+# SafetyNotice
+
+Aviso de bloqueio: explica por que o Bula Clara não responde e aponta o próximo passo.
+
+## Exemplo
+
+<Canvas of={Stories.MudancaDeDose} />
+
+## Quando usar
+
+Quando a `categoria_risco` é `alteracao_dose` (dobrar, parar ou trocar remédio) ou `grupo_especial` (gestantes, lactantes, crianças e pessoas idosas). O aviso fica no lugar da resposta.
+
+## Quando não usar
+
+- Para emergência e autolesão, use `EmergencyCard`.
+- Para interação entre remédios, use `InteractionCallout`.
+- Para erro da tela (sem conexão, API fora do ar), use `Alert`.
+
+## Anatomia
+
+- Ícone de informação.
+- Título e mensagem, vindos do backend.
+- Ação opcional, escrita pela interface ("Fazer outra pergunta").
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.GrupoEspecial} />
+
+<Canvas of={Stories.ComFoco} />
+
+<Canvas of={Stories.AltoContraste} />
+
+## Acessibilidade
+
+- Papel `note`. Não interrompe o leitor de tela: com `focarAoMontar`, o foco vai para o título (`tabIndex={-1}`) e a leitura começa dali, como na frase-resposta.
+- O título também fica disponível por `ref`, para o app levar o foco na hora certa.
+- Contorno de 2px em `border-field`, que no alto contraste fica preto.
+
+## Conteúdo
+
+O bloqueio é firme sem ser alarmante: fundo neutro, nunca vermelho, porque um bloqueio não quer dizer perigo. O título e a mensagem vêm do backend. A ação diz o que fazer ("Fazer outra pergunta"), nunca "OK". Regra 5 de Conteúdo e voz: toda recusa vem com o próximo passo.
+
+## Faça e não faça
+
+- Faça: logo abaixo, ofereça perguntas que o Bula Clara pode responder ("Para que serve a losartana?").
+- Não faça: pintar de vermelho ou usar `role="alert"`.
+- Não faça: sugerir pergunta sobre dose, troca ou suspensão, que seria bloqueada de novo.
