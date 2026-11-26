@@ -1,0 +1,47 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './OcrConfirm.stories';
+
+<Meta of={Stories} />
+
+# OcrConfirm
+
+"Li: Losartana potássica 50 mg. É esse o remédio?" A confirmação da leitura da caixa.
+
+## Exemplo
+
+<Canvas of={Stories.Leu} />
+
+## Quando usar
+
+Depois da foto, quando o `/ler-caixa` (issue #24) responde. A folha abre por cima do `CameraCapture`.
+
+## Quando não usar
+
+Para a voz, use `TranscriptConfirm`.
+
+## Anatomia
+
+É um `CaptureConfirm` com os textos da foto: "Li na caixa", o nome lido, "É esse o remédio?", "Sim, perguntar sobre ele", "Não, vou digitar o nome" e "A foto é usada só para ler o nome e não é guardada.".
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+Quando nada foi lido (`medicamento={null}`), a folha diz "Não consegui ler o nome na foto" e oferece "Tirar outra foto" ou "Digitar o nome". Nunca aparece um "sim".
+
+<Canvas of={Stories.NaoLeu} />
+
+## Acessibilidade
+
+A mesma do `CaptureConfirm`: papel `dialog`, com o nome lido como nome da folha.
+
+## Conteúdo
+
+A nota "A foto é usada só para ler o nome e não é guardada" só vale se o `/ler-caixa` de fato não guardar a imagem. Se isso mudar na #24, o texto muda junto.
+
+## Faça e não faça
+
+- Faça: mostre o nome com a dose, como está na caixa ("Losartana potássica 50 mg").
+- Não faça: escolher sozinho o remédio mais parecido quando a leitura falhar.
