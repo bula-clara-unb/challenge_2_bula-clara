@@ -1,0 +1,65 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './EmergencyCard.stories';
+
+<Meta of={Stories} />
+
+# EmergencyCard
+
+Cartão de emergência: substitui a resposta inteira e leva direto aos telefones.
+
+## Exemplo
+
+<Canvas of={Stories.Intoxicacao} />
+
+## Quando usar
+
+Quando a `categoria_risco` da resposta é `emergencia` (intoxicação, overdose ou autolesão). O cartão fica sempre no topo e aparece no máximo uma vez por tela.
+
+## Quando não usar
+
+- Para bloqueio por dose ou grupo especial, use `SafetyNotice`.
+- Para a faixa fixa "Emergência? Ligue 192", use `EmergencyBar`.
+- Nunca para avisos de interação: esses são `InteractionCallout`.
+
+## Anatomia
+
+- Título e mensagem, os dois vindos do backend.
+- Um botão de ligar para cada contato, na ordem recebida. O primeiro é cheio (branco sobre o vermelho), os outros têm contorno.
+- "Enquanto espera", só quando o backend manda essa orientação.
+- Uma linha de apoio: "Se a ligação não abrir pelo botão, disque o número direto no telefone."
+
+## Props
+
+<ArgTypes of={Stories} />
+
+Cada contato tem `numero` (como o backend manda, "08007226001"), `nome` ("Disque-Intoxicação") e `detalhe` opcional ("grátis, 24h"). O componente só agrupa os dígitos do 0800 e monta o link `tel:`.
+
+## Estados
+
+Os dois casos que o backend manda hoje:
+
+<Canvas of={Stories.Autolesao} />
+
+<Canvas of={Stories.AltoContraste} />
+
+<Canvas of={Stories.TextoGrande} />
+
+## Acessibilidade
+
+- Papel `alert`, com o título como nome. O leitor de tela anuncia o cartão assim que ele aparece. Por isso só pode haver um por tela, e o componente reclama no console se encontrar dois.
+- Os botões de ligar são links `tel:` com 56px de altura ou mais, nos três tamanhos de texto. O nome de cada um é "Ligar CVV 188 · grátis, 24h".
+- O ícone de telefone é decorativo.
+- No alto contraste, o cartão fica em `#7A0E06` com contorno preto de 3px.
+
+## Conteúdo
+
+O texto de segurança tem uma fonte só: o backend, que é baseado em regras e testado (`seguranca.py`). O componente mostra exatamente o título, a mensagem e os contatos que recebe, na ordem em que vierem. Para autolesão, a mensagem é acolhedora, o CVV 188 vem primeiro e não há "enquanto espera". Para intoxicação, vêm o SAMU, o Disque-Intoxicação e o "enquanto espera".
+
+Os únicos textos da interface são o "Ligar" de cada botão, o título "Enquanto espera" e a linha de apoio no fim.
+
+## Faça e não faça
+
+- Faça: passe os contatos na ordem do backend, sem reordenar.
+- Faça: deixe a `EmergencyBar` na tela junto com o cartão.
+- Não faça: escrever ou completar a mensagem na interface, nem para "suavizar".
+- Não faça: mostrar orientações de intoxicação numa pergunta de autolesão.

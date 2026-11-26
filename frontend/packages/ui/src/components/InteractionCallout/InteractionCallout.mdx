@@ -1,0 +1,74 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './InteractionCallout.stories';
+
+<Meta of={Stories} />
+
+# InteractionCallout
+
+Mostra o que a bula diz sobre um par de remédios, com a frase da bula como prova.
+
+## Exemplo
+
+<Canvas of={Stories.PedeCuidado} />
+
+## Quando usar
+
+Na resposta, logo depois do botão Ouvir, uma vez para cada par checado pelo agente de interações. Os pares com frase achada vêm antes dos pares sem menção.
+
+## Quando não usar
+
+- Para bloqueio por dose ou grupo especial, use `SafetyNotice`.
+- Para emergência, use `EmergencyCard`.
+- Para qualquer outro aviso da tela, use `Alert`.
+
+## Anatomia
+
+- Ícone do nível (proibido, alerta ou informação), sempre junto com a cor.
+- Título com o par e o nível: "Losartana e ibuprofeno: a bula pede cuidado com essa combinação".
+- Ação: o que fazer agora.
+- Evidência: a frase da bula entre aspas, com o remédio e a seção ("Losartana, seção 4"). Só nos dois primeiros níveis.
+
+## Os três níveis
+
+O agente de interações não classifica gravidade. Ele acha, na bula de um remédio, frases que citam o outro. O nível sai só da seção onde a frase foi achada, e quem usa o componente não escolhe tom nem cor.
+
+<Canvas of={Stories.NaoUsarJunto} />
+
+<Canvas of={Stories.NaoFala} />
+
+O terceiro nível nunca é verde e sempre traz "Isso não garante que seja seguro. Na dúvida, pergunte ao farmacêutico." Não achar menção não quer dizer que a combinação é segura (risco R4).
+
+## Props
+
+<ArgTypes of={Stories} />
+
+`secao` é `'contraindicacao'`, `'precaucoes_interacoes'` ou `null`. Com seção, `evidencia` é obrigatória: o TypeScript não compila sem ela.
+
+## Estados
+
+O componente não tem estado interativo. As variações são os três níveis, o alto contraste e o texto grande:
+
+<Canvas of={Stories.AltoContraste} />
+
+<Canvas of={Stories.TextoGrande} />
+
+## Acessibilidade
+
+- Papel `note`: o aviso faz parte da resposta e é lido na ordem, sem interromper. O foco vai para a frase-resposta, logo acima.
+- O título é um `h3` (ou o nível pedido em `nivelTitulo`) e já diz o par e o nível. O ícone é decorativo, porque o título diz tudo.
+- A frase da bula fica num `blockquote` dentro de `figure`, com a fonte no `figcaption`.
+- No alto contraste, o aviso ganha contorno preto de 2px e a barra lateral vai a 10px.
+- No A+ de 140%, o título quebra com hífen e a tela não rola para o lado.
+
+## Conteúdo
+
+Todos os textos ficam em `TEXTOS_DA_INTERACAO`, no próprio componente. O título do primeiro nível ainda depende da validação com as bulas reais (spec, "Validar antes de fechar o texto"): se aparecerem falsos "não usar junto", ele vira "A bula cita essa combinação em 'Quando não usar'", com a ação "Fale com o médico antes de usar os dois juntos.". A troca é numa linha só.
+
+A frase da bula aparece como veio, sem resumo. Regra 6 de Conteúdo e voz: honestidade sobre o que não sabemos.
+
+## Faça e não faça
+
+- Faça: mostre a frase da bula sempre que houver uma.
+- Faça: ponha os pares com frase achada antes dos pares sem menção.
+- Não faça: escrever "Pode tomar junto" ou pintar de verde o nível "não fala".
+- Não faça: esconder a evidência atrás de um "ver mais".
