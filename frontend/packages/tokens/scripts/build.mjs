@@ -83,7 +83,7 @@ const mapaTailwind = {
   radius: 'radius',
   'font.familia': 'font',
   'font.tamanho': 'text',
-  duracao: 'duration',
+  duracao: 'transition-duration',
   sombra: 'shadow',
   'font.espacamento-letra': 'tracking',
   'tamanho.medida': 'container-medida',
