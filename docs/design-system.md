@@ -86,7 +86,7 @@ Contraste medido pela fórmula WCAG 2.x. A meta é por par texto/fundo: **7:1** 
 | `border-subtle` | `#D6DEEA` | divisores (decorativos) | n/a |
 | `surface-default` | `#FFFFFF` | fundo | n/a |
 | `surface-info` | `#F1F4F9` | avisos neutros | texto 15,63:1 |
-| `caution-text` / `caution-bg` / `caution-border` | `#3D2A00` / `#FFF5C2` / `#9E6A00` | "pede cuidado" | 12,48:1; borda 4,65:1 |
+| `caution-text` / `caution-bg` / `caution-border` | `#3D2A00` / `#FFF5C2` / `#9E6A00` | "pede cuidado" | 12,48:1; borda 4,23:1 sobre o fundo |
 | `danger-text` / `danger-bg` | `#8A1C12` / `#FDECEA` | "não usar junto" | 8,14:1 |
 | `emergency-solid` | `#A4221A` | cartão e botão de emergência | branco sobre ele 7,44:1 |
 | `confirm` | `#1A5E3C` | confirmação de ação | 7,75:1 |
