@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+@import '@bula-clara/tokens/tokens.css';
+@import '@bula-clara/tokens/tailwind.css';
+@import '@fontsource-variable/literata/wght.css';
+@import '@fontsource/atkinson-hyperlegible/latin-400.css';
+@import '@fontsource/atkinson-hyperlegible/latin-700.css';
+
+@source '../';
+
+/* Foco visível sobre qualquer fundo: contorno escuro com halo amarelo por fora. */
+@utility foco-visivel {
+  outline: var(--bc-tamanho-foco-contorno) solid var(--bc-color-focus-ring);
+  outline-offset: var(--bc-tamanho-foco-afastamento);
+  box-shadow: 0 0 0
+    calc(var(--bc-tamanho-foco-afastamento) + var(--bc-tamanho-foco-contorno) + var(--bc-tamanho-foco-halo))
+    var(--bc-color-focus-halo);
+}
+
+@layer base {
+  html {
+    font-family: var(--bc-font-familia-texto);
+    font-size: 100%;
+    color: var(--bc-color-text-default);
+    background: var(--bc-color-surface-default);
+  }
+
+  html[data-escala='120'] {
+    font-size: 120%;
+  }
+
+  html[data-escala='140'] {
+    font-size: 140%;
+  }
+
+  body {
+    font-size: var(--bc-font-tamanho-corpo);
+    line-height: var(--bc-font-altura-linha-corpo);
+  }
+}
