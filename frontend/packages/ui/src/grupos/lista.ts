@@ -1,2 +1,2 @@
 // Grupo D do plano 3: a lista Meus remédios.
-export {};
+export * from '../components/MedicationList';
