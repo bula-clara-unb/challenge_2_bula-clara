@@ -23,7 +23,7 @@ describe('LinkButton', () => {
       </LinkButton>,
     );
     const link = screen.getByRole('link', { name: 'Ver a bula inteira' });
-    expect(link).toHaveClass('min-h-12', 'min-w-12');
+    expect(link).toHaveClass('min-h-alvo', 'min-w-12');
     expect(link.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
   });
 

@@ -16,6 +16,12 @@
     var(--bc-color-focus-halo);
 }
 
+/* Altura mínima de botão: 48px com o texto em 100% e cresce com o A+ até 64px em 140%, como no
+   canvas aprovado (48px + 2,5 × o quanto o rem passou de 16px). Nunca fica abaixo de 48px. */
+@utility min-h-alvo {
+  min-height: calc(var(--bc-tamanho-alvo-toque) + (1rem - 16px) * 2.5);
+}
+
 /* Alto contraste: ligado por data-contraste="alto" ou por prefers-contrast: more (a menos que a
    pessoa tenha escolhido o padrão). Serve para dar borda a quem, no tema padrão, não tem. */
 @custom-variant alto-contraste {

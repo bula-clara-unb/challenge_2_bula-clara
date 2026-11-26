@@ -21,7 +21,7 @@ Para qualquer ação que acontece ali mesmo, sem levar a pessoa para outro ender
 
 ## Anatomia
 
-- Contêiner com borda de 2px e altura mínima de 48px.
+- Contêiner com borda de 2px e altura mínima de 48px, que cresce com o A+ (64px com o texto em 140%).
 - Ícone Phosphor opcional, à esquerda, sempre decorativo.
 - Texto, que diz a ação.
 
@@ -47,9 +47,9 @@ A story **Foco pelo teclado** mostra o contorno de foco. Abra a story sozinha e 
 
 - Usa o `Button` do React Aria: papel `button`, responde a Enter e a Espaço, e o foco pelo teclado mostra o contorno de 3px com halo. O clique com mouse ou dedo não mostra o contorno.
 - O nome acessível é o texto do botão. O ícone fica escondido do leitor de tela, porque o texto já diz tudo.
-- A área de toque tem pelo menos 48px de altura nos três tamanhos de texto do A+.
+- A área de toque tem pelo menos 48px de altura e cresce junto com o texto do A+.
 - A variante `perigo` não depende só da cor: o texto já diz que a ação apaga ("Apagar tudo").
-- No alto contraste, as cores vêm do tema `alto-contraste` e a borda continua.
+- No alto contraste, as cores vêm do tema `alto-contraste` e a borda fica preta, com 3px (menos na variante `discreta`, que não tem borda).
 
 ## Conteúdo
 

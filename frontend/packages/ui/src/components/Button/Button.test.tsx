@@ -38,9 +38,9 @@ describe('Button', () => {
     expect(onPress).not.toHaveBeenCalled();
   });
 
-  it('garante a área de toque mínima de 48px pela classe min-h-12', () => {
+  it('garante a área de toque mínima de 48px, crescendo com o A+, pela classe min-h-alvo', () => {
     render(<Button>Perguntar</Button>);
-    expect(screen.getByRole('button')).toHaveClass('min-h-12', 'min-w-12');
+    expect(screen.getByRole('button')).toHaveClass('min-h-alvo', 'min-w-12');
   });
 
   it('mostra o ícone sem mudar o nome acessível', () => {

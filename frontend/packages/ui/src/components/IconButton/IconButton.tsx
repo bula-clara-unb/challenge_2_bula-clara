@@ -18,10 +18,10 @@ const variantes: Record<IconButtonVariante, string> = {
   primaria:
     'border-action-primary bg-action-primary text-text-on-solid ' +
     'data-hovered:border-action-primary-strong data-hovered:bg-action-primary-strong ' +
-    'data-pressed:border-action-primary-strong data-pressed:bg-action-primary-strong',
+    'data-pressed:border-action-primary-strong data-pressed:bg-action-primary-strong alto-contraste:border-3 alto-contraste:border-text-default',
   secundaria:
     'border-action-primary bg-surface-default text-action-primary ' +
-    'data-hovered:bg-action-primary-subtle data-pressed:bg-action-primary-subtle',
+    'data-hovered:bg-action-primary-subtle data-pressed:bg-action-primary-subtle alto-contraste:border-3 alto-contraste:border-text-default',
   discreta:
     'border-transparent bg-transparent text-action-primary ' +
     'data-hovered:bg-action-primary-subtle data-pressed:bg-action-primary-subtle',
