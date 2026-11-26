@@ -52,3 +52,50 @@ jobs:
         env:
           BULA_RECUPERADOR: tfidf
         run: python -m pytest -q
+
+  frontend:
+    name: Frontend (lint, tipos, testes, axe, Storybook)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: frontend/package.json
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Dependências
+        run: pnpm install --frozen-lockfile
+
+      - name: Chromium para os testes das stories
+        run: pnpm --filter @bula-clara/ui exec playwright install --with-deps chromium
+
+      - name: Tokens (build + teste de contraste)
+        run: pnpm --filter @bula-clara/tokens test
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Tipos
+        run: pnpm typecheck
+
+      - name: Testes dos componentes e das stories (com axe)
+        run: pnpm --filter @bula-clara/ui test
+
+      - name: Build do Storybook
+        run: pnpm build-storybook
+
+      - name: Publicar o Storybook como artefato
+        uses: actions/upload-artifact@v7
+        with:
+          name: storybook
+          path: frontend/packages/ui/storybook-static
+          retention-days: 14
