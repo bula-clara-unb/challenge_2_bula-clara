@@ -1,0 +1,53 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './CaptureConfirm.stories';
+
+<Meta of={Stories} />
+
+# CaptureConfirm
+
+A folha de confirmação comum à foto e à voz: mostra o que o sistema entendeu e pergunta se está certo.
+
+## Exemplo
+
+<Canvas of={Stories.Principal} />
+
+## Quando usar
+
+Quase nunca direto: use `OcrConfirm` (foto) ou `TranscriptConfirm` (voz), que já trazem os textos. Use o `CaptureConfirm` só para uma nova forma de entrada que precise do mesmo passo de confirmação.
+
+## Quando não usar
+
+- Para confirmar uma ação que não dá para desfazer ("Apagar a lista?"), use `Dialog` com `papel="alertdialog"`.
+- Para confirmar que algo deu certo, use `Toast`.
+
+## Anatomia
+
+- Rótulo em caixa alta ("Li na caixa").
+- O que foi lido, em destaque e na fonte da resposta.
+- A pergunta ("É esse o remédio?").
+- Botão de confirmar, primário e na largura toda.
+- Botão de corrigir por digitação, sempre presente.
+- Nota opcional.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.AltoContraste} />
+
+## Acessibilidade
+
+- Usa o `Sheet`: papel `dialog`, com o que foi lido como nome. O foco entra na folha e volta quando ela fecha.
+- Esc e toque fora fecham sem confirmar nada.
+- Os dois botões têm 48px e a largura toda.
+
+## Conteúdo
+
+A pergunta só vai para a API depois do "sim". É isso que protege contra responder sobre o remédio errado (risco R3 em `docs/definicoes.md`). Os botões dizem a ação, e o caminho por digitação está sempre lá.
+
+## Faça e não faça
+
+- Faça: mostre exatamente o que foi lido, mesmo que pareça estranho.
+- Não faça: mandar a pergunta sozinho, sem o "sim".
