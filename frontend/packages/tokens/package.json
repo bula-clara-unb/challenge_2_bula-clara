@@ -1,0 +1,22 @@
+{
+  "name": "@bula-clara/tokens",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tokens.css": "./dist/tokens.css",
+    "./tailwind.css": "./dist/tailwind.css",
+    "./padrao.json": "./dist/padrao.json",
+    "./alto-contraste.json": "./dist/alto-contraste.json"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "pnpm build && vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.7",
+    "style-dictionary": "^5.8.0",
+    "vitest": "5.1.1"
+  }
+}
