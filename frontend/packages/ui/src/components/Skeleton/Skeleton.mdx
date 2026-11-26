@@ -1,0 +1,49 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Skeleton.stories';
+
+<Meta of={Stories} />
+
+# Skeleton
+
+Lugar reservado, em cinza claro, enquanto o conteúdo carrega. Evita que a tela pule quando a resposta chega.
+
+<Canvas of={Stories.Texto} />
+
+## Quando usar
+
+Onde o conteúdo vai aparecer e já se sabe o formato: linhas de texto da resposta ou um cartão.
+
+## Quando não usar
+
+- Sozinho, sem dizer o que está acontecendo. Junto com ele vai sempre um `Spinner` ou um texto de status, que é o que o leitor de tela ouve.
+- Para esperas curtas, de menos de um segundo, não use nada.
+
+## Anatomia
+
+- `texto`: linhas com a altura do corpo do texto, a última mais curta.
+- `bloco`: um retângulo com o raio dos painéis.
+- Borda fina, para continuar visível no alto contraste.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Bloco} />
+
+## Acessibilidade
+
+- Fica escondido do leitor de tela (`aria-hidden`). Quem usa leitor de tela ouve o `Spinner` ou o status.
+- O contêiner que espera leva `aria-busy="true"`, como nas stories.
+- Pulsa devagar e, com movimento reduzido, fica parado.
+- As linhas crescem com o A+, porque a altura é em `em`.
+
+## Conteúdo
+
+Não tem texto. O texto da espera fica no `Spinner` ("Lendo a bula da losartana…").
+
+## Faça e não faça
+
+- Faça: três linhas de `texto` onde a resposta vai aparecer, com o `Spinner` acima.
+- Não faça: um esqueleto sem nenhum texto de status na tela.
