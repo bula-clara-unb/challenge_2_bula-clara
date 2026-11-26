@@ -12,7 +12,10 @@ export interface TabelaProps {
 // então as páginas usam esta tabela, com cabeçalhos de linha e de coluna.
 export function Tabela({ titulo, colunas, linhas }: TabelaProps) {
   return (
-    <div className="my-6 overflow-x-auto">
+    // Tabela larga rola para o lado. Quem usa só o teclado precisa poder focar a área para rolar,
+    // por isso ela é uma região com nome e tabIndex (regra scrollable-region-focusable do axe).
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- região rolável precisa de foco
+    <div role="region" aria-label={titulo} tabIndex={0} className="my-6 overflow-x-auto rounded-aviso focus-visible:foco-visivel">
       <table className="w-full border-collapse text-left text-apoio">
         <caption className="mb-2 text-left font-bold">{titulo}</caption>
         <thead>
