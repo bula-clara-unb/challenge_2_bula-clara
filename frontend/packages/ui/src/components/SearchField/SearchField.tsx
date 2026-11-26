@@ -35,7 +35,7 @@ export function SearchField({ rotulo, descricao, rotuloLimpar = 'Limpar busca', 
           aria-label={rotuloLimpar}
           className={
             'absolute end-0 top-0 inline-flex size-12 cursor-pointer items-center justify-center rounded-controle ' +
-            'text-action-primary data-hovered:bg-action-primary-subtle data-focus-visible:foco-visivel ' +
+            'text-action-primary data-hovered:bg-action-primary-subtle outline-none data-focus-visible:foco-visivel ' +
             'group-data-empty:hidden'
           }
         >

@@ -11,7 +11,7 @@ export type ButtonVariante = 'primaria' | 'secundaria' | 'discreta' | 'perigo';
 const base =
   'inline-flex min-h-12 min-w-12 cursor-pointer items-center justify-center gap-2 rounded-controle ' +
   'text-botao font-bold transition-colors duration-rapida ease-out ' +
-  'border-(length:--bc-borda-controle) data-focus-visible:foco-visivel ' +
+  'border-(length:--bc-borda-controle) outline-none data-focus-visible:foco-visivel ' +
   'data-disabled:cursor-not-allowed data-disabled:opacity-55';
 
 const variantes: Record<ButtonVariante, string> = {

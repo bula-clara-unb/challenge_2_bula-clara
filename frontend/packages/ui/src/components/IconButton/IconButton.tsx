@@ -34,7 +34,7 @@ export function IconButton({ icone: Icone, variante = 'secundaria', ...props }: 
       className={
         'inline-flex size-12 flex-none cursor-pointer items-center justify-center rounded-controle ' +
         'border-(length:--bc-borda-controle) transition-colors duration-rapida ease-out ' +
-        'data-focus-visible:foco-visivel data-disabled:cursor-not-allowed data-disabled:opacity-55 ' +
+        'outline-none data-focus-visible:foco-visivel data-disabled:cursor-not-allowed data-disabled:opacity-55 ' +
         variantes[variante]
       }
     >
