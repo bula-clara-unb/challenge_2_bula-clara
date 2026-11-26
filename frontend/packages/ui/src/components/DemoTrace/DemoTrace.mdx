@@ -1,0 +1,49 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './DemoTrace.stories';
+
+<Meta of={Stories} />
+
+# DemoTrace
+
+O trace técnico dos agentes, para apresentar o Bula Clara: agentes, tempos, trechos recuperados, OCR e categoria de risco.
+
+## Exemplo
+
+<Canvas of={Stories.Aberto} />
+
+## Quando usar
+
+Só no modo demonstração. Quem decide é o app, pelo `?demo=1`, e o componente só aparece quando recebe as etapas.
+
+## Quando não usar
+
+Para quem usa o app no dia a dia, a explicação é o `ReasoningSteps`.
+
+## Anatomia
+
+- O botão "Modo demonstração: o que os agentes fizeram".
+- Tabela de etapas (agente, tempo, detalhe), com o tempo total na legenda.
+- Categoria de risco e OCR, quando houver.
+- Lista numerada dos trechos recuperados, com remédio, seção e pontuação.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Recolhido} />
+
+## Acessibilidade
+
+- A tabela tem `caption`, cabeçalhos de coluna e o nome do agente como cabeçalho de linha.
+- Nomes compridos quebram em qualquer ponto, sem rolagem lateral.
+
+## Conteúdo
+
+Aqui os termos técnicos são de propósito: é para quem avalia o sistema. Os tempos aparecem em ms abaixo de 1 segundo e em s acima.
+
+## Faça e não faça
+
+- Faça: mostre o trace numa apresentação, para explicar o pipeline.
+- Não faça: ligar o modo demonstração por padrão no app.
