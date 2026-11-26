@@ -1,0 +1,58 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Dialog.stories';
+
+<Meta of={Stories} />
+
+# Dialog
+
+Janela por cima da tela, para uma decisão que precisa de atenção antes de seguir.
+
+<Canvas of={Stories.Aberto} />
+
+Toque em "Apagar tudo" para abrir.
+
+## Quando usar
+
+- `dialog`: uma informação ou escolha curta que interrompe a tela, com X para fechar.
+- `alertdialog`: confirmar uma ação que não dá para desfazer ("Apagar a lista?"). Não tem X e não fecha tocando fora: a pessoa escolhe um dos botões.
+
+## Quando não usar
+
+- Para confirmar o que a foto ou a voz entendeu, use `Sheet`, que sobe da borda de baixo e fica perto do polegar.
+- Para avisar que deu certo, use `Toast`.
+- Para avisos de segurança sobre a resposta, use `Alert`, dentro da própria tela. Aviso de segurança nunca some com um toque.
+
+## Anatomia
+
+- Véu escuro atrás, sobre a tela toda.
+- Painel de até 512px, com borda arredondada e sombra. No alto contraste, borda preta de 3px.
+- Título, que é o nome do diálogo.
+- X de fechar, só no `dialog`.
+- Conteúdo, com os botões no fim.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Confirmacao} />
+
+## Acessibilidade
+
+- Papel `dialog` ou `alertdialog`, com o título como nome.
+- Ao abrir, o foco vai para dentro do diálogo e fica preso nele. Ao fechar, volta para o botão que abriu.
+- Esc fecha os dois tipos. Tocar fora fecha só o `dialog`.
+- O resto da página fica inerte enquanto o diálogo está aberto: o leitor de tela não sai dele.
+- A entrada usa os tokens de duração. Com movimento reduzido, o diálogo aparece sem animação.
+
+## Conteúdo
+
+- Título em forma de pergunta, quando é uma decisão ("Apagar a lista?").
+- Uma frase dizendo o que acontece ("Os remédios saem deste aparelho. Não dá para desfazer.").
+- Botões que dizem a ação dos dois lados ("Sim, apagar a lista" e "Manter a lista"), e nunca "Sim" e "Não" sozinhos.
+
+## Faça e não faça
+
+- Faça: `papel="alertdialog"` para apagar a lista.
+- Não faça: abrir um diálogo sem que a pessoa tenha pedido, por exemplo ao entrar na tela.
