@@ -1,0 +1,64 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './MedicationList.stories';
+
+<Meta of={Stories} />
+
+# MedicationList
+
+A lista "Meus remédios", que o Bula Clara usa para checar interações em cada pergunta.
+
+## Exemplo
+
+<Canvas of={Stories.ComRemedios} />
+
+## Quando usar
+
+Na tela Meus remédios, abaixo do título e da frase "Uso esta lista para checar interações em cada pergunta.".
+
+## Quando não usar
+
+- Para mostrar, dentro de uma resposta, quais remédios foram considerados, use o texto "Considerando também" do `AnswerHeadline`.
+- Para um atalho na primeira visita ("Seus remédios: nenhum ainda"), use um link para a tela.
+
+## Anatomia
+
+- Busca "Adicionar remédio" (`ComboBox` com filtro tolerante a erro de digitação), com os remédios da base.
+- A lista, um item por remédio, cada um com o botão "Remover losartana".
+- "Nenhum remédio na lista.", quando está vazia.
+- O interruptor "Lembrar neste aparelho", com a explicação de cada estado.
+- "Apagar tudo", na variante `perigo`, quando a lista tem itens.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+O componente não grava nada. Ele recebe a lista e o estado do consentimento e avisa o app pelos callbacks. Quem guarda é o app: em `sessionStorage` por padrão e em `localStorage` com o consentimento ligado. Ao desligar, o app limpa o `localStorage` na hora.
+
+## Estados
+
+<Canvas of={Stories.Vazia} />
+
+<Canvas of={Stories.Adicionar} />
+
+<Canvas of={Stories.LembrarLigado} />
+
+<Canvas of={Stories.ApagarTudo} />
+
+<Canvas of={Stories.AltoContraste} />
+
+## Acessibilidade
+
+- A lista é um `ul` com nome ("Remédios da lista"). Cada botão de remover diz qual remédio sai.
+- Ao remover, o foco vai para o próximo item (ou para o anterior). Se a lista esvaziar, vai para a busca. Depois de "Apagar tudo" e depois de adicionar, também vai para a busca, que volta vazia e fechada.
+- O interruptor tem papel `switch`, e a explicação fica ligada a ele por `aria-describedby`: o leitor de tela lê o que acontece em cada estado.
+- "Apagar tudo" confirma com o `Toast` ("Lista apagada deste aparelho."), que não some enquanto tem foco.
+
+## Conteúdo
+
+Os textos do consentimento ficam em `TEXTOS_DO_CONSENTIMENTO` e são os das telas aprovadas. O texto precisa ser verdadeiro: a lista vai junto com cada pergunta para a API, então a interface nunca diz que "nada é enviado". O que ela diz, porque é verdade, é que a lista não fica guardada em nenhum servidor.
+
+## Faça e não faça
+
+- Faça: comece com o interruptor desligado e a explicação visível antes de a pessoa ligar.
+- Não faça: "Seus dados ficam só no seu aparelho. Nada é enviado para servidores."
+- Não faça: gravar no `localStorage` sem o consentimento ligado.
