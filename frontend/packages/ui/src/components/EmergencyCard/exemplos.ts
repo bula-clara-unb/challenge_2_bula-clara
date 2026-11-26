@@ -10,7 +10,7 @@ export const intoxicacao = {
     { numero: '192', nome: 'SAMU' },
     { numero: '08007226001', nome: 'Disque-Intoxicação', detalhe: 'grátis, 24h' },
   ],
-  enquantoEspera: 'Não provoque vômito sem orientação.',
+  enquantoEspera: { titulo: 'Enquanto espera', texto: 'Não provoque vômito sem orientação.' },
 } satisfies EmergencyCardProps;
 
 /** Autolesão: tom acolhedor, CVV 188 primeiro e nenhuma orientação de intoxicação. */

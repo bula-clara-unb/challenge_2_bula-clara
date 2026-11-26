@@ -25,6 +25,16 @@ describe('EmergencyCard', () => {
     expect(screen.getByRole('note')).toHaveTextContent('Não provoque vômito sem orientação.');
   });
 
+  it('o título da orientação de espera vem do backend, e nada fora do cartão é escrito pela interface', () => {
+    const { container } = render(
+      <EmergencyCard {...intoxicacao} enquantoEspera={{ titulo: 'Até a ajuda chegar', texto: 'Fique perto da pessoa.' }} />,
+    );
+    expect(screen.getByRole('note')).toHaveTextContent('Até a ajuda chegar');
+    expect(screen.queryByText('Enquanto espera')).not.toBeInTheDocument();
+    const foraDoCartao = (container.textContent ?? '').replace(screen.getByRole('alert').textContent ?? '', '');
+    expect(foraDoCartao).toBe('Até a ajuda chegarFique perto da pessoa.');
+  });
+
   it('mantém a ordem recebida, mesmo que pareça "fora de ordem"', () => {
     render(<EmergencyCard {...autolesao} contatos={[...autolesao.contatos].reverse()} />);
     expect(hrefs()).toEqual(['tel:192', 'tel:188']);

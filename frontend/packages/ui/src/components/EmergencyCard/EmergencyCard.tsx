@@ -19,8 +19,11 @@ export interface EmergencyCardProps {
   mensagem: string;
   /** Telefones na ordem de prioridade do backend. O primeiro ganha o botão cheio. Nunca reordene. */
   contatos: readonly ContatoDeEmergencia[];
-  /** Orientação de espera que veio do backend. Só a intoxicação tem. */
-  enquantoEspera?: string;
+  /**
+   * Orientação de espera que veio do backend, com o título e o texto. Só a intoxicação tem.
+   * O título também vem de fora: a interface não escreve nenhum texto nesta tela além do "Ligar".
+   */
+  enquantoEspera?: { titulo: string; texto: string };
   /** Na tela de emergência, o cartão é o título da página (h1). Dentro do histórico, h2. */
   nivelTitulo?: 1 | 2;
 }
@@ -70,7 +73,7 @@ export function EmergencyCard({ titulo, mensagem, contatos, enquantoEspera, nive
                 href={`tel:${contato.numero.replace(/\D/g, '')}`}
                 className={
                   'flex min-h-14 items-center justify-center gap-3 rounded-controle px-4 py-2 no-underline ' +
-                  'focus-visible:foco-visivel ' +
+                  'outline-none focus-visible:foco-visivel ' +
                   (posicao === 0
                     ? 'bg-emergencia-botao-fundo text-emergencia-botao-texto'
                     : 'border-(length:--bc-borda-controle) border-emergencia-texto text-emergencia-texto')
@@ -90,11 +93,10 @@ export function EmergencyCard({ titulo, mensagem, contatos, enquantoEspera, nive
         </ul>
       </section>
       {enquantoEspera ? (
-        <Alert tom="info" titulo="Enquanto espera" nivelTitulo={nivelTitulo === 1 ? 2 : 3}>
-          {enquantoEspera}
+        <Alert tom="info" titulo={enquantoEspera.titulo} nivelTitulo={nivelTitulo === 1 ? 2 : 3}>
+          {enquantoEspera.texto}
         </Alert>
       ) : null}
-      <p className="text-apoio text-text-muted">Se a ligação não abrir pelo botão, disque o número direto no telefone.</p>
     </div>
   );
 }

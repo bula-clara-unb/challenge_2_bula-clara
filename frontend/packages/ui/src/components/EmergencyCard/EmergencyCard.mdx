@@ -25,8 +25,7 @@ Quando a `categoria_risco` da resposta é `emergencia` (intoxicação, overdose 
 
 - Título e mensagem, os dois vindos do backend.
 - Um botão de ligar para cada contato, na ordem recebida. O primeiro é cheio (branco sobre o vermelho), os outros têm contorno.
-- "Enquanto espera", só quando o backend manda essa orientação.
-- Uma linha de apoio: "Se a ligação não abrir pelo botão, disque o número direto no telefone."
+- A orientação de espera ("Enquanto espera"), com título e texto vindos do backend, só quando ele manda.
 
 ## Props
 
@@ -55,7 +54,7 @@ Os dois casos que o backend manda hoje:
 
 O texto de segurança tem uma fonte só: o backend, que é baseado em regras e testado (`seguranca.py`). O componente mostra exatamente o título, a mensagem e os contatos que recebe, na ordem em que vierem. Para autolesão, a mensagem é acolhedora, o CVV 188 vem primeiro e não há "enquanto espera". Para intoxicação, vêm o SAMU, o Disque-Intoxicação e o "enquanto espera".
 
-Os únicos textos da interface são o "Ligar" de cada botão, o título "Enquanto espera" e a linha de apoio no fim.
+O único texto da interface é o "Ligar" de cada botão. Todo o resto, inclusive o título da orientação de espera, vem do backend, como o `docs/etica.md` exige para texto de segurança. O número aparece em cada botão, então quem não conseguir ligar pelo link pode discar direto.
 
 ## Faça e não faça
 
