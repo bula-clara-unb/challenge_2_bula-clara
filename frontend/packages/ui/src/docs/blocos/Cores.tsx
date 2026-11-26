@@ -39,6 +39,7 @@ const usos: Record<string, { artifact: string; uso: string }> = {
   },
   'color.focus.ring': { artifact: 'focus-ring', uso: 'Contorno de foco de 3px, com afastamento de 2px.' },
   'color.focus.halo': { artifact: 'focus-halo', uso: 'Halo amarelo de 4px fora do contorno de foco: visível sobre qualquer fundo.' },
+  'color.overlay': { artifact: 'overlay', uso: 'Véu escuro atrás do Dialog e do Sheet. Decorativo: não carrega texto.' },
 };
 
 function Amostra({ cor }: { cor: string }) {
