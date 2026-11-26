@@ -1,0 +1,51 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './EmergencyBar.stories';
+
+<Meta of={Stories} />
+
+# EmergencyBar
+
+Faixa fixa "Emergência? Ligue 192", logo abaixo do topo, em todas as telas.
+
+## Exemplo
+
+<Canvas of={Stories.Padrao} />
+
+## Quando usar
+
+Em toda tela do app, sempre: na primeira visita, na resposta, na ficha, em Meus remédios, durante o carregamento e nos erros.
+
+## Quando não usar
+
+Dentro de uma resposta de emergência, a faixa continua, mas quem leva aos telefones é o `EmergencyCard`. Não use a faixa como aviso de conteúdo.
+
+## Anatomia
+
+- Ícone de telefone, decorativo.
+- O texto fixo "Emergência? Ligue 192".
+
+## Props
+
+<ArgTypes of={Stories} />
+
+O texto não é prop. Só o destino pode mudar: por padrão, `tel:192`. O app pode apontar para a página de contatos de emergência.
+
+## Estados
+
+<Canvas of={Stories.AltoContraste} />
+
+## Acessibilidade
+
+- É um link, e o nome é o próprio texto.
+- 48px de altura ou mais, nos três tamanhos de texto.
+- No alto contraste, ganha uma borda de 3px embaixo.
+- A posição fixa (logo abaixo do cabeçalho) é do layout do app, que não deve cobrir o foco de outros elementos com ela.
+
+## Conteúdo
+
+Texto fixo, escrito pela interface e aprovado pelo grupo. Botões e links dizem a ação (regra 8).
+
+## Faça e não faça
+
+- Faça: mantenha a faixa visível mesmo quando a API cai ou a resposta vem fora do formato.
+- Não faça: esconder a faixa para "limpar" a tela.
