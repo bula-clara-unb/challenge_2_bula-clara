@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import padrao from '@bula-clara/tokens/padrao.json';
+import { Tabela } from '../blocos/Tabela';
+
+<Meta title="Fundamentos/Movimento" />
+
+# Movimento
+
+Movimento aqui serve para mostrar que algo mudou de estado: o botão foi pressionado, o painel abriu. Nunca é enfeite, e nada se mexe sozinho na tela.
+
+<Tabela
+  titulo="Durações"
+  colunas={['Token', 'Valor', 'Classe', 'Para quê']}
+  linhas={[
+    [<code>duracao.rapida</code>, padrao['duracao.rapida'], <code>duration-rapida</code>, 'Cor e fundo de botão, chip e campo'],
+    [<code>duracao.media</code>, padrao['duracao.media'], <code>duration-media</code>, 'Abrir e fechar acordeão, Sheet e Dialog'],
+  ]}
+/>
+
+A curva é sempre `ease-out`: o movimento começa rápido e desacelera no fim.
+
+## Movimento reduzido
+
+Quando o sistema da pessoa pede menos movimento (`prefers-reduced-motion: reduce`), nada se move: os dois tokens de duração viram `0ms` e a mudança acontece na hora. Isso já está no CSS gerado pelos tokens, então quem usa `duration-rapida` ou `duration-media` não precisa fazer mais nada.
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --bc-duracao-rapida: 0ms;
+    --bc-duracao-media: 0ms;
+  }
+}
+```
+
+## Regras
+
+- Use só as duas durações. Nada de `duration-300` ou `transition: all 1s`.
+- Anime cor, fundo e opacidade. Posição e tamanho só em painel que abre ou fecha, e com movimento reduzido não há transição de posição.
+- Nada pisca nem fica em loop, e nada se mexe sem a pessoa ter feito alguma coisa. A exceção é o status de carregamento, que fica sem animação quando o movimento reduzido está ligado.
+- O estado nunca depende só da animação. Se o botão Ouvir está tocando, o texto dele também muda.

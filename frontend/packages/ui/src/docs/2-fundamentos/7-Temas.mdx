@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { ListaNumerada } from '../blocos/ListaNumerada';
+import { DiferencasEntreTemas } from '../blocos/Temas';
+
+<Meta title="Fundamentos/Temas" />
+
+# Temas
+
+Há dois temas: o padrão e o de alto contraste. Um tema troca só os tokens semânticos (cores e espessura de borda). Componentes, espaços e tamanhos de texto continuam os mesmos.
+
+## Alto contraste
+
+O tema de alto contraste segue o nível AAA: texto preto puro sobre branco (21:1), todo texto com 7:1 ou mais, ação primária mais escura e bordas pretas em todo elemento interativo e em todo aviso. A barra lateral dos avisos engrossa, e nenhum fundo colorido aparece sem borda, porque com contraste alto a diferença entre dois fundos claros pode sumir. O amarelo do aviso de cuidado continua, agora com texto preto.
+
+<DiferencasEntreTemas />
+
+## Como o tema liga
+
+O tema liga de dois jeitos:
+
+<ListaNumerada>
+
+1. Pelo sistema: se a pessoa pediu mais contraste no celular ou no computador, o navegador avisa com `prefers-contrast: more` e o tema liga sozinho.
+2. Pela interface: um controle no app põe `data-contraste="alto"` no `<html>`. Para quem pediu alto contraste no sistema mas prefere o padrão no Bula Clara, o app põe `data-contraste="padrao"`, que vence o sistema.
+
+</ListaNumerada>
+
+```css
+[data-contraste='alto'] { /* tokens do alto contraste */ }
+
+@media (prefers-contrast: more) {
+  :root:not([data-contraste='padrao']) { /* os mesmos tokens */ }
+}
+```
+
+No Storybook, o controle **Contraste** da barra de cima faz o mesmo nas stories.
+
+## Modo escuro
+
+O modo escuro não existe ainda. Os tokens já estão prontos para ele, porque os componentes só usam tokens semânticos, e um tema escuro seria mais um arquivo em `packages/tokens/src/tokens/temas/`. Mas a paleta escura não foi desenhada nem validada, e por isso o sistema não reage a `prefers-color-scheme: dark`. Antes de ligar, cada par de `pares-contraste.json` precisa passar no tema novo.
