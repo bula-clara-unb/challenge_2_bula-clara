@@ -1,0 +1,128 @@
+[
+  {
+    "texto": "color.text.default",
+    "fundo": "color.surface.default",
+    "minimo": 7,
+    "uso": "texto de corpo"
+  },
+  {
+    "texto": "color.text.muted",
+    "fundo": "color.surface.default",
+    "minimo": 4.5,
+    "uso": "texto de apoio"
+  },
+  {
+    "texto": "color.text.default",
+    "fundo": "color.surface.info",
+    "minimo": 7,
+    "uso": "aviso neutro"
+  },
+  {
+    "texto": "color.text.muted",
+    "fundo": "color.surface.info",
+    "minimo": 4.5,
+    "uso": "apoio dentro de aviso neutro"
+  },
+  {
+    "texto": "color.action.primary",
+    "fundo": "color.surface.default",
+    "minimo": 7,
+    "uso": "link e botão secundário"
+  },
+  {
+    "texto": "color.text.on-solid",
+    "fundo": "color.action.primary",
+    "minimo": 7,
+    "uso": "botão primário"
+  },
+  {
+    "texto": "color.text.on-solid",
+    "fundo": "color.action.primary-strong",
+    "minimo": 7,
+    "uso": "botão primário pressionado"
+  },
+  {
+    "texto": "color.action.primary-strong",
+    "fundo": "color.action.primary-subtle",
+    "minimo": 4.5,
+    "uso": "chip"
+  },
+  {
+    "texto": "color.caution.text",
+    "fundo": "color.caution.bg",
+    "minimo": 7,
+    "uso": "aviso pede cuidado"
+  },
+  {
+    "texto": "color.caution.border",
+    "fundo": "color.surface.default",
+    "minimo": 3,
+    "uso": "barra lateral do aviso de cuidado"
+  },
+  {
+    "texto": "color.danger.text",
+    "fundo": "color.danger.bg",
+    "minimo": 7,
+    "uso": "aviso não usar junto"
+  },
+  {
+    "texto": "color.danger.border",
+    "fundo": "color.surface.default",
+    "minimo": 3,
+    "uso": "barra lateral do aviso de perigo"
+  },
+  {
+    "texto": "color.text.on-solid",
+    "fundo": "color.emergency.solid",
+    "minimo": 7,
+    "uso": "cartão de emergência"
+  },
+  {
+    "texto": "color.confirm",
+    "fundo": "color.surface.default",
+    "minimo": 7,
+    "uso": "confirmação de ação"
+  },
+  {
+    "texto": "color.text.default",
+    "fundo": "color.focus.halo",
+    "minimo": 7,
+    "uso": "texto sobre o halo de foco"
+  },
+  {
+    "texto": "color.border.field",
+    "fundo": "color.surface.default",
+    "minimo": 3,
+    "uso": "borda de campo"
+  },
+  {
+    "texto": "color.caution.border",
+    "fundo": "color.caution.bg",
+    "minimo": 3,
+    "uso": "borda do aviso de cuidado"
+  },
+  {
+    "texto": "color.danger.border",
+    "fundo": "color.danger.bg",
+    "minimo": 3,
+    "uso": "borda do aviso de perigo"
+  },
+  {
+    "texto": "color.focus.ring",
+    "fundo": "color.surface.default",
+    "minimo": 3,
+    "uso": "contorno de foco"
+  },
+  {
+    "texto": "color.danger.text",
+    "fundo": "color.surface.default",
+    "minimo": 7,
+    "uso": "botão de perigo (Apagar tudo)"
+  },
+  {
+    "texto": "color.danger.text",
+    "fundo": "color.danger.bg",
+    "minimo": 4.5,
+    "uso": "faixa de emergência"
+  }
+]
