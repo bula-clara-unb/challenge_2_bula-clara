@@ -26,6 +26,7 @@ pergunta ─► Segurança (pré) ─► Identificador ─► Recuperador (RAG) 
 | `scripts/gerar_dataset_finetune.py` / `treinar_lora.py` | fine-tuning |
 | `scripts/avaliar.py` | métricas: LLM puro × RAG × multiagentes |
 | `notebooks/treino_colab.ipynb` | treino no Colab (GPU T4 gratuita) |
+| `frontend/` | design system e interface web ([`frontend/README.md`](frontend/README.md)) |
 
 ## Rodar (resumo)
 
