@@ -1,0 +1,51 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './TagGroup.stories';
+
+<Meta of={Stories} />
+
+# TagGroup
+
+Grupo de chips. Mostra os remédios da lista da pessoa e as fontes da resposta. Inclui o `Tag`, que é cada chip.
+
+<Canvas of={Stories.Chips} />
+
+## Quando usar
+
+- Para mostrar uma lista curta de itens, como "Na bula: Losartana · seção 4".
+- Com `onRemove`, para a pessoa tirar itens da lista, como em "Seus remédios".
+
+## Quando não usar
+
+- Para escolher opções de um formulário, use `Checkbox` ou `RadioGroup`.
+- Para ações, use `Button`. Um chip não é botão.
+
+## Anatomia
+
+- Rótulo de bloco em caixa alta ("SEUS REMÉDIOS").
+- Chips com fundo azul-claro, texto azul-escuro e 48px de altura, com ícone opcional.
+- Botão de remover (X) de 48px, quando o grupo tem `onRemove`.
+- Texto de lista vazia, opcional.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Removivel} />
+
+## Acessibilidade
+
+- O grupo é uma grade (`grid`) com o rótulo como nome. Cada chip é uma linha (`row`).
+- As setas andam entre os chips. Com `onRemove`, Delete e Backspace removem o chip com foco.
+- O botão de remover diz o que remove: o React Aria junta o verbo ao texto do chip, "Remover Losartana".
+- No alto contraste, os chips ganham borda preta de 2px.
+
+## Conteúdo
+
+O texto do chip é o nome do remédio, como a pessoa conhece. Nas fontes, o remédio e a seção da bula ("Ibuprofeno · seção 4").
+
+## Faça e não faça
+
+- Faça: `textoVazio="Nenhum remédio na lista."`.
+- Não faça: remover sem o nome no botão. "Remover" sozinho não diz qual remédio sai da lista.
