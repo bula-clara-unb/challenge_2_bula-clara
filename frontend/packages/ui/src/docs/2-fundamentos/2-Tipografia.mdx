@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { AmostrasDeTexto, EscalaTipografica } from '../blocos/Tipografia';
+
+<Meta title="Fundamentos/Tipografia" />
+
+# Tipografia
+
+Duas fontes, cada uma com seu papel:
+
+- **Literata** (família `voz`) aparece só nos estilos `titulo-1` e `resposta`: o nome do remédio, o título de página e a frase-resposta. A serifa faz a resposta soar como alguém explicando, e não como um formulário.
+- **Atkinson Hyperlegible** (família `texto`) é para todo o resto. Foi criada para quem enxerga mal: letras parecidas, como I, l e 1, ficam bem diferentes umas das outras. Também é mais estreita que as alternativas, então quebra menos linha. Os pesos usados são 400 e 700.
+
+As duas vêm do Fontsource e fazem parte do build. Nada vem do Google Fonts, para que nenhuma visita avise um terceiro. O navegador baixa só o subconjunto latino, que cobre os acentos, o ç e o til.
+
+## Estilos
+
+Os tamanhos abaixo são calculados a partir dos tokens `font.tamanho.*` para cada nível do controle A+.
+
+<EscalaTipografica />
+
+<AmostrasDeTexto />
+
+## O controle A+
+
+O A+ muda o tamanho da raiz do documento para 100%, 120% ou 140% (`data-escala` no `<html>`), e o layout inteiro acompanha, porque as medidas estão em `rem`. Use o controle **Texto** na barra de cima para ver qualquer story nos três tamanhos.
+
+Os títulos crescem menos que o corpo. Cada título é uma parte fixa em px somada a uma parte em `rem`, e por isso o título 1 vai a 40 px no nível de 140%, em vez de 48 px. Assim um nome comprido ainda cabe na tela do celular.
+
+## Regras
+
+- O corpo de texto nunca fica abaixo de 18 px.
+- O texto corrido tem no máximo 65 caracteres por linha (token `tamanho.medida`, classe `max-w-medida`).
+- Nenhuma tela pode quebrar ou pedir rolagem para o lado, em nenhum tamanho de texto, a partir de 320 px de largura.
+- O documento tem `lang="pt-BR"` e os títulos usam `hyphens: auto` e `overflow-wrap: anywhere`. Assim "Hidroclorotiazida" quebra com hífen em vez de vazar.
+- Caixa alta só no estilo `rotulo`, em palavras curtas, e sempre pelo CSS (`uppercase`). O texto fica escrito normalmente no código, para o leitor de tela não soletrar.
+- Negrito marca título, rótulo e botão. No meio do texto, só para o que a pessoa não pode deixar passar, como um horário.
+
+## Como usar nos componentes
+
+Classes `text-titulo-1`, `text-resposta`, `text-titulo-2`, `text-titulo-3`, `text-corpo`, `text-botao`, `text-apoio` e `text-rotulo`, que já trazem a altura de linha. O rótulo leva também `tracking-rotulo` e `uppercase`. Famílias `font-voz` e `font-texto`.
