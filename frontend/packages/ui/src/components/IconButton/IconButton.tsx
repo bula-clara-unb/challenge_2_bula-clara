@@ -8,7 +8,9 @@ export interface IconButtonProps
   extends Omit<AriaButtonProps, 'className' | 'style' | 'children' | 'aria-label'> {
   /** Obrigatório: é o único nome que o leitor de tela anuncia. */
   'aria-label': string;
+  /** Ícone Phosphor. Fica escondido do leitor de tela, que lê o `aria-label`. */
   icone: Icon;
+  /** Mesmas cores do Button, sem a de perigo. */
   variante?: IconButtonVariante;
 }
 

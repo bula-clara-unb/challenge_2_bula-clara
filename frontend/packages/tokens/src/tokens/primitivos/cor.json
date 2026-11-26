@@ -71,6 +71,15 @@
         "900": {
           "$value": "#0B3D24"
         }
+      },
+      "veu": {
+        "$description": "Fundo semitransparente atrás de Dialog e Sheet. Nunca fica atrás de texto.",
+        "padrao": {
+          "$value": "#0B1B33B3"
+        },
+        "alto": {
+          "$value": "#000000D9"
+        }
       }
     }
   }

@@ -1,5 +1,6 @@
 import type { Decorator, Preview } from '@storybook/react-vite';
 import '../src/styles/index.css';
+import './docs.css';
 
 // Aplica tema e tamanho de texto no <html>, igual o app vai fazer.
 const comTemaEEscala: Decorator = (Story, context) => {

@@ -1,0 +1,47 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './VisuallyHidden.stories';
+
+<Meta of={Stories} />
+
+# VisuallyHidden
+
+Texto que só o leitor de tela lê. Ele continua no fluxo de leitura, mas não aparece na tela.
+
+<Canvas of={Stories.DentroDeUmLink} />
+
+O exemplo acima é um link. Na tela aparece só "Na bula: seção 4". O leitor de tela lê "Na bula: seção 4 (abre a ficha do remédio)".
+
+## Quando usar
+
+Para completar o que a tela já mostra com uma informação que, para quem vê, está implícita no desenho: para onde um link leva, que um passo já foi feito, o que um número significa.
+
+## Quando não usar
+
+- Para dar nome a um botão só com ícone, use o `aria-label` do `IconButton`.
+- Para esconder algo de todo mundo, não use este componente: tire o elemento da tela.
+- Para texto que ajudaria qualquer pessoa, deixe o texto visível. Se é útil, quem enxerga também quer ler.
+
+## Anatomia
+
+Um `span` com a classe `sr-only` do Tailwind, sem mais nada.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+Não tem estados. O texto está sempre lá para o leitor de tela.
+
+## Acessibilidade
+
+O texto entra no nome acessível do elemento em volta (no exemplo, o nome do link). Ele não recebe foco e não ocupa espaço na tela. Por isso, não ponha nele nada que precise de interação.
+
+## Conteúdo
+
+Frase curta, que continua a frase visível. Comece com espaço quando vier colado no texto de antes, como em `" (abre a ficha do remédio)"`.
+
+## Faça e não faça
+
+- Faça: completar "Foto" com " (feito)" num passo concluído.
+- Não faça: repetir o texto visível. O leitor de tela lê duas vezes a mesma coisa.

@@ -7,7 +7,8 @@
     "./tokens.css": "./dist/tokens.css",
     "./tailwind.css": "./dist/tailwind.css",
     "./padrao.json": "./dist/padrao.json",
-    "./alto-contraste.json": "./dist/alto-contraste.json"
+    "./alto-contraste.json": "./dist/alto-contraste.json",
+    "./pares-contraste.json": "./src/pares-contraste.json"
   },
   "scripts": {
     "build": "node scripts/build.mjs",

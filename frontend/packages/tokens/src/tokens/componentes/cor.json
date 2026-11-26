@@ -1,0 +1,70 @@
+{
+  "componente": {
+    "$type": "color",
+    "$description": "Terceira camada: cada token aponta para um semântico. No CSS sai como var(--bc-color-…), então segue o tema sozinho.",
+    "campo": {
+      "fundo": {
+        "$value": "{color.surface.default}"
+      },
+      "borda": {
+        "$value": "{color.border.field}"
+      },
+      "borda-invalida": {
+        "$value": "{color.danger.border}"
+      },
+      "texto-erro": {
+        "$value": "{color.danger.text}"
+      }
+    },
+    "selecao": {
+      "borda": {
+        "$value": "{color.border.field}"
+      },
+      "marcado": {
+        "$value": "{color.action.primary}"
+      },
+      "marca": {
+        "$value": "{color.text.on-solid}"
+      }
+    },
+    "chip": {
+      "fundo": {
+        "$value": "{color.action.primary-subtle}"
+      },
+      "texto": {
+        "$value": "{color.action.primary-strong}"
+      }
+    },
+    "aba": {
+      "indicador": {
+        "$value": "{color.action.primary}"
+      }
+    },
+    "painel": {
+      "fundo": {
+        "$value": "{color.surface.default}"
+      }
+    },
+    "sobreposicao": {
+      "fundo": {
+        "$value": "{color.overlay}"
+      }
+    },
+    "toast": {
+      "fundo": {
+        "$value": "{color.surface.default}"
+      },
+      "destaque": {
+        "$value": "{color.confirm}"
+      }
+    },
+    "esqueleto": {
+      "fundo": {
+        "$value": "{color.surface.info}"
+      },
+      "borda": {
+        "$value": "{color.border.subtle}"
+      }
+    }
+  }
+}

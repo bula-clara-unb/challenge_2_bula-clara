@@ -124,5 +124,53 @@
     "fundo": "color.danger.bg",
     "minimo": 4.5,
     "uso": "faixa de emergência"
+  },
+  {
+    "texto": "componente.campo.texto-erro",
+    "fundo": "componente.campo.fundo",
+    "minimo": 4.5,
+    "uso": "mensagem de erro de campo"
+  },
+  {
+    "texto": "componente.campo.borda",
+    "fundo": "componente.campo.fundo",
+    "minimo": 3,
+    "uso": "borda de campo"
+  },
+  {
+    "texto": "componente.campo.borda-invalida",
+    "fundo": "componente.campo.fundo",
+    "minimo": 3,
+    "uso": "borda de campo inválido"
+  },
+  {
+    "texto": "componente.selecao.borda",
+    "fundo": "componente.campo.fundo",
+    "minimo": 3,
+    "uso": "caixa de Checkbox, Radio e Switch desligados"
+  },
+  {
+    "texto": "componente.selecao.marca",
+    "fundo": "componente.selecao.marcado",
+    "minimo": 3,
+    "uso": "marca de seleção sobre o fundo marcado"
+  },
+  {
+    "texto": "componente.chip.texto",
+    "fundo": "componente.chip.fundo",
+    "minimo": 4.5,
+    "uso": "texto da Tag"
+  },
+  {
+    "texto": "componente.aba.indicador",
+    "fundo": "color.surface.default",
+    "minimo": 3,
+    "uso": "indicador da aba selecionada"
+  },
+  {
+    "texto": "componente.toast.destaque",
+    "fundo": "componente.toast.fundo",
+    "minimo": 7,
+    "uso": "texto, borda e ícone do Toast"
   }
 ]

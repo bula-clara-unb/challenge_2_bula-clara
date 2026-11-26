@@ -1,0 +1,9 @@
+/*
+ * O reset do Tailwind (preflight) tira os números de <ol>, e o Storybook não devolve.
+ * Esta regra devolve os números só nas listas escritas em Markdown nas páginas MDX, que ficam
+ * direto dentro de .sbdocs-content. As listas dos componentes, dentro das stories (como a do
+ * ProgressSteps), continuam sem número.
+ */
+.sbdocs-content > ol {
+  list-style: decimal;
+}

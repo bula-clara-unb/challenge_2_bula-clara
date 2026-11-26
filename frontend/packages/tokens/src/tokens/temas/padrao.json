@@ -76,6 +76,9 @@
       "halo": {
         "$value": "{primitivo.cor.ambar.300}"
       }
+    },
+    "overlay": {
+      "$value": "{primitivo.cor.veu.padrao}"
     }
   },
   "borda": {

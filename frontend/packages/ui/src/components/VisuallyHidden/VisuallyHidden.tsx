@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 export interface VisuallyHiddenProps {
+  /** O texto que só o leitor de tela lê. */
   children: ReactNode;
 }
 

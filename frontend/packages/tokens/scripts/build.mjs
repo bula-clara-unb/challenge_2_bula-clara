@@ -1,5 +1,6 @@
 // Gera dist/tokens.css, dist/tailwind.css e um JSON plano por tema.
-// Os primitivos nunca viram CSS: só os tokens semânticos e de base saem do build.
+// Os primitivos nunca viram CSS: só os tokens semânticos, de base e de componente saem do build.
+// Os de componente saem como var(--bc-…) do semântico, para seguir o tema sem gerar outro CSS.
 import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import StyleDictionary from 'style-dictionary';
 
@@ -7,7 +8,8 @@ const PREFIXO = 'bc';
 const TEMAS = ['padrao', 'alto-contraste'];
 const SEM_PRIMITIVOS = (token) => token.path[0] !== 'primitivo';
 const DE_TEMA = (token) => SEM_PRIMITIVOS(token) && token.filePath.includes('/temas/');
-const DE_BASE = (token) => SEM_PRIMITIVOS(token) && !token.filePath.includes('/temas/');
+const DE_COMPONENTE = (token) => token.filePath.includes('/componentes/');
+const DE_BASE = (token) => SEM_PRIMITIVOS(token) && !DE_TEMA(token) && !DE_COMPONENTE(token);
 
 const nomeCss = (token) => `--${PREFIXO}-${token.path.join('-')}`;
 const linhas = (tokens, recuo) =>
@@ -28,9 +30,19 @@ StyleDictionary.registerFormat({
   format: ({ dictionary }) => linhas(dictionary.allTokens, '  ') + '\n',
 });
 
+// {color.action.primary} → var(--bc-color-action-primary)
+const comoReferencia = (valor) =>
+  String(valor).replace(/\{([^}]+)\}/g, (_, caminho) => `var(--${PREFIXO}-${caminho.replaceAll('.', '-')})`);
+
+StyleDictionary.registerFormat({
+  name: 'bc/css-referencias',
+  format: ({ dictionary }) =>
+    dictionary.allTokens.map((t) => `  ${nomeCss(t)}: ${comoReferencia(t.original.$value)};`).join('\n') + '\n',
+});
+
 async function gerar(tema) {
   const sd = new StyleDictionary({
-    source: ['src/tokens/primitivos/*.json', `src/tokens/temas/${tema}.json`],
+    source: ['src/tokens/primitivos/*.json', `src/tokens/temas/${tema}.json`, 'src/tokens/componentes/*.json'],
     usesDtcg: true,
     log: { verbosity: 'silent' },
     platforms: {
@@ -40,13 +52,19 @@ async function gerar(tema) {
           { destination: `${tema}.json`, format: 'bc/json-plano', filter: SEM_PRIMITIVOS },
           { destination: `${tema}.tema.css`, format: 'bc/css-bloco', filter: DE_TEMA },
           { destination: `${tema}.base.css`, format: 'bc/css-bloco', filter: DE_BASE },
+          { destination: `${tema}.componentes.css`, format: 'bc/css-referencias', filter: DE_COMPONENTE },
         ],
       },
     },
   });
   await sd.buildAllPlatforms();
   const ler = (arquivo) => readFile(`dist/tmp/${arquivo}`, 'utf8');
-  return { json: await ler(`${tema}.json`), tema: await ler(`${tema}.tema.css`), base: await ler(`${tema}.base.css`) };
+  return {
+    json: await ler(`${tema}.json`),
+    tema: await ler(`${tema}.tema.css`),
+    base: await ler(`${tema}.base.css`),
+    componentes: await ler(`${tema}.componentes.css`),
+  };
 }
 
 await rm('dist', { recursive: true, force: true });
@@ -55,7 +73,7 @@ const [padrao, alto] = await Promise.all(TEMAS.map(gerar));
 
 const css = `/* Gerado por scripts/build.mjs. Não edite à mão. */
 :root {
-${padrao.base}${padrao.tema}}
+${padrao.base}${padrao.tema}${padrao.componentes}}
 
 [data-contraste='alto'] {
 ${alto.tema}}
@@ -83,10 +101,11 @@ const mapaTailwind = {
   radius: 'radius',
   'font.familia': 'font',
   'font.tamanho': 'text',
-  duracao: 'transition-duration',
+  duracao: 'transition-duration', // o Tailwind 4.3 lê as durações de --transition-duration-*
   sombra: 'shadow',
   'font.espacamento-letra': 'tracking',
   'tamanho.medida': 'container-medida',
+  componente: 'color',
 };
 const linhasTheme = Object.keys(nomes)
   .map((caminho) => {

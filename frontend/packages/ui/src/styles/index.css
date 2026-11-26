@@ -16,6 +16,40 @@
     var(--bc-color-focus-halo);
 }
 
+/* Alto contraste: ligado por data-contraste="alto" ou por prefers-contrast: more (a menos que a
+   pessoa tenha escolhido o padrão). Serve para dar borda a quem, no tema padrão, não tem. */
+@custom-variant alto-contraste {
+  &:where([data-contraste='alto'] *) {
+    @slot;
+  }
+  @media (prefers-contrast: more) {
+    &:where(:root:not([data-contraste='padrao']) *) {
+      @slot;
+    }
+  }
+}
+
+/* Entrada e saída de Dialog e Sheet. A duração vem dos tokens, que vão a 0ms com
+   prefers-reduced-motion: aí nada se move. */
+@theme {
+  --animate-aparecer: aparecer var(--bc-duracao-media) ease-out;
+  --animate-sumir: aparecer var(--bc-duracao-rapida) ease-out reverse;
+  --animate-subir: subir var(--bc-duracao-media) ease-out;
+  --animate-descer: subir var(--bc-duracao-rapida) ease-out reverse;
+
+  @keyframes aparecer {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes subir {
+    from {
+      transform: translateY(100%);
+    }
+  }
+}
+
 @layer base {
   html {
     font-family: var(--bc-font-familia-texto);

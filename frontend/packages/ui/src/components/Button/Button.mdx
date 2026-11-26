@@ -1,0 +1,63 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Button.stories';
+
+<Meta of={Stories} />
+
+# Button
+
+Faz uma ação na própria tela: perguntar, ouvir a resposta, fotografar a caixa, apagar a lista.
+
+<Canvas of={Stories.Primaria} />
+
+## Quando usar
+
+Para qualquer ação que acontece ali mesmo, sem levar a pessoa para outro endereço. Cada tela tem uma ação principal, na variante `primaria`. As outras ficam em `secundaria` ou `discreta`.
+
+## Quando não usar
+
+- Para ir a outra página ou a outra parte da página, use `LinkButton`. Um botão que muda de endereço confunde o leitor de tela, que anuncia "botão" e não "link".
+- Para um botão só com ícone, use `IconButton`.
+- Para ligar e desligar uma opção, use `Switch`.
+
+## Anatomia
+
+- Contêiner com borda de 2px e altura mínima de 48px.
+- Ícone Phosphor opcional, à esquerda, sempre decorativo.
+- Texto, que diz a ação.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Secundaria} />
+
+<Canvas of={Stories.Discreta} />
+
+<Canvas of={Stories.Perigo} />
+
+<Canvas of={Stories.Desabilitado} />
+
+<Canvas of={Stories.LarguraTotal} />
+
+A story **Foco pelo teclado** mostra o contorno de foco. Abra a story sozinha e aperte Tab para ver.
+
+## Acessibilidade
+
+- Usa o `Button` do React Aria: papel `button`, responde a Enter e a Espaço, e o foco pelo teclado mostra o contorno de 3px com halo. O clique com mouse ou dedo não mostra o contorno.
+- O nome acessível é o texto do botão. O ícone fica escondido do leitor de tela, porque o texto já diz tudo.
+- A área de toque tem pelo menos 48px de altura nos três tamanhos de texto do A+.
+- A variante `perigo` não depende só da cor: o texto já diz que a ação apaga ("Apagar tudo").
+- No alto contraste, as cores vêm do tema `alto-contraste` e a borda continua.
+
+## Conteúdo
+
+O texto é um verbo que diz o que acontece, de preferência com o objeto: "Fotografar a caixa", "Apagar tudo", "Sim, perguntar sobre ele". Vale a regra 8 de **Conteúdo e voz**: botões dizem a ação.
+
+## Faça e não faça
+
+- Faça: "Ouvir resposta". A pessoa sabe o que vai acontecer antes de tocar.
+- Não faça: "OK", "Enviar" ou "Clique aqui". O texto não diz a ação.
+- Faça: uma ação `primaria` por tela.
+- Não faça: dois botões `primaria` lado a lado, disputando a atenção.
