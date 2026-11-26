@@ -1,0 +1,67 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './ListenButton.stories';
+
+<Meta of={Stories} />
+
+# ListenButton
+
+Lê a resposta (ou a ficha do remédio) em voz alta, sem mandar o texto para ninguém.
+
+## Exemplo
+
+<Canvas of={Stories.Parado} />
+
+## Quando usar
+
+Logo abaixo da frase-resposta ("Ouvir resposta") e abaixo do selo na ficha do remédio ("Ouvir esta página").
+
+## Quando não usar
+
+- Para gravar a pergunta falada, use `VoiceRecorder`.
+- Nunca com voz que roda fora do aparelho ou do nosso servidor.
+
+## Anatomia
+
+- Um botão que muda de texto e de ícone a cada estado.
+- Uma linha de status, que só aparece se o áudio do servidor falhar.
+
+## De onde vem a voz
+
+Dois caminhos, e só esses dois, como o `docs/etica.md` exige:
+
+1. `obterAudio`: uma função que o app passa e que busca o áudio no nosso `/falar` (voz offline, `pyttsx3`). Quando ela vem, é ela que toca.
+2. Sem `obterAudio`, a `speechSynthesis` do navegador, filtrada para vozes com `localService: true` e em português. Vozes remotas, como a "Google português do Brasil" do Chrome, ficam de fora.
+
+Se nenhum dos dois estiver disponível, o componente não desenha nada. O gTTS nunca é usado, nem como opção com aviso. A escolha entre os dois caminhos é da issue #24.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+Parado, carregando, tocando e pausado. Ao fim da leitura, volta a parado.
+
+<Canvas of={Stories.Carregando} />
+
+<Canvas of={Stories.Tocando} />
+
+<Canvas of={Stories.Pausado} />
+
+<Canvas of={Stories.SemVoz} />
+
+## Acessibilidade
+
+- É um `button` com o nome do estado atual: "Ouvir resposta", "Preparando o áudio…", "Pausar" e "Continuar".
+- Carregando, o botão fica com `aria-disabled` e continua focável, para o foco não se perder. O `isPending` do React Aria não é usado porque o aviso dele cria um nó `role="img"` que o axe reprova.
+- Com movimento reduzido, o círculo de carregamento fica parado.
+- Tudo o que é falado já está escrito na tela.
+
+## Conteúdo
+
+O botão diz a ação (regra 8). Se o servidor não mandar o áudio, aparece "Não consegui preparar o áudio agora. A resposta continua escrita aqui.".
+
+## Faça e não faça
+
+- Faça: passe o texto sem as citações `[n]`, que soariam estranhas lidas em voz alta.
+- Não faça: oferecer uma voz da nuvem "porque soa melhor".
