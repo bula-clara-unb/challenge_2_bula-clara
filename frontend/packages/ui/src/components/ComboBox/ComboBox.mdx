@@ -1,0 +1,56 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './ComboBox.stories';
+
+<Meta of={Stories} />
+
+# ComboBox
+
+Campo que sugere nomes de remédio enquanto a pessoa digita, e aceita erro de digitação.
+
+<Canvas of={Stories.Padrao} />
+
+## Quando usar
+
+Para escolher um item de uma lista conhecida e longa, como os remédios da base, em "Adicionar remédio".
+
+## Quando não usar
+
+- Para texto livre, use `TextField`.
+- Para duas a cinco opções, use `RadioGroup`. Todas ficam à vista.
+
+## Anatomia
+
+- Rótulo visível.
+- Entrada, com o exemplo dentro quando vazia.
+- Botão que abre a lista, à direita, com 48px.
+- Lista de sugestões, numa caixa flutuante. Cada opção tem 48px de altura.
+- Texto de lista vazia, quando nada combina.
+- Dica e erro, como no `TextField`.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+As stories **Aberto, filtrando**, **Com erro de digitação** e **Sem resultado** digitam no campo e mostram a lista. Abra cada uma sozinha para ver.
+
+## Acessibilidade
+
+- Papel `combobox`, com a lista em `listbox`. Seta para baixo abre a lista e passa pelas opções, Enter escolhe e Esc fecha.
+- O leitor de tela anuncia quantas opções apareceram e qual está em destaque.
+- O filtro padrão, `filtroTolerante`, ignora acentos e maiúsculas e aceita um erro a cada 4 letras, até 2 erros. "lozartana" acha Losartana. Quem tem pouca prática com o teclado ou não sabe a grafia exata chega no remédio do mesmo jeito.
+- Quando nada combina, a lista mostra o `textoSemResultado`, que o leitor de tela também lê.
+- O botão de abrir tem nome ("Mostrar opções").
+
+## Conteúdo
+
+- Exemplo: um nome de remédio comum ("ex.: metformina").
+- Sem resultado: diga o que aconteceu e o que fazer ("Esse remédio ainda não está na base.", ou o padrão "Não achei esse nome. Confira como está escrito na caixa.").
+
+## Faça e não faça
+
+- Faça: deixar o `filtroTolerante`, que é o padrão.
+- Não faça: um filtro que só acha o nome escrito do jeito certo, com acento.
+- Faça: dizer o próximo passo quando não acha nada.
+- Não faça: uma lista vazia, sem texto.

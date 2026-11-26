@@ -1,0 +1,60 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './TextField.stories';
+
+<Meta of={Stories} />
+
+# TextField
+
+Campo de uma linha, com rótulo visível, dica e mensagem de erro.
+
+<Canvas of={Stories.Padrao} />
+
+## Quando usar
+
+Para texto curto e livre, como o nome de um remédio que a pessoa vai digitar.
+
+## Quando não usar
+
+- Para escolher um remédio da base, use `ComboBox`. Ele sugere os nomes e aceita erro de digitação.
+- Para a pergunta, que pode ser longa, use `TextArea`.
+- Para buscar dentro de um texto, use `SearchField`.
+
+## Anatomia
+
+- Rótulo, em negrito, acima do campo.
+- Entrada com borda de 2px e 48px de altura.
+- Dica, em texto de apoio, abaixo da entrada.
+- Mensagem de erro, com ícone de aviso, abaixo da dica.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.ComErro} />
+
+<Canvas of={Stories.Desabilitado} />
+
+A story **Validação ao apagar o texto** mostra o erro aparecendo enquanto a pessoa digita. Abra a story sozinha para ver.
+
+## Acessibilidade
+
+- O rótulo é obrigatório e sempre visível. O `exemplo` (placeholder) some ao digitar e nunca faz esse papel. Não existe a prop `placeholder`: ela não compila.
+- A dica fica ligada ao campo por `aria-describedby`, e o leitor de tela lê a dica depois do rótulo.
+- O erro fica numa região `aria-live` sempre montada. Assim o leitor de tela anuncia a mensagem no momento em que ela aparece.
+- Inválido, a borda passa a 3px na cor de perigo e o erro vem com ícone e texto. A cor nunca é o único sinal.
+- O contorno de foco aparece sempre, até com clique ou toque, para a pessoa ver onde está digitando.
+
+## Conteúdo
+
+- Rótulo: o que a pessoa escreve ("Nome do remédio").
+- Dica: onde achar a informação ("Como está escrito na caixa.").
+- Erro: o que aconteceu e o que fazer ("Não achei esse remédio. Confira o nome na caixa."). Vale a regra 5 de **Conteúdo e voz**: toda recusa tem um próximo passo.
+
+## Faça e não faça
+
+- Faça: rótulo "Nome do remédio" e exemplo "ex.: metformina".
+- Não faça: campo sem rótulo, só com "Digite o nome do remédio" dentro dele.
+- Faça: "Escreva o nome do remédio para continuar."
+- Não faça: "Campo obrigatório" ou "Entrada inválida".

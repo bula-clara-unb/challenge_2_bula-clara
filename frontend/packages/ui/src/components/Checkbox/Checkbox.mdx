@@ -1,0 +1,54 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Checkbox.stories';
+
+<Meta of={Stories} />
+
+# Checkbox
+
+Caixa de marcar, para uma opção que a pessoa liga ou desliga dentro de um formulário.
+
+<Canvas of={Stories.Desmarcado} />
+
+## Quando usar
+
+Para uma escolha de sim ou não que só vale quando a pessoa confirma o formulário, ou para marcar vários itens de uma lista.
+
+## Quando não usar
+
+- Para uma opção que muda na hora, como "Lembrar neste aparelho", use `Switch`.
+- Para escolher uma entre várias opções, use `RadioGroup`.
+
+## Anatomia
+
+- Caixa de 28px, com borda de 2px.
+- Marca (um visto, ou um traço no estado indeterminado), na cor do texto sobre a caixa marcada.
+- Texto ao lado, que é o rótulo. Tocar nele também marca.
+- A linha toda tem 48px de altura.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Marcado} />
+
+<Canvas of={Stories.Indeterminado} />
+
+A story **Marca pelo teclado** marca a caixa com Tab e Espaço. Abra a story sozinha para ver.
+
+## Acessibilidade
+
+- Papel `checkbox`. Espaço marca e desmarca. O leitor de tela anuncia "marcado", "não marcado" ou "misto".
+- Marcado não depende só da cor: a caixa ganha o visto. Indeterminado ganha o traço.
+- A área de toque é a linha inteira, com 48px de altura.
+- O contorno de foco aparece na caixa.
+
+## Conteúdo
+
+O texto é uma afirmação que a pessoa confirma ("Tomo esse remédio todo dia"), e não uma pergunta.
+
+## Faça e não faça
+
+- Faça: "Tomo esse remédio todo dia".
+- Não faça: "Não quero deixar de receber avisos". Negação dupla confunde.
