@@ -1,0 +1,55 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './VoiceRecorder.stories';
+
+<Meta of={Stories} />
+
+# VoiceRecorder
+
+Grava a pergunta falada e entrega o áudio para o nosso servidor transcrever.
+
+## Exemplo
+
+<Canvas of={Stories.Gravando} />
+
+## Quando usar
+
+Quando a pessoa toca em "Perguntar falando". A gravação começa sozinha, porque a pessoa já pediu. O app manda o áudio ao `/transcrever` (Whisper no nosso servidor, issue #24) e abre o `TranscriptConfirm`.
+
+## Quando não usar
+
+Para ler a resposta em voz alta, use `ListenButton`.
+
+## Anatomia
+
+- "Fechar" e o título "Pergunta falada".
+- O microfone grande, que pulsa enquanto grava.
+- O status: "Ouvindo… fale sua pergunta" e, ao fim, "Gravação terminada. Vou conferir o que entendi.".
+- "Parar de gravar", enquanto grava.
+- "Escrever a pergunta", sempre presente.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Terminou} />
+
+<Canvas of={Stories.Negado} />
+
+## Acessibilidade
+
+- Avisa por som (um bipe agudo ao começar e um grave ao terminar), por vibração e por texto (`role="status"`). Tudo o que é avisado também aparece escrito.
+- Com movimento reduzido, o microfone não pulsa.
+- A gravação para sozinha em 30 segundos (`duracaoMaximaMs`).
+- Microfone negado ou ausente: aviso com `role="status"` e "Escrever a pergunta" como botão principal.
+- Fechar descarta a gravação, e o microfone desliga quando o componente sai da tela.
+
+## Conteúdo
+
+O componente nunca usa a `SpeechRecognition` do navegador, que no Chrome manda o áudio para o Google. A fala vira texto só no nosso servidor. O formato do áudio é escolhido por `MediaRecorder.isTypeSupported`: `audio/webm` no Chrome e no Android, `audio/mp4` no iPhone, e o tipo vai junto no arquivo.
+
+## Faça e não faça
+
+- Faça: mostre a transcrição para a pessoa confirmar antes de perguntar.
+- Não faça: usar o reconhecimento de voz do navegador "porque é mais rápido".
