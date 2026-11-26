@@ -1,0 +1,55 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './AnswerHeadline.stories';
+
+<Meta of={Stories} />
+
+# AnswerHeadline
+
+A pergunta feita, os remédios considerados e a frase-resposta: as duas primeiras camadas da resposta.
+
+## Exemplo
+
+<Canvas of={Stories.Principal} />
+
+## Quando usar
+
+No topo de cada resposta, uma vez por bloco. Também nas respostas anteriores, que continuam acima, cada uma com o seu.
+
+## Quando não usar
+
+- Em emergência, a resposta inteira vira `EmergencyCard`.
+- Em bloqueio por dose ou grupo especial, o título é o do `SafetyNotice`.
+- Para título de página que não é resposta ("Meus remédios"), use `Heading` com `nivel={1}`.
+
+## Anatomia
+
+- Rótulo "Sua pergunta", em caixa alta.
+- A pergunta, entre aspas.
+- "Considerando também: metformina", só quando a lista da pessoa entrou na checagem.
+- A frase-resposta, em Literata 26px (estilo `resposta`).
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.RecebeOFoco} />
+
+<Canvas of={Stories.NomeComprido} />
+
+## Acessibilidade
+
+- A frase-resposta é um título (`h2`, ou `h1` quando a resposta é a página) com `tabIndex={-1}`. Quando a resposta chega, o app passa `focarAoMontar` (ou usa o `ref`) e o foco vai para ela. O leitor de tela começa a ler dali.
+- O componente não é região `aria-live`. Quem anuncia o carregamento é o `LoadingStatus`, e a resposta não é lida duas vezes.
+- O rótulo "Sua pergunta" fica escrito normalmente no código; a caixa alta vem do CSS, para o leitor de tela não soletrar.
+- Nomes compridos quebram com hífen no A+ de 140%, sem rolagem lateral.
+
+## Conteúdo
+
+A frase-resposta é uma frase só, em voz ativa, com a mensagem principal primeiro (regra 1 de Conteúdo e voz). Ela nunca afirma segurança. O resto vai para a explicação, logo abaixo.
+
+## Faça e não faça
+
+- Faça: "Pode ser perigoso. O ibuprofeno pode diminuir o efeito da losartana e forçar os rins."
+- Não faça: "Pode tomar tranquilo." Nem "É seguro usar os dois juntos."
