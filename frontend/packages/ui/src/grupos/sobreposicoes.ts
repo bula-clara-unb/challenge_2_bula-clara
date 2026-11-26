@@ -1,2 +1,4 @@
-// Grupo do plano 2. Cada componente novo deste grupo é exportado aqui.
-export {};
+// Grupo C do plano 2: sobreposições.
+export * from '../components/Dialog';
+export * from '../components/Sheet';
+export * from '../components/Toast';
