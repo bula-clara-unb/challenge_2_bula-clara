@@ -1,0 +1,63 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Alert.stories';
+
+<Meta of={Stories} />
+
+# Alert
+
+Aviso dentro da tela, com barra lateral, sobre o estado da resposta: perigo, cuidado ou informação.
+
+## Exemplo
+
+O título do componente é um `h3`, por isso o exemplo fica dentro de uma seção.
+
+<Canvas of={Stories.Perigo} />
+
+## Quando usar
+
+- `perigo`: a bula diz para não fazer ("A bula diz para não usar junto").
+- `cuidado`: a bula pede atenção ("A bula pede cuidado com essa combinação").
+- `info`: algo neutro que a pessoa precisa saber ("A bula não fala dessa combinação").
+
+## Quando não usar
+
+- Para confirmar uma ação, use `Toast`.
+- Para dizer que algo é seguro, não use nada. Não existe tom verde, e `tom="sucesso"` não compila. A ausência de aviso na bula nunca vira "pode usar".
+
+## Anatomia
+
+- Contêiner com fundo do tom e barra de 6px no lado de início. No alto contraste, ganha borda preta de 2px em volta, e a barra passa a 10px.
+- Ícone decorativo do tom: proibido, triângulo de aviso ou "i".
+- Título, na escala `titulo-3`.
+- Texto com o próximo passo, opcional.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Cuidado} />
+
+<Canvas of={Stories.Info} />
+
+<Canvas of={Stories.AltoContraste} />
+
+## Acessibilidade
+
+- Por padrão, `role="note"`: o aviso faz parte da tela e não interrompe o leitor de tela.
+- Quando o aviso aparece depois que a página carregou, use `anunciar`. `polite` vira `role="status"` e `assertive` vira `role="alert"`. Guarde `assertive` para perigo.
+- O tom nunca é passado só pela cor: o ícone e o título dizem o mesmo.
+- O título é um `h3` por padrão. Ajuste com `nivelTitulo` para não pular nível.
+- Os três tons passam no contraste AA nos dois temas.
+
+## Conteúdo
+
+O título é a mensagem principal, em uma frase. O texto diz o próximo passo ("Fale com o médico antes. Não pare nenhum remédio por conta própria."). Valem as regras 4 e 5 de **Conteúdo e voz**: informar sem assustar, e toda recusa com o próximo passo.
+
+## Faça e não faça
+
+- Faça: "A bula não fala dessa combinação. Isso não garante que seja seguro."
+- Não faça: um aviso de `info` com "Pode tomar sem problema".
+- Faça: `perigo` só quando a bula diz para não usar.
+- Não faça: `perigo` para coisas comuns, como "tomar com água". Vermelho demais perde o sentido.

@@ -1,0 +1,49 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './ProgressSteps.stories';
+
+<Meta of={Stories} />
+
+# ProgressSteps
+
+Mostra em que passo a pessoa está, num fluxo de poucos passos, como perguntar por foto.
+
+<Canvas of={Stories.NoMeio} />
+
+## Quando usar
+
+Em fluxos de 2 a 5 passos que a pessoa faz em sequência: foto, confirmar, resposta.
+
+## Quando não usar
+
+- Para uma espera, use `Spinner`.
+- Para navegar entre partes que a pessoa escolhe, use `Tabs`. Os passos não são clicáveis.
+
+## Anatomia
+
+- Texto "Passo 2 de 3", acima.
+- Lista dos passos, cada um com uma barra e o nome. A barra fica azul nos passos feitos e no atual.
+- Os passos feitos ganham o visto.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Comeco} />
+
+## Acessibilidade
+
+- A lista é um `ol` com o `rotulo` como nome, e o leitor de tela anuncia "lista, 3 itens".
+- O passo atual tem `aria-current="step"`. Os passos feitos têm " (feito)" escondido para o leitor de tela.
+- O texto diz tudo: a barra e a cor só reforçam.
+- Os números da lista não aparecem: o texto "Passo 2 de 3" já faz esse papel.
+
+## Conteúdo
+
+Nomes curtos, com uma ou duas palavras ("Foto", "Confirmar", "Resposta").
+
+## Faça e não faça
+
+- Faça: três passos com nomes curtos.
+- Não faça: mais de cinco passos. Se o fluxo é longo, ele precisa ser mais simples.
