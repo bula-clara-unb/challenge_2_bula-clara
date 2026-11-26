@@ -88,9 +88,11 @@ describe('MedicationList', () => {
     expect(screen.getByRole('combobox')).toHaveFocus();
   });
 
-  it('"Apagar tudo" só aparece com a lista cheia, como na tela aprovada', () => {
-    render(<ComEstado inicial={[]} />);
-    expect(screen.queryByRole('button', { name: 'Apagar tudo' })).not.toBeInTheDocument();
+  it('"Apagar tudo" fica sempre visível, mesmo com a lista vazia (docs/etica.md)', async () => {
+    const apagou = vi.fn();
+    render(<ComEstado inicial={[]} onApagarTudo={apagou} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Apagar tudo' }));
+    expect(apagou).toHaveBeenCalledOnce();
   });
 
   it('não grava nada no navegador: guardar é do app', async () => {

@@ -134,13 +134,13 @@ export function MedicationList({
       >
         {TEXTOS_DO_CONSENTIMENTO.titulo}
       </Switch>
-      {remedios.length > 0 ? (
-        <div>
-          <Button variante="perigo" icone={Trash} onPress={apagarTudo}>
-            Apagar tudo
-          </Button>
-        </div>
-      ) : null}
+      {/* Sempre visível, mesmo com a lista vazia: o docs/etica.md promete que a pessoa sempre
+          consegue apagar o que ficou no aparelho, e o app limpa o armazenamento no onApagarTudo. */}
+      <div>
+        <Button variante="perigo" icone={Trash} onPress={apagarTudo}>
+          Apagar tudo
+        </Button>
+      </div>
     </div>
   );
 }
