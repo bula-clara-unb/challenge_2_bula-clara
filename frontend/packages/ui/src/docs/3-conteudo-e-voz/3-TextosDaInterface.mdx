@@ -83,10 +83,13 @@ Depois da foto ou da voz, a pessoa sempre confirma o que o sistema entendeu ante
     { situacao: 'Foto lida (pergunta)', texto: 'É esse o remédio?', dono: 'interface', acao: 'Sim, perguntar sobre ele · Não, vou digitar o nome' },
     { situacao: 'Foto lida (nota abaixo dos botões)', texto: 'A foto é usada só para ler o nome e não é guardada.', dono: 'interface' },
     { situacao: 'Câmera, guia de enquadramento', texto: 'Enquadre o nome do remédio aqui', dono: 'interface' },
-    { situacao: 'Foto sem nenhum remédio reconhecido', texto: 'Não consegui ler o nome na foto. Tente com mais luz, ou digite o nome que está na caixa.', dono: 'interface', acao: 'Tirar outra foto · Digitar o nome' },
+    { situacao: 'Foto sem nenhum remédio reconhecido (título)', texto: 'Não consegui ler o nome na foto', dono: 'interface' },
+    { situacao: 'Foto sem nenhum remédio reconhecido (explicação)', texto: 'Tente com mais luz, ou digite o nome que está na caixa.', dono: 'interface', acao: 'Tirar outra foto · Digitar o nome' },
     { situacao: 'Voz transcrita (rótulo)', texto: 'Entendi', dono: 'interface' },
     { situacao: 'Voz transcrita (o que foi entendido, em destaque)', texto: '“Posso tomar ibuprofeno com losartana?”', dono: 'interface' },
     { situacao: 'Voz transcrita (pergunta)', texto: 'Está certo?', dono: 'interface', acao: 'Sim, perguntar · Não, vou escrever' },
+    { situacao: 'Gravação sem nada entendido (título)', texto: 'Não consegui entender a gravação', dono: 'interface' },
+    { situacao: 'Gravação sem nada entendido (explicação)', texto: 'Tente falar de novo, mais perto do aparelho, ou escreva a sua pergunta.', dono: 'interface', acao: 'Gravar de novo · Escrever a pergunta' },
   ]}
 />
 
@@ -115,20 +118,41 @@ Os textos do backend são os das telas aprovadas. A explicação de remédio nã
 
 ## Interação entre remédios
 
-Os títulos saem da seção da bula onde a frase foi achada, sem nenhuma inferência. A frase da bula sempre aparece logo abaixo, como evidência, com o remédio e a seção.
+Os títulos saem da seção da bula onde a frase foi achada, sem nenhuma inferência. Na tela, os três títulos começam pelo par de remédios ("Losartana e ibuprofeno: a bula pede cuidado com essa combinação"), porque uma resposta pode ter vários avisos e quem usa leitor de tela precisa saber de qual par é cada um. O segundo nome vai em minúsculas. A tabela mede só a parte fixa do título, porque o par muda a cada resposta. A frase da bula sempre aparece logo abaixo, como evidência, com o remédio e a seção.
 
 <TextosComLeitura
   titulo="Textos do InteractionCallout"
   textos={[
     { situacao: 'Frase achada em "Quando não devo usar?" (título)', texto: 'A bula diz para não usar junto', dono: 'interface' },
+    { situacao: 'Ação abaixo do nível de não usar junto', texto: 'Fale com o médico antes. Não pare nenhum remédio por conta própria.', dono: 'interface' },
     { situacao: 'Frase achada em "O que devo saber antes de usar?" (título)', texto: 'A bula pede cuidado com essa combinação', dono: 'interface' },
-    { situacao: 'Ação abaixo dos dois primeiros níveis', texto: 'Converse com o farmacêutico antes de tomar os dois juntos.', dono: 'interface' },
+    { situacao: 'Ação abaixo do nível de cuidado', texto: 'Converse com o farmacêutico antes de tomar os dois juntos.', dono: 'interface' },
     { situacao: 'Nenhuma frase achada para o par (título)', texto: 'Ibuprofeno e metformina: a bula não fala dessa combinação', dono: 'interface' },
     { situacao: 'Nenhuma frase achada para o par (sempre junto)', texto: 'Isso não garante que seja seguro. Na dúvida, pergunte ao farmacêutico.', dono: 'interface' },
   ]}
 />
 
-O primeiro título ainda depende de uma validação. Uma frase na seção "Quando não devo usar" nem sempre quer dizer "não use os dois juntos". Antes de o app fixar esse texto, o agente de interações precisa rodar nos pares do gabarito (`data/avaliacao/interacoes.jsonl`) com as bulas reais. Se aparecerem falsos "não usar junto", o título passa a ser "A bula cita essa combinação em 'Quando não usar'", com a ação "Fale com o médico antes de usar os dois juntos".
+O primeiro título ainda depende de uma validação. Uma frase na seção "Quando não devo usar" nem sempre quer dizer "não use os dois juntos". Antes de o app fixar esse texto, o agente de interações precisa rodar nos pares do gabarito (`data/avaliacao/interacoes.jsonl`) com as bulas reais. Se aparecerem falsos "não usar junto", o título passa a ser "A bula cita essa combinação em 'Quando não usar'", com a ação "Fale com o médico antes de usar os dois juntos.". Os textos ficam todos em `TEXTOS_DA_INTERACAO`, no `InteractionCallout`, e a troca é numa linha só.
+
+## Câmera, microfone e voz
+
+<TextosComLeitura
+  titulo="Textos da câmera, do gravador e do botão de ouvir (CameraCapture, VoiceRecorder e ListenButton)"
+  textos={[
+    { situacao: 'Câmera, botão de tirar a foto', texto: 'Tirar foto', dono: 'interface' },
+    { situacao: 'Aparelho sem câmera', texto: 'Não achei uma câmera neste aparelho', dono: 'interface', acao: 'Digitar o nome' },
+    { situacao: 'Câmera negada (linha de ajuda)', texto: 'Se quiser usar a câmera, libere nos ajustes do seu navegador.', dono: 'interface' },
+    { situacao: 'Gravador, enquanto o navegador libera o microfone', texto: 'Preparando o microfone…', dono: 'interface' },
+    { situacao: 'Gravador, gravando', texto: 'Ouvindo… fale sua pergunta', dono: 'interface' },
+    { situacao: 'Gravador, ao parar', texto: 'Gravação terminada. Vou conferir o que entendi.', dono: 'interface' },
+    { situacao: 'Aparelho sem microfone', texto: 'Não achei um microfone neste aparelho', dono: 'interface', acao: 'Escrever a pergunta' },
+    { situacao: 'Microfone negado (linha de ajuda)', texto: 'Se quiser usar o microfone, libere nos ajustes do seu navegador.', dono: 'interface' },
+    { situacao: 'Ouvir resposta, quando o áudio falha', texto: 'Não consegui preparar o áudio agora. A resposta continua escrita aqui.', dono: 'interface' },
+    { situacao: 'Modo demonstração (título do bloco recolhido)', texto: 'Modo demonstração: o que os agentes fizeram', dono: 'interface' },
+  ]}
+/>
+
+A voz é só gravada no aparelho e enviada para o nosso servidor transcrever (issue #24). O app nunca usa o reconhecimento de fala do navegador, que manda o áudio para terceiros.
 
 ## Selo de procedência
 
