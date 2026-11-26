@@ -35,7 +35,7 @@ export function Disclosure({ titulo, nivelTitulo = 3, children, ...props }: Disc
           slot="trigger"
           className={
             'flex min-h-13 w-full cursor-pointer items-center justify-between gap-2 rounded-controle px-4 py-2 ' +
-            'text-start text-text-default data-focus-visible:foco-visivel'
+            'text-start text-text-default outline-none data-focus-visible:foco-visivel'
           }
         >
           {titulo}
@@ -48,7 +48,9 @@ export function Disclosure({ titulo, nivelTitulo = 3, children, ...props }: Disc
           />
         </AriaButton>
       </Heading>
-      <DisclosurePanel className="px-4 pb-4 text-corpo">{children}</DisclosurePanel>
+      {/* Fechado, o painel fica com hidden="until-found", que o Tailwind não esconde:
+          o espaçamento só entra aberto, senão sobra um vão embaixo do título. */}
+      <DisclosurePanel className="px-4 text-corpo group-data-expanded:pb-4">{children}</DisclosurePanel>
     </AriaDisclosure>
   );
 }
