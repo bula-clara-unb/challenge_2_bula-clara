@@ -1,0 +1,52 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './1-BlocoDeResposta.stories';
+
+<Meta of={Stories} />
+
+# Bloco de resposta
+
+Como os componentes se juntam numa resposta completa. Cada resposta é uma página inteira, e as respostas anteriores continuam acima, cada uma como um bloco igual a este.
+
+## Exemplo
+
+<Canvas of={Stories.Completo} />
+
+## As 10 camadas, nesta ordem
+
+Cada camada só aparece quando há dados para ela.
+
+1. A pergunta feita e os remédios considerados (`AnswerHeadline`).
+2. A frase-resposta (`AnswerHeadline`).
+3. O botão Ouvir (`ListenButton`), que some se não houver voz permitida.
+4. A interação (`InteractionCallout`), um por par checado, com os pares com frase achada primeiro.
+5. A explicação completa com as citações `[n]` (`Prose`).
+6. Os chips de seção da bula (`SourceChip`), um por citação.
+7. O selo de procedência (`ProvenanceSeal`).
+8. "Como chegamos nesta resposta", recolhido (`ReasoningSteps`). No modo demonstração, o `DemoTrace` vem logo depois.
+9. As sugestões de "Perguntar mais" (`SuggestionChip`), montadas por `sugestoesDePerguntarMais` a partir de modelos fixos, sem LLM.
+10. O aviso legal (`DisclaimerFooter`).
+
+As citações `[n]` dentro do texto são só texto. Quem leva à ficha é o chip de seção, que tem área de toque de 48px. Um número pequeno dentro da frase seria difícil de tocar.
+
+## Carregando e chegando
+
+Enquanto a resposta é montada, o `LoadingStatus` mostra a etapa atual numa região `aria-live="polite"`, que fica montada o tempo todo. Quando a resposta chega, a região fica vazia e o foco vai para a frase-resposta. Assim o leitor de tela começa a ler dali, uma vez só.
+
+<Canvas of={Stories.Chegando} />
+
+## No modo demonstração
+
+Com `?demo=1`, o app passa o trace e o `DemoTrace` aparece depois do "Como chegamos nesta resposta".
+
+<Canvas of={Stories.ModoDemonstracao} />
+
+## Alto contraste e texto em 140%
+
+<Canvas of={Stories.AltoContrasteETextoGrande} />
+
+## Regras
+
+- Em emergência, a resposta inteira vira o `EmergencyCard` (veja Padrões/Emergência). Em bloqueio por dose ou grupo especial, o `SafetyNotice` fica no lugar das camadas 2 a 9.
+- A ficha abre pelo chip, por estado de navegação, sem o nome do remédio na URL.
+- Nenhuma sugestão fala de dose, troca ou suspensão.
+- A resposta não é guardada em lugar nenhum além da memória da página.

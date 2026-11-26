@@ -1,0 +1,39 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './4-Consentimento.stories';
+
+<Meta of={Stories} />
+
+# Consentimento
+
+"Lembrar neste aparelho": a lista de remédios só fica salva no navegador com um consentimento explícito, e sai dele na hora em que a pessoa quiser.
+
+## Exemplo
+
+<Canvas of={Stories.ComecaDesligado} />
+
+## Composição
+
+- O título "Meus remédios" e a frase "Uso esta lista para checar interações em cada pergunta.".
+- O `MedicationList`: busca, lista, interruptor e "Apagar tudo".
+- A barra de navegação, sem a caixa de pergunta.
+- O `ToastRegion`, montado uma vez no layout do app.
+
+## O que o app faz com a lista
+
+O componente não grava nada. O app segue estas regras:
+
+- Por padrão, a lista vive no `sessionStorage` e some quando a página fecha.
+- Com o interruptor ligado, a lista passa para o `localStorage`.
+- Ao desligar, o `localStorage` é limpo na hora.
+- "Apagar tudo" limpa os dois e confirma com o Toast "Lista apagada deste aparelho.".
+- A lista vai junto com cada pergunta (`medicamentos_em_uso`) e não fica guardada em nenhum servidor.
+
+<Canvas of={Stories.LigarEDesligar} />
+
+<Canvas of={Stories.ApagarTudo} />
+
+## Regras
+
+- O interruptor começa sempre desligado, e a explicação aparece antes de a pessoa ligar (consentimento explícito, LGPD art. 11).
+- O texto de privacidade precisa ser verdadeiro. A interface nunca diz que "nada é enviado".
+- "Apagar tudo" aparece sempre que a lista tem itens, como na tela aprovada. Com a lista vazia, não há o que apagar.

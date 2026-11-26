@@ -1,0 +1,30 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './7-PrimeiraVisita.stories';
+
+<Meta of={Stories} />
+
+# Primeira visita
+
+A tela Perguntar antes da primeira pergunta: o estado vazio do Bula Clara.
+
+## Exemplo
+
+<Canvas of={Stories.EstadoVazio} />
+
+## Composição
+
+- A faixa de emergência.
+- O título "Tire sua dúvida sobre um remédio" e a frase "Eu explico a bula oficial da ANVISA com palavras simples.".
+- As entradas por foto e por voz, como botões secundários de mesmo peso.
+- "Ou toque num exemplo", com três perguntas em `SuggestionChip`. Uma delas ("Posso dobrar a dose da losartana?") mostra, de propósito, como o Bula Clara recusa um pedido de mudança de dose.
+- O atalho "Seus remédios: nenhum ainda", que leva a Meus remédios.
+- O `InputDock`, com a caixa de pergunta e a navegação.
+
+## Texto em 140% e alto contraste
+
+<Canvas of={Stories.TextoGrande} />
+
+## Regras
+
+- Com a lista cheia, o atalho diz quais remédios estão nela ("Seus remédios: losartana, metformina") e troca "Adicionar" por "Editar".
+- A câmera e o microfone só abrem quando a pessoa toca no botão.

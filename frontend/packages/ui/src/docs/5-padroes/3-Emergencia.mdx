@@ -1,0 +1,39 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './3-Emergencia.stories';
+
+<Meta of={Stories} />
+
+# Emergência
+
+Quando a `categoria_risco` é `emergencia`, a resposta inteira é substituída pelo `EmergencyCard`.
+
+## Exemplo
+
+<Canvas of={Stories.Intoxicacao} />
+
+## Composição
+
+- A faixa `EmergencyBar`, que continua no topo.
+- "Sua pergunta", para a pessoa ver o que disparou o cartão.
+- O `EmergencyCard`, com o título como `h1` da página.
+- O aviso legal, que aparece também nas respostas bloqueadas.
+
+Nada mais: sem Ouvir, sem interação, sem sugestões.
+
+## Autolesão
+
+O mesmo cartão, com o conteúdo que o backend manda para autolesão: mensagem acolhedora, CVV 188 primeiro e nenhuma orientação de intoxicação.
+
+<Canvas of={Stories.Autolesao} />
+
+## Depois de uma resposta comum
+
+As respostas anteriores continuam acima, e o cartão aparece no bloco novo. Ainda assim, só há um `role="alert"` na tela.
+
+<Canvas of={Stories.NoHistorico} />
+
+## Regras
+
+- O texto de segurança tem uma fonte só: o backend. A interface mostra a mensagem e os contatos na ordem recebida e cuida só do layout e dos botões `tel:`.
+- No máximo um cartão por tela, sempre no topo do bloco. O componente reclama no console se encontrar dois.
+- A faixa de emergência nunca some.

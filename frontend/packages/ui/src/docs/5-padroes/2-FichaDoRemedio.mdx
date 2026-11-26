@@ -1,0 +1,43 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './2-FichaDoRemedio.stories';
+
+<Meta of={Stories} />
+
+# Ficha do remédio
+
+A bula do remédio, inteira, organizada pelas 9 perguntas da RDC 47/2009. Ela abre pelo chip de seção de uma resposta, já na seção citada.
+
+## Exemplo
+
+<Canvas of={Stories.AbertaNaSecaoCitada} />
+
+## Composição
+
+- "Voltar" (`Button` discreto), que leva de volta à resposta.
+- O nome do remédio como título da página (`Heading` nível 1, em Literata).
+- O selo de procedência sem repetir o nome ("Bula oficial ANVISA · versão de 03/2025").
+- "Ouvir esta página" (`ListenButton`).
+- O rótulo "Nesta bula" e as 9 seções como perguntas, num `Accordion` de `Disclosure`. Os títulos vêm de `SECOES_DA_BULA`.
+- Na seção citada, aberta: "Citado na sua resposta" e a frase usada, destacada com `mark`.
+- O aviso legal.
+
+## Abrindo outra seção
+
+Abrir uma seção não fecha as outras, e a citada continua aberta.
+
+<Canvas of={Stories.OutraSecao} />
+
+## Sem data da versão
+
+<Canvas of={Stories.SemData} />
+
+## Regras
+
+- A ficha abre por estado de navegação (`/remedio` com o nome no estado do router), nunca por `/remedio/losartana`. O histórico do celular não registra o remédio consultado.
+- O texto de cada seção vem do `GET /medicamentos/{nome}` (issue #22). Enquanto ele não existe, os exemplos mostram só o que já está nas telas aprovadas.
+- A frase destacada é a mesma da evidência na resposta, sem resumo.
+
+## Acessibilidade
+
+- Cada seção é um botão dentro de um `h2`, com `aria-expanded`. As perguntas numeradas servem de índice para o leitor de tela (lista de títulos).
+- O destaque não depende só da cor: a frase vem com o rótulo "Citado na sua resposta" e entre aspas.
