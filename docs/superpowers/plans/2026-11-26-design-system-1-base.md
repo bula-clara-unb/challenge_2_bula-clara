@@ -130,7 +130,7 @@ pnpm -v   # 11.x. Se não tiver: corepack enable && corepack prepare pnpm@11.3.0
   "devDependencies": {
     "@changesets/cli": "^3.0.3",
     "@eslint/js": "^10.0.1",
-    "eslint": "^9.39.5",
+    "eslint": "^10.15.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-storybook": "^10.6.8",
@@ -814,7 +814,7 @@ const mapaTailwind = {
   radius: 'radius',
   'font.familia': 'font',
   'font.tamanho': 'text',
-  duracao: 'duration',
+  duracao: 'transition-duration', // o Tailwind 4.3 lê as durações de --transition-duration-*
   sombra: 'shadow',
   'font.espacamento-letra': 'tracking',
   'tamanho.medida': 'container-medida',

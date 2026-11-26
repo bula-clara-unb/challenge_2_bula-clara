@@ -724,7 +724,7 @@ const mapaTailwind = {
   radius: 'radius',
   'font.familia': 'font',
   'font.tamanho': 'text',
-  duracao: 'duration',
+  duracao: 'transition-duration', // o Tailwind 4.3 lê as durações de --transition-duration-*
   sombra: 'shadow',
   'font.espacamento-letra': 'tracking',
   'tamanho.medida': 'container-medida',
