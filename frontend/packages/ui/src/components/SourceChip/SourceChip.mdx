@@ -1,0 +1,68 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './SourceChip.stories';
+
+<Meta of={Stories} />
+
+# SourceChip
+
+Chip que liga uma citação `[n]` da resposta ao trecho da bula e abre a ficha do remédio na seção citada.
+
+## Exemplo
+
+<Canvas of={Stories.Principal} />
+
+## Quando usar
+
+- Logo abaixo da explicação, um chip para cada citação.
+- Com o mesmo visual, o `SuggestionChip` faz as sugestões de "Perguntar mais" e os exemplos da primeira visita.
+
+## Quando não usar
+
+- Para levar a outra página do app, use `LinkButton`.
+- Para mostrar os remédios da lista, use `Tag`.
+
+## Anatomia
+
+- Ícone de documento, decorativo.
+- Número da citação ("[1]"), quando houver.
+- "Na bula:" e, em negrito, o remédio e a seção ("Losartana · seção 4").
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.DuasFontes} />
+
+<Canvas of={Stories.Sugestoes} />
+
+<Canvas of={Stories.AltoContraste} />
+
+## Perguntar mais
+
+As sugestões saem de modelos fixos, sem LLM, pela função `sugestoesDePerguntarMais`:
+
+- "Como tomar a losartana?", quando a pergunta não foi sobre como tomar;
+- "Para que serve a losartana?", quando a pergunta não foi sobre para que serve;
+- "E com paracetamol?", uma vez para cada outro remédio da lista que não estava na pergunta.
+
+O artigo concorda com o remédio quando o app sabe o gênero do nome (`artigo: 'a'` ou `'o'`). Sem essa informação, a sugestão sai sem artigo ("Como tomar omeprazol?"), que soa seca mas nunca sai errada. Nenhum modelo fala de dose, troca ou suspensão, que o backend bloquearia.
+
+O pacote também exporta `SECOES_DA_BULA`, as 9 seções da RDC 47/2009 com a pergunta curta da ficha.
+
+## Acessibilidade
+
+- É um `button`, nunca um link: a ficha abre por estado de navegação, e o nome do remédio não aparece na URL nem no histórico do navegador.
+- O nome acessível é o texto visível ("[1] Na bula: Losartana · seção 4").
+- 48px de altura ou mais. No alto contraste, contorno preto de 2px.
+
+## Conteúdo
+
+"Na bula" diz de onde vem a informação sem termo técnico. A seção é a mesma da bula de papel, para a pessoa conferir na caixa.
+
+## Faça e não faça
+
+- Faça: um chip por citação, na ordem dos números.
+- Não faça: um link `href="/remedio/losartana"`.
+- Não faça: sugestão escrita por LLM ou sobre mudança de dose.
