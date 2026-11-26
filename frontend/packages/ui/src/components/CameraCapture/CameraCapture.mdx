@@ -1,0 +1,53 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './CameraCapture.stories';
+
+<Meta of={Stories} />
+
+# CameraCapture
+
+O visor para fotografar a caixa do remédio.
+
+## Exemplo
+
+<Canvas of={Stories.Visor} />
+
+## Quando usar
+
+Quando a pessoa toca em "Fotografar a caixa". O app mostra o componente na tela inteira e, com a foto, chama o `/ler-caixa` e abre o `OcrConfirm`.
+
+## Quando não usar
+
+Para ler um código de barras ou QR code. Esse fluxo não existe no Bula Clara.
+
+## Anatomia
+
+- "Fechar" e o título "Foto da caixa".
+- O visor, com a moldura "Enquadre o nome do remédio aqui".
+- "Tirar foto", que só fica ativo com a câmera pronta.
+- "Digitar o nome", sempre presente.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Negada} />
+
+<Canvas of={Stories.SemCamera} />
+
+## Acessibilidade
+
+- É uma região com o título "Foto da caixa" como nome.
+- O vídeo não tem som (`muted`) e roda dentro da página (`playsInline`).
+- Com a câmera negada ou ausente, aparece um aviso com `role="status"`, que o leitor de tela anuncia, e "Digitar o nome" vira o botão principal.
+- A câmera desliga quando o componente sai da tela.
+
+## Conteúdo
+
+Os textos são os da página Textos da interface: "A câmera está bloqueada para o Bula Clara. Você pode digitar o nome do remédio.", com uma linha sobre como liberar o acesso. Sem câmera no aparelho, o aviso diz isso, sem falar em bloqueio.
+
+## Faça e não faça
+
+- Faça: peça a câmera só quando a pessoa tocar no botão.
+- Não faça: guardar a foto. Ela serve só para ler o nome.
