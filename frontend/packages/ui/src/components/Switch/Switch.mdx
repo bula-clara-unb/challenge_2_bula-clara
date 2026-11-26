@@ -1,0 +1,54 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Switch.stories';
+
+<Meta of={Stories} />
+
+# Switch
+
+Interruptor em cartão, para uma opção que vale na hora em que muda. A explicação acompanha o estado.
+
+<Canvas of={Stories.Desligado} />
+
+## Quando usar
+
+Para uma escolha que tem efeito imediato, como "Lembrar neste aparelho" no consentimento de "Meus remédios".
+
+## Quando não usar
+
+- Para uma opção que só vale quando a pessoa confirma um formulário, use `Checkbox`.
+- Para escolher entre opções que não são liga e desliga, use `RadioGroup`.
+
+## Anatomia
+
+- Cartão com borda fina (mais grossa no alto contraste).
+- Trilho de 52 por 32px, com a bolinha que anda para o lado.
+- Texto em negrito ao lado, que é o rótulo.
+- Explicação abaixo, que pode mudar com o estado.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Ligado} />
+
+## Acessibilidade
+
+- Papel `switch`. Espaço liga e desliga, e o leitor de tela anuncia "ligado" ou "desligado".
+- A explicação fica ligada ao interruptor por `aria-describedby`. Quando o estado muda, o leitor de tela lê a nova explicação.
+- Ligado não depende só da cor: a bolinha muda de lado.
+- O contorno de foco aparece no trilho, e a área de toque é a linha inteira, com 48px.
+- Com movimento reduzido, a bolinha muda de lado sem animação.
+
+## Conteúdo
+
+O texto de cada estado precisa ser verdadeiro. A lista vai para a API a cada pergunta, então a explicação nunca diz que nada é enviado. Os textos aprovados estão em **Conteúdo e voz** > **Textos da interface**:
+
+- Desligado: "Desligado: a lista some quando você fecha a página. Ela vai junto com cada pergunta, mas não fica guardada em nenhum servidor."
+- Ligado: "Ligado: a lista fica salva só neste navegador. Desligar apaga na hora."
+
+## Faça e não faça
+
+- Faça: o interruptor começa desligado, e a explicação aparece antes de a pessoa ligar.
+- Não faça: "Seus dados ficam só com você". A lista sai do aparelho a cada pergunta.
