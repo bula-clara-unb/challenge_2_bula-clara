@@ -1,0 +1,34 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { AmostraDeFoco, Bordas, Medidas, Raios, Sombra } from '../blocos/EspacoEForma';
+
+<Meta title="Fundamentos/Forma" />
+
+# Forma
+
+## Raios
+
+<Raios />
+
+## Bordas em vez de sombras
+
+A separação entre as coisas é feita com borda. Os controles têm borda de 2 px nos dois temas.
+
+Os avisos (InteractionCallout, SafetyNotice) usam uma barra lateral grossa na cor do nível, que é o padrão do gov.br e do NHS para aviso institucional. No tema padrão, a barra basta. No alto contraste, a barra engrossa e o aviso ganha contorno, porque ali nenhum fundo colorido aparece sem borda.
+
+<Bordas />
+
+A única sombra do sistema é a dos painéis que flutuam por cima da tela. As sombras padrão do Tailwind estão desligadas.
+
+<Sombra />
+
+## Área de toque, foco e largura do texto
+
+Tudo que se toca tem pelo menos 48 por 48 px, mesmo que o desenho seja menor: um ícone de 24 px dentro de um `IconButton` ocupa 48 px de área. Isso ajuda quem tem tremor nas mãos ou pouca precisão no toque.
+
+O foco do teclado aparece em todo controle: contorno escuro de 3 px, afastado 2 px do controle, com um halo amarelo de 4 px por fora. A combinação fica visível sobre qualquer fundo, nos dois temas, inclusive o azul e o vermelho de emergência.
+
+<Medidas />
+
+<AmostraDeFoco />
+
+Nos componentes, use a classe `foco-visivel` junto com o estado de foco do React Aria: `data-focus-visible:foco-visivel`. O contorno aparece para quem navega pelo teclado, e não a cada toque.

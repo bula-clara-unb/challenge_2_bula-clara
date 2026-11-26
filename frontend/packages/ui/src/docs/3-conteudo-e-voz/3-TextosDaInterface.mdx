@@ -1,0 +1,189 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { FacaNaoFaca } from '../blocos/FacaNaoFaca';
+import { Tabela } from '../blocos/Tabela';
+import { TextosComLeitura } from '../blocos/Legibilidade';
+
+<Meta title="Conteúdo e voz/Textos da interface" />
+
+# Textos da interface
+
+Estes são os textos fixos da interface, estado por estado, como aparecem nas telas aprovadas pelo grupo. Use como estão. Se precisar mudar um, mude aqui primeiro e confira o índice de Flesch, calculado na hora pela mesma conta de `scripts/avaliar.py`. A meta é 50 ou mais. O Flesch foi pensado para trechos de texto. Numa frase de menos de 10 palavras, uma palavra comprida decide o resultado ("Checando interações…" daria menos de zero), e a tabela mostra "Texto curto". Nesses casos, vale a regra de usar palavras do dia a dia.
+
+## Quem escreve cada texto
+
+A coluna "Quem escreve" diz de onde o texto vem:
+
+- **Interface:** o texto está nesta página e o app usa exatamente ele.
+- **Backend:** o texto vem pronto da API, e a interface só mostra. Aparece aqui para quem desenha a tela saber o que vai caber. Mudanças nesses textos são feitas no backend, nunca no app.
+
+Os textos de segurança não aparecem nesta página de propósito. Emergência (intoxicação, overdose e autolesão), mudança de dose, grupos especiais e o aviso legal vêm sempre do backend, com regras fixas e testadas em `bula_clara/agentes/seguranca.py`, como o `docs/etica.md` exige. A interface escolhe o componente pela `categoria_risco` e cuida só do layout e dos botões de ligar, na ordem dos `contatos` que o backend mandar.
+
+## Rótulos fixos
+
+<Tabela
+  titulo="Rótulos que aparecem em várias telas"
+  colunas={['Onde', 'Texto']}
+  linhas={[
+    ['Faixa fixa no topo (EmergencyBar)', 'Emergência? Ligue 192'],
+    ['Barra de navegação', 'Perguntar · Meus remédios · Sobre'],
+    ['Rótulo acima da pergunta feita', 'Sua pergunta'],
+    ['Remédios da lista considerados na resposta', 'Considerando também: metformina'],
+    ['Botão de ouvir, na resposta e na ficha', 'Ouvir resposta · Ouvir esta página'],
+    ['Chip de fonte (SourceChip)', '[1] Na bula: Losartana · seção 4'],
+    ['Passos da resposta, recolhidos (ReasoningSteps)', 'Como chegamos nesta resposta'],
+    ['Sugestões de seguimento', 'Perguntar mais'],
+    ['Ação de saída depois de uma resposta', 'Outra pergunta'],
+    ['Índice da ficha do remédio', 'Nesta bula'],
+    ['Trecho destacado na ficha', 'Citado na sua resposta'],
+  ]}
+/>
+
+Rótulos de bloco, como "Sua pergunta", usam o estilo `rotulo`, em caixa alta. O texto continua escrito normalmente no código, e a caixa alta vem do CSS, para o leitor de tela não soletrar.
+
+## Primeira visita e lista vazia
+
+<TextosComLeitura
+  titulo="Estados vazios"
+  textos={[
+    { situacao: 'Perguntar, primeira visita (título)', texto: 'Tire sua dúvida sobre um remédio', dono: 'interface' },
+    { situacao: 'Perguntar, primeira visita (explicação)', texto: 'Eu explico a bula oficial da ANVISA com palavras simples.', dono: 'interface', acao: 'Fotografar a caixa · Perguntar falando' },
+    { situacao: 'Perguntar, acima dos exemplos', texto: 'Ou toque num exemplo', dono: 'interface' },
+    { situacao: 'Perguntar, atalho da lista vazia', texto: 'Seus remédios: nenhum ainda. Adicione os remédios que você usa para eu checar interações.', dono: 'interface', acao: 'Adicionar' },
+    { situacao: 'Meus remédios, explicação no topo', texto: 'Uso esta lista para checar interações em cada pergunta.', dono: 'interface', acao: 'Adicionar remédio' },
+    { situacao: 'Meus remédios, lista vazia', texto: 'Nenhum remédio na lista.', dono: 'interface' },
+  ]}
+/>
+
+Os exemplos de pergunta da primeira visita são "Posso tomar ibuprofeno com losartana?" e "Posso dobrar a dose da losartana?". O segundo mostra, de propósito, como o Bula Clara recusa um pedido de mudança de dose.
+
+## Carregando
+
+A resposta pode levar mais de 10 segundos, então o status mostra a etapa atual. O texto vai numa região `aria-live="polite"`, e é a única coisa anunciada por ela. Quando a resposta chega, o foco vai para o título da resposta e o leitor de tela começa dali, sem ler a resposta duas vezes.
+
+<TextosComLeitura
+  titulo="Etapas do carregamento (LoadingStatus no artifact)"
+  textos={[
+    { situacao: 'Etapa 1', texto: 'Identificando os remédios…', dono: 'interface' },
+    { situacao: 'Etapa 2', texto: 'Lendo a bula…', dono: 'interface' },
+    { situacao: 'Etapa 3', texto: 'Checando interações…', dono: 'interface' },
+    { situacao: 'Etapa 4', texto: 'Conferindo a segurança…', dono: 'interface' },
+    { situacao: 'Etapa 2, quando o remédio já é conhecido', texto: 'Lendo a bula da losartana…', dono: 'interface' },
+  ]}
+/>
+
+## Confirmar antes de perguntar
+
+Depois da foto ou da voz, a pessoa sempre confirma o que o sistema entendeu antes de a pergunta ir para a API. Isso reduz o risco de responder sobre o remédio errado (risco R3 em `docs/definicoes.md`).
+
+<TextosComLeitura
+  titulo="Confirmação da foto e da voz (OcrConfirm e TranscriptConfirm; CaptureConfirm no artifact)"
+  textos={[
+    { situacao: 'Foto lida (rótulo)', texto: 'Li na caixa', dono: 'interface' },
+    { situacao: 'Foto lida (o que foi lido, em destaque)', texto: 'Losartana potássica 50 mg', dono: 'interface' },
+    { situacao: 'Foto lida (pergunta)', texto: 'É esse o remédio?', dono: 'interface', acao: 'Sim, perguntar sobre ele · Não, vou digitar o nome' },
+    { situacao: 'Foto lida (nota abaixo dos botões)', texto: 'A foto é usada só para ler o nome e não é guardada.', dono: 'interface' },
+    { situacao: 'Câmera, guia de enquadramento', texto: 'Enquadre o nome do remédio aqui', dono: 'interface' },
+    { situacao: 'Foto sem nenhum remédio reconhecido', texto: 'Não consegui ler o nome na foto. Tente com mais luz, ou digite o nome que está na caixa.', dono: 'interface', acao: 'Tirar outra foto · Digitar o nome' },
+    { situacao: 'Voz transcrita (rótulo)', texto: 'Entendi', dono: 'interface' },
+    { situacao: 'Voz transcrita (o que foi entendido, em destaque)', texto: '“Posso tomar ibuprofeno com losartana?”', dono: 'interface' },
+    { situacao: 'Voz transcrita (pergunta)', texto: 'Está certo?', dono: 'interface', acao: 'Sim, perguntar · Não, vou escrever' },
+  ]}
+/>
+
+O nome lido e a pergunta transcrita mudam a cada vez. O resto do texto é fixo. A nota "A foto é usada só para ler o nome e não é guardada" só vale se o endpoint `/ler-caixa` (issue #24) de fato não guardar a imagem. Se isso mudar, o texto muda junto.
+
+## Erros
+
+<TextosComLeitura
+  titulo="Mensagens de erro"
+  textos={[
+    { situacao: 'API fora do ar', texto: 'Não consegui falar com o Bula Clara agora. Tente de novo em alguns minutos. Se a dúvida não pode esperar, fale com o farmacêutico.', dono: 'interface', acao: 'Tentar de novo' },
+    { situacao: 'Resposta da API fora do formato esperado', texto: 'Não consegui montar a resposta com segurança. O farmacêutico pode te ajudar.', dono: 'interface' },
+    { situacao: 'Sem conexão', texto: 'Sem conexão: preciso da internet para ler a bula.', dono: 'interface', acao: 'Tentar de novo' },
+    { situacao: 'Câmera negada', texto: 'A câmera está bloqueada para o Bula Clara. Você pode digitar o nome do remédio.', dono: 'interface', acao: 'Digitar o nome' },
+    { situacao: 'Microfone negado', texto: 'O microfone está bloqueado para o Bula Clara. Você pode escrever a sua pergunta.', dono: 'interface', acao: 'Escrever a pergunta' },
+    { situacao: 'Meus remédios, nome não encontrado na busca', texto: 'Não achei esse remédio. Confira o nome na caixa.', dono: 'interface' },
+    { situacao: 'Remédio não identificado na pergunta (título)', texto: 'Não consegui identificar o remédio.', dono: 'backend' },
+    { situacao: 'Remédio não identificado na pergunta (explicação)', texto: 'Escreva o nome como aparece na caixa, por exemplo "losartana". Ou fotografe a caixa. Na dúvida, pergunte ao farmacêutico.', dono: 'backend', acao: 'Fotografar a caixa' },
+    { situacao: 'A bula não tem a informação', texto: 'Não encontrei essa informação na bula dos medicamentos que tenho na base. Pergunte ao farmacêutico — ele pode ajudar na hora.', dono: 'backend' },
+  ]}
+/>
+
+Quando a resposta da API vem fora do formato, a faixa de emergência continua na tela e nenhum aviso de segurança aparece pela metade. Essa mensagem é a da spec com o fim trocado: "Pergunte ao farmacêutico" deixava o índice em 41, e "O farmacêutico pode te ajudar", que é a forma da regra 5, leva a 52. Nas mensagens de câmera e microfone negados, uma linha abaixo explica como liberar o acesso nas configurações do navegador, para quem quiser.
+
+Os textos do backend são os das telas aprovadas. A explicação de remédio não identificado fica abaixo da meta de Flesch, e a #23 pode simplificar quando levar o texto para o backend. Hoje o `seguranca.py` ainda manda versões mais antigas (por exemplo, "Não consegui identificar o medicamento, ou ele ainda não está na minha base…"), e a issue #23 alinha as mensagens a este guia.
+
+## Interação entre remédios
+
+Os títulos saem da seção da bula onde a frase foi achada, sem nenhuma inferência. A frase da bula sempre aparece logo abaixo, como evidência, com o remédio e a seção.
+
+<TextosComLeitura
+  titulo="Textos do InteractionCallout"
+  textos={[
+    { situacao: 'Frase achada em "Quando não devo usar?" (título)', texto: 'A bula diz para não usar junto', dono: 'interface' },
+    { situacao: 'Frase achada em "O que devo saber antes de usar?" (título)', texto: 'A bula pede cuidado com essa combinação', dono: 'interface' },
+    { situacao: 'Ação abaixo dos dois primeiros níveis', texto: 'Converse com o farmacêutico antes de tomar os dois juntos.', dono: 'interface' },
+    { situacao: 'Nenhuma frase achada para o par (título)', texto: 'Ibuprofeno e metformina: a bula não fala dessa combinação', dono: 'interface' },
+    { situacao: 'Nenhuma frase achada para o par (sempre junto)', texto: 'Isso não garante que seja seguro. Na dúvida, pergunte ao farmacêutico.', dono: 'interface' },
+  ]}
+/>
+
+O primeiro título ainda depende de uma validação. Uma frase na seção "Quando não devo usar" nem sempre quer dizer "não use os dois juntos". Antes de o app fixar esse texto, o agente de interações precisa rodar nos pares do gabarito (`data/avaliacao/interacoes.jsonl`) com as bulas reais. Se aparecerem falsos "não usar junto", o título passa a ser "A bula cita essa combinação em 'Quando não usar'", com a ação "Fale com o médico antes de usar os dois juntos".
+
+## Selo de procedência
+
+<Tabela
+  titulo="Selo de procedência (ProvenanceSeal)"
+  colunas={['Situação', 'Texto']}
+  linhas={[
+    ['Bula com data registrada', 'Bula oficial ANVISA · Losartana, versão de 03/2025'],
+    ['Bula sem data registrada', 'Bula oficial ANVISA · Hidroclorotiazida · data da versão não informada'],
+    ['Resposta com duas bulas', 'Bula oficial ANVISA · Losartana, versão de 03/2025 · Ibuprofeno, versão de 11/2024'],
+    ['Na ficha do remédio, abaixo do nome', 'Bula oficial ANVISA · versão de 03/2025'],
+  ]}
+/>
+
+Sem data, o selo diz que a data não foi informada. Ele nunca mostra uma data inventada ou estimada.
+
+## Perguntar mais
+
+As sugestões de seguimento saem de modelos fixos no frontend, sem LLM, e aparecem como chips.
+
+<Tabela
+  titulo="Modelos de Perguntar mais"
+  colunas={['Modelo', 'Quando aparece', 'Exemplo']}
+  linhas={[
+    [<code>Como tomar {'{o/a remédio}'}?</code>, 'Quando a resposta não foi sobre como tomar', '"Como tomar a losartana?"'],
+    [<code>Para que serve {'{o/a remédio}'}?</code>, 'Quando a resposta não foi sobre para que serve', '"Para que serve o ibuprofeno?"'],
+    [<code>E com {'{outro remédio da lista}'}?</code>, 'Uma vez para cada outro remédio da lista', '"E com paracetamol?"'],
+  ]}
+/>
+
+O artigo concorda com o remédio: "a losartana", mas "o ibuprofeno" e "o omeprazol". Para isso, o app precisa saber o gênero de cada nome da base. Enquanto essa informação não existir, a sugestão sai sem artigo ("Como tomar omeprazol?"), que soa um pouco seca mas nunca sai errada.
+
+Nenhum modelo sugere pergunta sobre dose, troca ou suspensão. Essas perguntas são bloqueadas pelo backend, e oferecer uma seria mandar a pessoa direto para um bloqueio.
+
+## Meus remédios e consentimento
+
+O texto de privacidade precisa ser verdadeiro. A lista vai para a API a cada pergunta (`medicamentos_em_uso`), porque é assim que as interações são checadas. Por isso a interface nunca diz que "nada é enviado". O que ela pode dizer, porque é verdade, é que a lista não fica guardada em servidor nenhum.
+
+<TextosComLeitura
+  titulo="Textos de Meus remédios (MedicationList e Switch)"
+  textos={[
+    { situacao: 'Interruptor (título)', texto: 'Lembrar neste aparelho', dono: 'interface' },
+    { situacao: 'Interruptor desligado (explicação)', texto: 'Desligado: a lista some quando você fecha a página. Ela vai junto com cada pergunta, mas não fica guardada em nenhum servidor.', dono: 'interface' },
+    { situacao: 'Interruptor ligado (explicação)', texto: 'Ligado: a lista fica salva só neste navegador. Desligar apaga na hora.', dono: 'interface' },
+    { situacao: 'Botão (variante perigo)', texto: 'Apagar tudo', dono: 'interface' },
+    { situacao: 'Depois de apagar (Toast)', texto: 'Lista apagada deste aparelho.', dono: 'interface' },
+    { situacao: 'Botão de remover um remédio (nome acessível)', texto: 'Remover losartana', dono: 'interface' },
+  ]}
+/>
+
+O interruptor começa sempre desligado, e a explicação aparece antes de a pessoa ligar. "Apagar tudo" apaga na hora e confirma com o Toast. Desligar o interruptor também apaga a lista do aparelho na hora.
+
+<FacaNaoFaca
+  faca={['Desligado: a lista some quando você fecha a página. Ela vai junto com cada pergunta, mas não fica guardada em nenhum servidor.']}
+  naoFaca={['Seus dados ficam só no seu aparelho. Nada é enviado para servidores.', 'Ao continuar, você concorda com o armazenamento de dados.']}
+/>
+
+A voz segue a mesma regra. Qualquer texto sobre o que acontece com o áudio, ou com a resposta lida em voz alta, só é escrito depois da issue #24, que decide como a voz vai funcionar, e precisa descrever exatamente o que ela faz.

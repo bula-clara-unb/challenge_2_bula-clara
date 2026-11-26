@@ -1,0 +1,60 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Changelog" />
+
+# Changelog
+
+O histórico de versões dos pacotes é gerado pelo [Changesets](https://github.com/changesets/changesets), a partir das frases que cada PR deixa em `frontend/.changeset/`. Esta página explica onde ele fica e como ler.
+
+## Onde fica
+
+Cada pacote tem o seu:
+
+- `frontend/packages/tokens/CHANGELOG.md`, de `@bula-clara/tokens`;
+- `frontend/packages/ui/CHANGELOG.md`, de `@bula-clara/ui`.
+
+Os dois arquivos só aparecem na primeira vez que alguém fecha uma versão. Até lá, as mudanças ficam esperando em `frontend/.changeset/`, uma por arquivo `.md`. Para ver o que está esperando:
+
+```bash
+cd frontend
+pnpm changeset status
+```
+
+## Como uma versão é fechada
+
+Quando o grupo decide fechar uma versão, normalmente antes do PR da `dev` para a `main`, alguém roda:
+
+```bash
+cd frontend
+pnpm changeset version
+```
+
+O comando junta os changesets pendentes, sobe a versão em cada `package.json`, escreve as frases no `CHANGELOG.md` de cada pacote e apaga os arquivos de `.changeset/` que usou. O resultado entra num commit normal, revisado no PR como qualquer outra mudança. Os pacotes são privados (`"private": true`) e não são publicados no npm: a versão serve para o grupo saber o que mudou e quando.
+
+## Como ler
+
+Um trecho de `frontend/packages/ui/CHANGELOG.md`:
+
+```md
+# @bula-clara/ui
+
+## 0.1.0
+
+### Minor Changes
+
+- Primeira versão: tokens dos temas padrão e alto contraste, e os componentes Button, IconButton e VisuallyHidden.
+
+### Patch Changes
+
+- Updated dependencies
+  - @bula-clara/tokens@0.1.0
+```
+
+- `## 0.1.0` é a versão. A mais nova fica no topo.
+- **Major Changes** são mudanças que obrigam quem usa a mexer no código, como uma prop renomeada ou um token removido. Leia sempre antes de atualizar.
+- **Minor Changes** trazem algo novo sem quebrar o que já existe, como um componente ou uma variante.
+- **Patch Changes** são correções. "Updated dependencies" quer dizer que o pacote subiu de versão só porque um pacote de que ele depende subiu, aqui o `@bula-clara/tokens`.
+
+Os títulos das seções saem em inglês, porque são gerados pelo Changesets. As frases de cada mudança são escritas por quem fez o PR, em português, para quem usa o pacote.
+
+Enquanto os pacotes estiverem em `0.x`, evite changeset do tipo major: ele leva a versão direto para `1.0.0`. A primeira versão estável fica para quando o grupo decidir.

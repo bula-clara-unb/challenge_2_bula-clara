@@ -1,0 +1,20 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { EscalaDeEspaco } from '../blocos/EspacoEForma';
+
+<Meta title="Fundamentos/Espaçamento" />
+
+# Espaçamento
+
+O espaçamento vai em múltiplos de 4 px, com poucos passos. Na dúvida entre dois valores, fique com o maior: espaço sobrando ajuda quem tem dificuldade de leitura a ver onde termina um assunto e começa outro.
+
+<EscalaDeEspaco />
+
+## Duas numerações para os mesmos valores
+
+O artifact do design system numera os passos em sequência, de `space-1` a `space-8`. No código, a numeração é a do Tailwind, em que o número vezes 4 dá o tamanho em px. Por isso o `space-5` do artifact (24 px) é o `p-6`, o `gap-6` ou o `mt-6` aqui. A tabela acima mostra as duas lado a lado.
+
+As classes do Tailwind fora da escala, como `p-5` ou `p-10`, ainda funcionam, mas não use: elas saem da escala.
+
+## Na resposta
+
+Entre as camadas de uma resposta (frase-resposta, botão Ouvir, aviso de interação, explicação, chips), use 24 px (`gap-6`). Entre uma resposta e a anterior, 32 px (`gap-8`). No celular, a margem lateral da tela é de 16 px (`px-4`).

@@ -1,0 +1,83 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Tabela } from '../blocos/Tabela';
+
+<Meta title="Conteúdo e voz/Glossário" />
+
+# Glossário de troca
+
+A bula usa a linguagem do fabricante e da ANVISA. A interface usa a da pessoa. Quando o termo técnico ajudar a achar o trecho na bula de papel ou na caixa, ele vem entre parênteses, depois da palavra simples: "quando não usar (contraindicação)".
+
+## As cinco trocas principais
+
+Estas são as trocas aprovadas com o design system. Aparecem em quase toda resposta.
+
+<Tabela
+  titulo="Trocas principais"
+  colunas={['Na bula', 'No Bula Clara', 'Exemplo']}
+  linhas={[
+    ['posologia', 'como tomar', '"Como tomar a losartana?"'],
+    ['contraindicação', 'quando não usar', '"Quando não devo usar?"'],
+    ['reação adversa', 'o que pode fazer mal', '"O que pode me fazer mal?"'],
+    ['uso concomitante', 'usar junto', '"Converse com o farmacêutico antes de usar os dois juntos."'],
+    ['superdosagem', 'tomar mais do que devia', '"E se eu tomar mais do que devia?"'],
+  ]}
+/>
+
+## Outras trocas
+
+<Tabela
+  titulo="Outras palavras da bula e o que usar no lugar"
+  colunas={['Na bula', 'No Bula Clara', 'Exemplo']}
+  linhas={[
+    ['interação medicamentosa', 'usar junto, combinação', '"A bula pede cuidado com essa combinação"'],
+    ['medicamento', 'remédio', '"Meus remédios". No selo de procedência continua "Bula oficial ANVISA"'],
+    ['administrar, ingerir', 'tomar', '"Tome com água"'],
+    ['via oral', 'pela boca, engolir', '"Engula o comprimido inteiro"'],
+    ['hipersensibilidade', 'alergia', '"Se você tem alergia à dipirona"'],
+    ['suspender, interromper o tratamento', 'parar de tomar', '"Não pare nenhum remédio por conta própria"'],
+    ['prescrição', 'receita', '"Siga a dose da sua receita"'],
+    ['profissional de saúde', 'médico ou farmacêutico', '"Pergunte ao farmacêutico"'],
+    ['gestante', 'grávida', '"Se você está grávida"'],
+    ['lactante', 'quem está amamentando', '"Se você está amamentando"'],
+    ['uso pediátrico', 'para crianças', '"Este remédio é para crianças a partir de 12 anos"'],
+    ['em jejum', 'em jejum (sem comer antes)', '"Tome em jejum (sem comer antes)"'],
+    ['cefaleia', 'dor de cabeça', '"Pode dar dor de cabeça"'],
+    ['náusea', 'enjoo', '"Pode dar enjoo"'],
+    ['prurido', 'coceira', '"Coceira na pele"'],
+    ['edema', 'inchaço', '"Inchaço nas pernas"'],
+    ['hipertensão arterial, anti-hipertensivo', 'pressão alta, remédio para pressão', '"Pode diminuir o efeito do remédio para pressão"'],
+    ['hipoglicemia', 'açúcar baixo no sangue', '"Pode baixar demais o açúcar no sangue"'],
+    ['insuficiência renal, função renal', 'problema nos rins, os rins', '"Pode forçar os rins"'],
+    ['insuficiência hepática', 'problema no fígado', '"Se você tem problema no fígado"'],
+  ]}
+/>
+
+## As 9 seções da bula
+
+A bula do paciente segue a RDC 47/2009, com 9 seções escritas como perguntas. Na ficha do remédio elas aparecem numeradas, na mesma ordem da bula de papel, com uma pergunta mais curta.
+
+<Tabela
+  titulo="Títulos das seções na ficha do remédio"
+  colunas={['Seção', 'Na bula', 'Na ficha']}
+  linhas={[
+    ['1', 'Para que este medicamento é indicado?', 'Para que serve?'],
+    ['2', 'Como este medicamento funciona?', 'Como ele funciona?'],
+    ['3', 'Quando não devo usar este medicamento?', 'Quando não devo usar?'],
+    ['4', 'O que devo saber antes de usar este medicamento?', 'O que devo saber antes de usar?'],
+    ['5', 'Onde, como e por quanto tempo posso guardar este medicamento?', 'Onde e como guardar?'],
+    ['6', 'Como devo usar este medicamento?', 'Como devo usar?'],
+    ['7', 'O que devo fazer quando eu me esquecer de usar este medicamento?', 'E se eu esquecer uma dose?'],
+    ['8', 'Quais os males que este medicamento pode me causar?', 'O que pode me fazer mal?'],
+    ['9', 'O que fazer se alguém usar uma quantidade maior do que a indicada deste medicamento?', 'E se eu tomar mais do que devia?'],
+  ]}
+/>
+
+O chip de fonte cita a seção pelo número ("Losartana · seção 4"), que é o mesmo da bula de papel.
+
+## Palavras que a interface não usa
+
+- **"Seguro" e "pode tomar"** sobre um remédio ou uma combinação. A bula não garante segurança para uma pessoa específica, e a interface também não.
+- **"Recomendamos" e "você deve"** sobre dose, troca ou suspensão. Isso é papel do médico. A interface diz o que a bula diz: "A bula diz para tomar…".
+- **"Infelizmente", "Ops" e pedidos de desculpa** em mensagem de erro. Diga o que aconteceu e o que fazer.
+- **"Usuário" e "paciente"** falando com a pessoa. Use "você".
+- **Siglas sem explicação.** "SAMU 192" pode, porque o número vem junto. "RDC" e "DCB" não aparecem na interface.

@@ -1,0 +1,70 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Camera, Check, Info, Microphone, Prohibit, SpeakerHigh, Trash, Warning } from '@phosphor-icons/react';
+import { Button } from '../../components/Button';
+import { IconButton } from '../../components/IconButton';
+import { Tabela } from '../blocos/Tabela';
+
+<Meta title="Fundamentos/Ícones" />
+
+# Ícones
+
+Os ícones são do [Phosphor](https://phosphoricons.com), em SVG, pelo pacote `@phosphor-icons/react`, nos pesos regular e bold. Todo ícone vem com um texto ao lado ou com `aria-label`.
+
+Emoji nunca aparece como ícone, nem no meio do texto. Cada sistema desenha o emoji de um jeito, e o leitor de tela lê o nome dele em voz alta ("sinal de aviso"), o que atrapalha mais do que ajuda.
+
+Nas prévias do artifact do design system e no protótipo, os ícones são desenhos provisórios. No código, são sempre os do Phosphor.
+
+## Ícones com significado fixo
+
+<Tabela
+  titulo="Ícones que sempre querem dizer a mesma coisa"
+  colunas={['Significado', 'Ícone', 'Nome no Phosphor']}
+  linhas={[
+    ['A bula diz para não usar junto', <Prohibit size={24} weight="bold" aria-hidden="true" focusable="false" />, <code>Prohibit</code>],
+    ['A bula pede cuidado com essa combinação', <Warning size={24} weight="bold" aria-hidden="true" focusable="false" />, <code>Warning</code>],
+    ['A bula não fala dessa combinação, e avisos neutros', <Info size={24} weight="bold" aria-hidden="true" focusable="false" />, <code>Info</code>],
+    ['Fotografar a caixa', <Camera size={24} weight="bold" aria-hidden="true" focusable="false" />, <code>Camera</code>],
+    ['Perguntar falando', <Microphone size={24} weight="bold" aria-hidden="true" focusable="false" />, <code>Microphone</code>],
+    ['Ouvir resposta', <SpeakerHigh size={24} weight="bold" aria-hidden="true" focusable="false" />, <code>SpeakerHigh</code>],
+    ['Confirmar ("Sim, perguntar sobre ele")', <Check size={24} weight="bold" aria-hidden="true" focusable="false" />, <code>Check</code>],
+    ['Apagar tudo', <Trash size={24} weight="bold" aria-hidden="true" focusable="false" />, <code>Trash</code>],
+  ]}
+/>
+
+## Tamanho e peso
+
+- 24 px nos botões, ao lado do texto ou sozinho no `IconButton`.
+- Peso bold nos controles, para o traço não sumir em tela pequena ou para quem enxerga mal. O regular serve para ícone grande e decorativo.
+- O ícone herda a cor do texto (`currentColor`), então segue o tema sozinho.
+
+## Leitor de tela
+
+Quase todo ícone fica ao lado de um texto que já diz a mesma coisa. Nesse caso ele é decorativo e precisa ficar escondido do leitor de tela, senão a informação é lida duas vezes:
+
+```tsx
+<Warning size={24} weight="bold" aria-hidden="true" focusable="false" />
+```
+
+O `Button` já faz isso com o ícone que recebe pela prop `icone`:
+
+```tsx
+<Button icone={SpeakerHigh}>Ouvir resposta</Button>
+```
+
+<div className="my-6 flex flex-wrap gap-4">
+  <Button icone={SpeakerHigh}>Ouvir resposta</Button>
+  <Button variante="perigo" icone={Trash}>Apagar tudo</Button>
+</div>
+
+Quando o ícone é o único conteúdo de um botão, o nome vai no botão, e não no ícone. Para isso existe o `IconButton`, que não compila sem `aria-label`:
+
+```tsx
+<IconButton aria-label="Perguntar falando" icone={Microphone} />
+```
+
+<div className="my-6 flex gap-4">
+  <IconButton aria-label="Perguntar falando" icone={Microphone} />
+  <IconButton aria-label="Fotografar a caixa" icone={Camera} variante="primaria" />
+</div>
+
+O `aria-label` diz a ação ("Perguntar falando"), e não o desenho ("Microfone").

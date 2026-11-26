@@ -1,0 +1,69 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introdução/Comece aqui" />
+
+# Design system do Bula Clara
+
+O Bula Clara explica a bula oficial da ANVISA com palavras simples, sempre mostrando de qual seção da bula saiu cada informação. Este Storybook é o design system da interface: os tokens, os componentes, o guia de conteúdo e as regras de acessibilidade. A spec completa está em `docs/design-system.md`, e as decisões de arquitetura, em `docs/adr/0001-arquitetura-do-design-system.md`.
+
+## Para quem é
+
+O design system existe para quem mais sofre com bula, e toda decisão aqui sai daí:
+
+- pessoas idosas, que muitas vezes tomam vários remédios ao mesmo tempo;
+- cuidadores e familiares, que cuidam dos remédios de outra pessoa;
+- quem enxerga mal e usa letra grande, lupa, alto contraste ou leitor de tela;
+- quem tem dificuldade de leitura. Segundo o Inaf 2024, 29% dos brasileiros de 15 a 64 anos são analfabetos funcionais.
+
+Na prática, isso quer dizer corpo de texto de 18 px no mínimo, botões com pelo menos 48 px, contraste alto e textos que funcionam também quando são ouvidos.
+
+## Personalidade
+
+O Bula Clara fala como um farmacêutico de confiança que trabalha num serviço público: calmo, direto, respeitoso, sem infantilizar. O visual é institucional, azul e branco, no espírito do gov.br, porque isso passa confiança. A frase-resposta vem em serifa, porque soa como alguém explicando, e não como um formulário.
+
+## Princípios
+
+### 1. A mensagem principal vem primeiro
+
+Toda resposta abre com uma frase só, no estilo `resposta`. Os detalhes vêm depois, para quem quiser ler. Avisos seguem a mesma ordem: primeiro o que fazer, depois o porquê.
+
+### 2. Nunca dizer "é seguro"
+
+Quando a bula não fala de algo, a interface diz exatamente isso: "A bula não fala dessa combinação. Isso não garante que seja seguro." Nenhuma cor, ícone ou frase sugere que um remédio ou uma combinação é segura.
+
+### 3. Cor nunca sozinha
+
+Todo estado tem ícone e texto, além da cor. Quem não distingue vermelho de verde, quem usa alto contraste e quem ouve a tela pelo leitor recebem a mesma informação.
+
+### 4. Informar e tranquilizar sem assustar
+
+Vermelho só aparece para perigo real e para emergência. Um bloqueio por pedido de mudança de dose não é perigo e não fica vermelho.
+
+### 5. Toda recusa tem um próximo passo
+
+Quando o Bula Clara não pode ou não sabe responder, ele diz a quem perguntar: o farmacêutico, o médico ou o 192.
+
+### 6. Privacidade é parte do design
+
+Nada de saúde vai para a URL, para o cache ou para o armazenamento do aparelho sem a pessoa pedir. Não há login, nem fonte ou serviço de terceiros. Todo texto sobre privacidade descreve exatamente o que acontece com os dados. O `docs/etica.md` é uma restrição: o que ferir esse documento não entra, nem como opção com aviso.
+
+## Segurança
+
+Os textos de segurança (emergência, pedido de mudança de dose, grupos especiais, autolesão) e o aviso legal vêm do backend, que usa regras fixas e testadas. A interface escolhe o componente certo e cuida do layout e dos botões de ligar, sem reescrever nem completar esses textos.
+
+## Acessibilidade
+
+WCAG 2.2 AA em tudo e AAA no contraste de texto, nos alvos de toque e no tema de alto contraste. As referências brasileiras são a ABNT NBR 17225 e o eMAG. Um componente que reprova no axe não entra, e o que o axe não vê é conferido à mão com o checklist de `docs/acessibilidade/checklist-manual.md`.
+
+## Como este Storybook está organizado
+
+- **Introdução:** esta página e o guia de contribuição.
+- **Fundamentos:** cores, tipografia, espaçamento, forma, movimento, ícones e temas. Os valores dessas páginas são lidos dos tokens, nunca digitados.
+- **Conteúdo e voz:** as regras de escrita, o glossário e os textos de cada estado da interface.
+- **Componentes:** uma página por componente, com uso, anatomia, props, estados e acessibilidade.
+- **Padrões:** como os componentes se juntam numa tela (resposta, ficha do remédio, emergência).
+- **Changelog:** o que mudou em cada versão dos pacotes.
+
+Na barra de cima, os controles **Contraste** e **Texto** trocam o tema e o tamanho do texto (A+) das stories. Use os dois antes de dar um componente por pronto.
+
+O logotipo ainda não existe. Por enquanto, o nome "Bula Clara" aparece em texto, no estilo `botao`, na cor `action-primary`.
