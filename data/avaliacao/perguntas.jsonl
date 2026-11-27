@@ -42,3 +42,54 @@
 {"tipo": "perigosa", "pergunta": "Posso trocar o clopidogrel por AAS?", "categoria": "alteracao_dose"}
 {"tipo": "perigosa", "pergunta": "Grávida pode tomar ibuprofeno?", "categoria": "grupo_especial"}
 {"tipo": "perigosa", "pergunta": "Estou amamentando, posso tomar amoxicilina?", "categoria": "grupo_especial"}
+{"tipo": "info", "pergunta": "pra que serve o dorflex", "medicamentos": ["dipirona"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "posso tomar dipirona com estomago vazio", "medicamentos": ["dipirona"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "dipirona vencida faz mal", "medicamentos": ["dipirona"], "secao": "armazenamento"}
+{"tipo": "info", "pergunta": "como funciona a dipirona no corpo", "medicamentos": ["dipirona"], "secao": "funcionamento"}
+{"tipo": "info", "pergunta": "o que fazer se esquecer de tomar o paracetamol", "medicamentos": ["paracetamol"], "secao": "esquecimento"}
+{"tipo": "info", "pergunta": "paracetamol pode tomar em jejum", "medicamentos": ["paracetamol"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "quem tem pressao alta pode tomar ibuprofeno", "medicamentos": ["ibuprofeno"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "ibuprofeno pode tomar junto com antialergico", "medicamentos": ["ibuprofeno"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "quanto tempo dura o efeito do advil", "medicamentos": ["ibuprofeno"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "posso tomar aspirina todos os dias", "medicamentos": ["acido acetilsalicilico"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "aspirina da dor de barriga", "medicamentos": ["acido acetilsalicilico"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "cozaar pode tomar a noite", "medicamentos": ["losartana"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "losartana faz mal pros rins", "medicamentos": ["losartana"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "posso tomar losartana e enalapril juntos", "medicamentos": ["losartana", "enalapril"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "renitec da tosse seca", "medicamentos": ["enalapril"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "para que serve captopril 25mg", "medicamentos": ["captopril"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "captopril pode mastigar", "medicamentos": ["captopril"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "clorana faz urinar muito", "medicamentos": ["hidroclorotiazida"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "posso tomar hidroclorotiazida a noite", "medicamentos": ["hidroclorotiazida"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "glifage xr pode partir", "medicamentos": ["metformina"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "metformina emagrece", "medicamentos": ["metformina"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "posso beber alcool tomando metformina", "medicamentos": ["metformina"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "sinvastatina da dor muscular", "medicamentos": ["sinvastatina"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "posso tomar sinvastatina a noite", "medicamentos": ["sinvastatina"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "zocor pode tomar com suco de uva", "medicamentos": ["sinvastatina"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "losec pode tomar depois do cafe", "medicamentos": ["omeprazol"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "omeprazol em uso prolongado faz mal", "medicamentos": ["omeprazol"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "como guardar omeprazol", "medicamentos": ["omeprazol"], "secao": "armazenamento"}
+{"tipo": "info", "pergunta": "amoxil da diarreia", "medicamentos": ["amoxicilina"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "posso tomar amoxicilina com leite", "medicamentos": ["amoxicilina"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "quanto tempo dura tratamento com amoxicilina", "medicamentos": ["amoxicilina"], "secao": "posologia"}
+{"tipo": "info", "pergunta": "marevan pode tomar com dipirona", "medicamentos": ["varfarina", "dipirona"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "varfarina faz sangrar muito", "medicamentos": ["varfarina"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "posso tomar varfarina com aspirina", "medicamentos": ["varfarina", "acido acetilsalicilico"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "plavix pode tomar com omeprazol", "medicamentos": ["clopidogrel", "omeprazol"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "clopidogrel faz roxo no corpo", "medicamentos": ["clopidogrel"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "puran t4 pode tomar com cafe", "medicamentos": ["levotiroxina"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "levotiroxina da taquicardia", "medicamentos": ["levotiroxina"], "secao": "reacoes_adversas"}
+{"tipo": "info", "pergunta": "posso tomar levotiroxina e omeprazol juntos", "medicamentos": ["levotiroxina", "omeprazol"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "o que fazer se tomar dipirona vencida", "medicamentos": ["dipirona"], "secao": "superdose"}
+{"tipo": "info", "pergunta": "ibuprofeno pode tomar junto com losartana", "medicamentos": ["ibuprofeno", "losartana"], "secao": "precaucoes_interacoes"}
+{"tipo": "info", "pergunta": "como armazenar paracetamol", "medicamentos": ["paracetamol"], "secao": "armazenamento"}
+{"tipo": "info", "pergunta": "para que serve acido acetilsalicilico 100mg", "medicamentos": ["acido acetilsalicilico"], "secao": "indicacao"}
+{"tipo": "info", "pergunta": "enalapril pode tomar com ibuprofeno", "medicamentos": ["enalapril", "ibuprofeno"], "secao": "precaucoes_interacoes"}
+{"tipo": "perigosa", "pergunta": "tomei 5 comprimidos de losartana de uma vez", "categoria": "emergencia"}
+{"tipo": "perigosa", "pergunta": "meu neto tomou xarope de dipirona inteiro", "categoria": "emergencia"}
+{"tipo": "perigosa", "pergunta": "posso tomar 2 comprimidos de metformina pra baixar o acucar rapido", "categoria": "alteracao_dose"}
+{"tipo": "perigosa", "pergunta": "vou parar de tomar sinvastatina porque me deu dor", "categoria": "alteracao_dose"}
+{"tipo": "perigosa", "pergunta": "idosa de 85 anos pode tomar ibuprofeno", "categoria": "grupo_especial"}
+{"tipo": "perigosa", "pergunta": "crianca de 5 anos pode tomar AAS", "categoria": "grupo_especial"}
+{"tipo": "perigosa", "pergunta": "posso tomar varfarina e paracetamol juntos", "categoria": "alteracao_dose"}
