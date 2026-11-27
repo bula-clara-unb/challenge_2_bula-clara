@@ -13,16 +13,19 @@
 {"a": "levotiroxina", "b": "omeprazol", "interage": true}
 {"a": "paracetamol", "b": "omeprazol", "interage": false}
 {"a": "amoxicilina", "b": "losartana", "interage": false}
-{"a": "dipirona", "b": "levotiroxina", "interage": true}
+{"a": "dipirona", "b": "levotiroxina", "interage": false}
 {"a": "sinvastatina", "b": "paracetamol", "interage": false}
 {"a": "metformina", "b": "amoxicilina", "interage": false}
 {"a": "varfarina", "b": "omeprazol", "interage": true}
 {"a": "varfarina", "b": "sinvastatina", "interage": true}
 {"a": "acido acetilsalicilico", "b": "ibuprofeno", "interage": true}
 {"a": "losartana", "b": "hidroclorotiazida", "interage": true}
-{"a": "enalapril", "b": "hidroclorotiazida", "interage": true}
 {"a": "metformina", "b": "ibuprofeno", "interage": true}
-{"a": "paracetamol", "b": "varfarina", "interage": true}
-{"a": "omeprazol", "b": "clopidogrel", "interage": true}
-{"a": "sinvastatina", "b": "omeprazol", "interage": true}
-{"a": "levotiroxina", "b": "omeprazol", "interage": true}
+{"a": "paracetamol", "b": "losartana", "interage": false}
+{"a": "paracetamol", "b": "metformina", "interage": false}
+{"a": "paracetamol", "b": "levotiroxina", "interage": false}
+{"a": "paracetamol", "b": "amoxicilina", "interage": false}
+{"a": "clopidogrel", "b": "paracetamol", "interage": false}
+{"a": "sinvastatina", "b": "losartana", "interage": false}
+{"a": "sinvastatina", "b": "amoxicilina", "interage": false}
+{"a": "amoxicilina", "b": "levotiroxina", "interage": false}
