@@ -7,6 +7,15 @@ DADOS = Path(os.getenv("BULA_DADOS", RAIZ / "data"))
 PASTA_PDFS = DADOS / "bulas"            # PDFs baixados da ANVISA
 ARQ_CHUNKS = DADOS / "chunks.jsonl"     # saída da ingestão
 PASTA_INDICE = DADOS / "indice"         # ChromaDB persistente
+ARQ_MANIFESTO = DADOS / "manifesto.json"
+PASTA_RELATORIOS = DADOS / "relatorios"
+VERSAO_PARSER = "1.0"
+URL_CATALOGO_ANVISA = os.getenv(
+    "BULA_URL_CATALOGO_ANVISA",
+    "https://dados.anvisa.gov.br/dados/DADOS_ABERTOS_MEDICAMENTOS.csv",
+)
+ARQ_CSV_ANVISA = DADOS / "DADOS_ABERTOS_MEDICAMENTOS.csv"
+ARQ_CATALOGO = DADOS / "catalogo_medicamentos.json"
 
 # Os 15 medicamentos do MVP (nome do arquivo esperado: data/bulas/<nome com _>.pdf)
 MEDICAMENTOS_MVP = [

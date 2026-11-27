@@ -7,8 +7,6 @@ import json
 import re
 from pathlib import Path
 
-from pypdf import PdfReader
-
 from . import config
 from .secoes import NOME_SECAO, dividir_em_secoes
 
@@ -21,9 +19,18 @@ def nome_medicamento(arquivo: Path) -> str:
     return re.sub(r"[_\-]+", " ", base).strip().lower()
 
 
+def extrair_fabricante(arquivo: Path) -> str | None:
+    if "__" not in arquivo.stem:
+        return None
+    parte = arquivo.stem.split("__", 1)[1]
+    fab = parte.replace("_", " ").strip()
+    return fab or None
+
+
 def ler_texto(arquivo: Path) -> str:
     if arquivo.suffix.lower() == ".txt":
         return arquivo.read_text(encoding="utf-8")
+    from pypdf import PdfReader
     return "\n".join(p.extract_text() or "" for p in PdfReader(arquivo).pages)
 
 
@@ -45,12 +52,17 @@ def quebrar(texto: str) -> list[str]:
     return [p for p in partes if p]
 
 
-def processar_arquivo(arquivo: Path) -> list[dict]:
+def processar_arquivo(
+    arquivo: Path,
+    fabricante: str | None = None,
+    versao_bula: str | None = None,
+) -> list[dict]:
     med = nome_medicamento(arquivo)
     secoes = dividir_em_secoes(ler_texto(arquivo))
     if not secoes:
         print(f"  ! {arquivo.name}: nenhuma seção reconhecida (é bula do PACIENTE?)")
         return []
+    fab = fabricante if fabricante is not None else extrair_fabricante(arquivo)
     chunks = []
     for sid, texto in secoes.items():
         for i, parte in enumerate(quebrar(texto)):
@@ -61,6 +73,8 @@ def processar_arquivo(arquivo: Path) -> list[dict]:
                 "secao_nome": NOME_SECAO[sid],
                 "texto": parte,
                 "fonte": arquivo.name,
+                "fabricante": fab,
+                "versao_bula": versao_bula,
             })
     faltando = [NOME_SECAO[s] for s in NOME_SECAO if s not in secoes]
     print(f"  ✓ {arquivo.name}: {len(secoes)}/9 seções, {len(chunks)} chunks"
