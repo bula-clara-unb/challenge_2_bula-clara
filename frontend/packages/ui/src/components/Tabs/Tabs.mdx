@@ -1,0 +1,49 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Tabs.stories';
+
+<Meta of={Stories} />
+
+# Tabs
+
+Abas para trocar entre partes do mesmo conteúdo, sem sair da tela. Inclui `TabList`, `Tab` e `TabPanel`.
+
+<Canvas of={Stories.ComIcones} />
+
+## Quando usar
+
+Para duas a quatro partes do mesmo assunto que a pessoa olha uma de cada vez, como partes da ficha de um remédio.
+
+## Quando não usar
+
+- Para a navegação do app (Perguntar, Meus remédios), use links com `aria-current`. Essa barra é do `InputDock`, no plano 3, e não uma lista de abas.
+- Para partes que a pessoa quer ler em sequência, use `Accordion`.
+
+## Anatomia
+
+- Lista de abas, com borda fina em cima.
+- Cada aba: ícone decorativo em cima, texto embaixo e uma barra azul de 3px no topo quando selecionada. 56px de altura.
+- Painel da aba selecionada.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+Uma aba selecionada por vez. A selecionada fica em azul, em negrito e com a barra no topo.
+
+## Acessibilidade
+
+- Papéis `tablist`, `tab` e `tabpanel`. A `TabList` exige `aria-label`.
+- Tab entra na aba selecionada. As setas trocam de aba, e Tab de novo vai para o painel.
+- A selecionada não depende só da cor: tem a barra e o negrito.
+- O texto das abas usa o estilo de rótulo, que fica pequeno. Por isso, poucas abas e nomes curtos. No alto contraste, as abas não selecionadas não ganham borda própria.
+
+## Conteúdo
+
+Nomes de uma a três palavras ("Para que serve", "Como tomar", "Bula inteira").
+
+## Faça e não faça
+
+- Faça: três abas com nomes curtos.
+- Não faça: esconder um aviso de segurança numa aba que não abre sozinha.

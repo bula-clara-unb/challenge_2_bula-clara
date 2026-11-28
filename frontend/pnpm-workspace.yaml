@@ -1,0 +1,12 @@
+packages:
+  - "packages/*"
+  - "apps/*"
+
+allowBuilds:
+  esbuild: true
+
+# O eslint-plugin-jsx-a11y 6.10.2 ainda não declara suporte ao ESLint 10, mas funciona:
+# o lint reprova <img> sem alt (testado em 26/11/2026). Tire esta regra quando sair a 6.11.
+peerDependencyRules:
+  allowedVersions:
+    eslint-plugin-jsx-a11y>eslint: "10"

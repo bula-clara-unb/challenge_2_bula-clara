@@ -1,0 +1,53 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Heading.stories';
+
+<Meta of={Stories} />
+
+# Heading
+
+Título de página, de seção ou da frase-resposta. O nível no documento e a aparência são escolhidos separados.
+
+<Canvas of={Stories.Titulo1} />
+
+## Quando usar
+
+Em todo título: o nome do remédio no topo da ficha, as seções da resposta e a frase-resposta, que é a mensagem principal da tela.
+
+## Quando não usar
+
+- Para o rótulo curto em caixa alta acima de um bloco ("SUA PERGUNTA"), use `Text` na variante `rotulo`. Ele não é título de seção.
+- Para deixar um texto maior ou em negrito sem que ele abra uma seção, use `Text`. O leitor de tela lista os títulos da página, e um título falso atrapalha a navegação.
+
+## Anatomia
+
+Um elemento `h1` a `h4`, com o estilo de texto escolhido. Os títulos 1 e a frase-resposta usam a Literata. Os títulos 2 e 3 usam a Atkinson Hyperlegible em negrito.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.FraseResposta} />
+
+<Canvas of={Stories.Titulo2} />
+
+<Canvas of={Stories.Titulo3} />
+
+<Canvas of={Stories.NomeLongoEm320px} />
+
+## Acessibilidade
+
+- `nivel` decide o elemento (`h1` a `h4`) e `estilo` decide a aparência. Assim nenhum nível é pulado por causa do tamanho da letra.
+- Nomes longos, como "Hidroclorotiazida", quebram com hífen ou em qualquer ponto, em vez de vazar da tela. A story **Nome longo em 320px a 140%** confere isso com a tela de 320px e o texto em 140% (WCAG 1.4.10).
+- Quando a resposta chega, o app leva o foco para a frase-resposta. Para isso, passe `ref` e `tabIndex={-1}`. O título recebe o foco sem mostrar contorno, porque não é um controle.
+- Os tamanhos crescem com o A+ e continuam acima do corpo do texto nos três níveis.
+
+## Conteúdo
+
+O título diz do que trata a seção, em poucas palavras ("Como tomar", "Se esquecer uma dose"). A frase-resposta é uma frase completa, com a resposta e não com o assunto ("A losartana pode ser tomada com ou sem comida."). Vale a regra 1 de **Conteúdo e voz**: a mensagem principal vem primeiro.
+
+## Faça e não faça
+
+- Faça: `<Heading nivel={2} estilo="resposta">` para a frase-resposta logo abaixo do `h1`.
+- Não faça: `nivel={4}` só porque o título 3 parece grande demais. Troque o `estilo` e mantenha o nível certo.

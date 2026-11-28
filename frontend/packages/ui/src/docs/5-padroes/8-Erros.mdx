@@ -1,0 +1,44 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './8-Erros.stories';
+
+<Meta of={Stories} />
+
+# Erros
+
+O que a tela mostra quando algo dá errado. Em todos os casos, a faixa de emergência continua na tela, e toda mensagem traz o próximo passo.
+
+## Exemplo
+
+A API não respondeu:
+
+<Canvas of={Stories.ApiForaDoAr} />
+
+## Resposta fora do formato
+
+Se a resposta da API não passa na validação, nenhum aviso de segurança aparece pela metade. A tela mostra só a mensagem e o aviso legal.
+
+<Canvas of={Stories.ForaDoFormato} />
+
+## Remédio fora da base
+
+O título e a explicação vêm do backend. A frase recebe o foco, como uma resposta.
+
+<Canvas of={Stories.ForaDaBase} />
+
+## Sem conexão
+
+<Canvas of={Stories.SemConexao} />
+
+## Câmera ou microfone negados
+
+A explicação e o caminho por digitação aparecem no próprio visor e na própria gravação.
+
+<Canvas of={Stories.CameraNegada} />
+
+<Canvas of={Stories.MicrofoneNegado} />
+
+## Regras
+
+- Os erros usam `Alert` com `tom="info"`: vermelho fica para perigo real.
+- Erros que aparecem depois de a página carregar usam `anunciar="polite"`, e o leitor de tela anuncia sem interromper.
+- Os textos são os da página Conteúdo e voz/Textos da interface.

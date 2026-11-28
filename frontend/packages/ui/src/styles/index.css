@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+@import '@bula-clara/tokens/tokens.css';
+@import '@bula-clara/tokens/tailwind.css';
+@import '@fontsource-variable/literata/wght.css';
+@import '@fontsource/atkinson-hyperlegible/latin-400.css';
+@import '@fontsource/atkinson-hyperlegible/latin-700.css';
+
+@source '../';
+
+/* Foco visível sobre qualquer fundo: contorno escuro com halo amarelo por fora. */
+@utility foco-visivel {
+  outline: var(--bc-tamanho-foco-contorno) solid var(--bc-color-focus-ring);
+  outline-offset: var(--bc-tamanho-foco-afastamento);
+  box-shadow: 0 0 0
+    calc(var(--bc-tamanho-foco-afastamento) + var(--bc-tamanho-foco-contorno) + var(--bc-tamanho-foco-halo))
+    var(--bc-color-focus-halo);
+}
+
+/* Altura mínima de botão: 48px com o texto em 100% e cresce com o A+ até 64px em 140%, como no
+   canvas aprovado (48px + 2,5 × o quanto o rem passou de 16px). Nunca fica abaixo de 48px. */
+@utility min-h-alvo {
+  min-height: calc(var(--bc-tamanho-alvo-toque) + (1rem - 16px) * 2.5);
+}
+
+/* Alto contraste: ligado por data-contraste="alto" ou por prefers-contrast: more (a menos que a
+   pessoa tenha escolhido o padrão). Serve para dar borda a quem, no tema padrão, não tem. */
+@custom-variant alto-contraste {
+  &:where([data-contraste='alto'] *) {
+    @slot;
+  }
+  @media (prefers-contrast: more) {
+    &:where(:root:not([data-contraste='padrao']) *) {
+      @slot;
+    }
+  }
+}
+
+/* Entrada e saída de Dialog e Sheet. A duração vem dos tokens, que vão a 0ms com
+   prefers-reduced-motion: aí nada se move. */
+@theme {
+  --animate-aparecer: aparecer var(--bc-duracao-media) ease-out;
+  --animate-sumir: aparecer var(--bc-duracao-rapida) ease-out reverse;
+  --animate-subir: subir var(--bc-duracao-media) ease-out;
+  --animate-descer: subir var(--bc-duracao-rapida) ease-out reverse;
+
+  @keyframes aparecer {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes subir {
+    from {
+      transform: translateY(100%);
+    }
+  }
+}
+
+@layer base {
+  html {
+    font-family: var(--bc-font-familia-texto);
+    font-size: 100%;
+    color: var(--bc-color-text-default);
+    background: var(--bc-color-surface-default);
+  }
+
+  html[data-escala='120'] {
+    font-size: 120%;
+  }
+
+  html[data-escala='140'] {
+    font-size: 140%;
+  }
+
+  body {
+    font-size: var(--bc-font-tamanho-corpo);
+    line-height: var(--bc-font-altura-linha-corpo);
+  }
+}

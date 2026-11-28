@@ -1,0 +1,48 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Icon.stories';
+
+<Meta of={Stories} />
+
+# Icon
+
+Ícone Phosphor solto, fora de um botão, que ou diz o que é ou fica escondido do leitor de tela.
+
+<Canvas of={Stories.ComRotulo} />
+
+## Quando usar
+
+Ao lado de um texto, para reforçar o sentido (um aviso, uma seção da bula), ou sozinho, quando o ícone carrega informação, como o sinal de "não usar junto".
+
+## Quando não usar
+
+- Dentro de botões, use a prop `icone` do `Button`, do `LinkButton` ou do `IconButton`. Eles já cuidam do tamanho e de esconder o ícone.
+- Nunca use emoji no lugar do ícone. O leitor de tela lê o nome do emoji, que muda de aparelho para aparelho.
+
+## Anatomia
+
+Um `svg` do Phosphor no peso `bold`, com a cor do texto em volta. O tamanho é em rem e cresce com o A+.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.DecorativoAoLadoDoTexto} />
+
+<Canvas of={Stories.Tamanhos} />
+
+## Acessibilidade
+
+- Todo ícone tem que dizer o que é. Com `rotulo`, ele vira `role="img"` com esse nome. Com `decorativo`, fica com `aria-hidden`. Sem nenhum dos dois, o código não compila.
+- O ícone nunca é a única forma de passar a informação: a cor e o desenho vêm junto com texto, em algum lugar da tela.
+- O ícone herda a cor do texto. No alto contraste, ele muda junto.
+
+## Conteúdo
+
+O `rotulo` diz o significado, e não o desenho: "Não usar junto", e não "Círculo cortado".
+
+## Faça e não faça
+
+- Faça: `<Icon icone={Warning} decorativo />` ao lado de "A bula pede cuidado com essa combinação".
+- Não faça: um ícone com `rotulo` ao lado de um texto que diz a mesma coisa. O leitor de tela lê duas vezes.

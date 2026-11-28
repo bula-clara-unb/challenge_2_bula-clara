@@ -1,0 +1,52 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { PaletaDeCores, TabelaDeContraste } from '../blocos/Cores';
+
+<Meta title="Fundamentos/Cores" />
+
+# Cores
+
+O visual é institucional, azul e branco, no espírito do gov.br, porque isso passa confiança. As outras cores existem para avisos, e cada uma tem um significado só.
+
+Os tokens têm três camadas. Os primitivos guardam os valores brutos (`primitivo.cor.azul.600`) e nunca viram CSS. Os semânticos dão o papel de cada cor (`color.action.primary`), e são eles que os componentes usam. Os de componente, quando existirem, apontam para os semânticos. Um tema troca só a camada semântica.
+
+Os valores desta página são lidos do build de `@bula-clara/tokens`, e o contraste é calculado com a mesma fórmula do teste (`packages/tokens/src/contraste.ts`). Se um token mudar, a página muda junto. A coluna "No artifact" dá o nome do mesmo token no artifact do design system aprovado pelo grupo, para quem vier de lá.
+
+## Paleta
+
+<PaletaDeCores />
+
+## Como as cores se combinam
+
+- Fundo em `surface.default`, texto em `text.default`, apoio em `text.muted`. Ação em `action.primary`, com texto em `text.on-solid`.
+- Chips usam `action.primary-subtle` com texto em `action.primary-strong`.
+- Os três níveis de interação têm cada um seu conjunto de cores, sempre com ícone e título:
+  - `danger.bg`, `danger.text` e `danger.border`: "A bula diz para não usar junto";
+  - `caution.bg`, `caution.text` e `caution.border`: "A bula pede cuidado com essa combinação";
+  - `surface.info`, `text.default` e `border.field`: "A bula não fala dessa combinação". Esse nível nunca é verde: a bula não falar não quer dizer que a combinação é segura.
+- `emergency.solid` é exclusivo do EmergencyCard.
+- `confirm` (verde) só confirma ações, como "Lista apagada". Nunca aparece numa resposta sobre remédio, porque a pessoa poderia ler como "pode tomar".
+- O aviso de bloqueio por pedido de mudança de dose (SafetyNotice) não é vermelho: um bloqueio não quer dizer perigo.
+
+Cor nunca é a única pista. Todo estado tem ícone e texto, para quem não distingue cores e para quem usa leitor de tela.
+
+## Contraste
+
+A meta é por par de cor da frente e fundo, pela fórmula da WCAG 2.x:
+
+- 7:1 para texto de corpo e para todo texto de segurança (avisos, emergência, interação);
+- 4,5:1 para o resto do texto;
+- 3:1 para bordas de controle, ícones e foco.
+
+O tema de alto contraste leva todo texto a 7:1 ou mais. Os pares ficam em `packages/tokens/src/pares-contraste.json`. O teste do pacote de tokens recalcula cada um nos dois temas e reprova o build se algum ficar abaixo da meta. Criou um par novo num componente? Declare o par nesse arquivo.
+
+### Tema padrão
+
+<TabelaDeContraste tema="padrao" />
+
+### Tema de alto contraste
+
+<TabelaDeContraste tema="alto-contraste" />
+
+## Como usar nos componentes
+
+As classes do Tailwind saem dos tokens: `bg-action-primary`, `text-text-default`, `border-caution-border`. A paleta padrão do Tailwind está desligada, então `bg-blue-600` não gera nada. Fora do Tailwind, use a variável CSS: `var(--bc-color-action-primary)`.

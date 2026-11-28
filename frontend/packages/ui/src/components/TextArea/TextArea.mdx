@@ -1,0 +1,47 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './TextArea.stories';
+
+<Meta of={Stories} />
+
+# TextArea
+
+Campo de várias linhas, para a pessoa escrever a pergunta do jeito dela.
+
+<Canvas of={Stories.Padrao} />
+
+## Quando usar
+
+Para texto livre que pode passar de uma linha, como a pergunta digitada.
+
+## Quando não usar
+
+- Para o nome de um remédio, use `ComboBox` ou `TextField`.
+- Para buscar, use `SearchField`.
+
+## Anatomia
+
+As mesmas partes do `TextField` (rótulo, entrada, dica e erro), com a entrada mais alta. A altura começa em 4 linhas e a pessoa pode aumentar.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.ComErro} />
+
+## Acessibilidade
+
+- Rótulo obrigatório e visível. A dica fica ligada por `aria-describedby`.
+- O erro fica numa região `aria-live` sempre montada e vem com ícone e borda de 3px.
+- A área cresce com o A+ e continua com o contorno de foco sempre visível.
+- Enter quebra a linha e não envia. O envio fica no botão ao lado.
+
+## Conteúdo
+
+O rótulo é curto ("Sua pergunta"). A dica pode dar um exemplo do tipo de pergunta ("Ex.: posso tomar losartana com café?").
+
+## Faça e não faça
+
+- Faça: dar um exemplo de pergunta na dica.
+- Não faça: limitar o número de caracteres sem avisar.

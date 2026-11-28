@@ -1,0 +1,52 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Toast.stories';
+
+<Meta of={Stories} />
+
+# Toast
+
+Confirma, com uma frase curta, uma ação que a pessoa acabou de fazer.
+
+<Canvas of={Stories.ConfirmaAcao} />
+
+Toque em "Apagar tudo" para ver a confirmação.
+
+## Quando usar
+
+Depois de uma ação feita pela pessoa: "Lista apagada deste aparelho.", "Remédio adicionado.". Chame `confirmarAcao(mensagem)` e monte o `ToastRegion` uma vez só, no fim do layout do app.
+
+## Quando não usar
+
+- Para qualquer informação de segurança, erro ou estado da tela, use `Alert`. O toast some sozinho, e um aviso de segurança não pode sumir.
+- Para pedir uma decisão, use `Dialog`.
+
+O toast não tem tom nem variante, de propósito. A única entrada é `confirmarAcao`, com a cor de confirmação, e não há como fazer um toast de aviso.
+
+## Anatomia
+
+- Região fixa no fim da tela, com até 512px de largura.
+- Toast com borda verde-escura, ícone de confirmação decorativo, a frase em negrito e o X de fechar.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+Aparece um toast por vez na tela (a fila tem `maxVisibleToasts: 1`). O X fecha o que está aberto.
+
+## Acessibilidade
+
+- A região é um ponto de referência com nome ("Confirmações"). F6 leva o foco até ela.
+- O leitor de tela anuncia a frase quando o toast aparece, sem tirar o foco de onde a pessoa estava.
+- Fica 8 segundos na tela, e o tempo para enquanto o toast está com foco ou com o mouse em cima (WCAG 2.2.1). O X fecha antes.
+- Com movimento reduzido, aparece sem animação.
+
+## Conteúdo
+
+Uma frase no passado, que diz o que foi feito ("Lista apagada deste aparelho."). Sem "Sucesso!" e sem emoji.
+
+## Faça e não faça
+
+- Faça: `confirmarAcao('Lista apagada deste aparelho.')`.
+- Não faça: um toast para dizer que um remédio "é seguro" ou que a combinação "está liberada". Verde só confirma ação.

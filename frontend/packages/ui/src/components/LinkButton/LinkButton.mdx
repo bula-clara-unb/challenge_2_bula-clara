@@ -1,0 +1,49 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './LinkButton.stories';
+
+<Meta of={Stories} />
+
+# LinkButton
+
+Link com a aparência do `Button`, para levar a pessoa a outra página ou a outra parte da tela.
+
+<Canvas of={Stories.Primario} />
+
+## Quando usar
+
+Quando o destino é um endereço: ver a bula inteira, abrir a ficha do remédio, ir para "Meus remédios".
+
+## Quando não usar
+
+- Para uma ação na própria tela (perguntar, apagar, abrir um diálogo), use `Button`.
+- Para um link dentro de um parágrafo, use um `a` comum dentro de `Prose`.
+
+## Anatomia
+
+As mesmas partes do `Button`: contêiner com borda de 2px e 48px de altura, ícone opcional à esquerda e o texto. Na variante `discreta`, o texto fica sublinhado, para continuar parecendo link.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Secundario} />
+
+<Canvas of={Stories.Discreto} />
+
+## Acessibilidade
+
+- Usa o `Link` do React Aria: papel `link` e Enter para abrir. O leitor de tela anuncia "link", e a pessoa sabe que vai mudar de lugar.
+- `href` é obrigatório. Sem destino, o certo é `Button`.
+- O ícone é decorativo e fica escondido do leitor de tela.
+- 48px de altura, foco com contorno de 3px e as mesmas cores do `Button` nos dois temas.
+
+## Conteúdo
+
+O texto diz para onde o link leva: "Ver a bula inteira", "Saber mais sobre o Bula Clara".
+
+## Faça e não faça
+
+- Faça: "Ver a bula inteira".
+- Não faça: "Clique aqui" ou "Saiba mais" sozinho. Fora do contexto, numa lista de links do leitor de tela, o texto não diz nada.

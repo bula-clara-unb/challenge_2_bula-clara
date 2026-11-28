@@ -1,0 +1,50 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './SearchField.stories';
+
+<Meta of={Stories} />
+
+# SearchField
+
+Campo de busca com lupa e botão de limpar.
+
+<Canvas of={Stories.Vazio} />
+
+## Quando usar
+
+Para procurar uma palavra dentro de um conteúdo que já está na tela, como buscar "tontura" na bula.
+
+## Quando não usar
+
+- Para escolher um remédio, use `ComboBox`.
+- Para a pergunta principal, use `TextArea`. A pergunta não é uma busca, e a resposta não é uma lista de resultados.
+
+## Anatomia
+
+- Rótulo visível.
+- Entrada com a lupa à esquerda, decorativa.
+- Botão de limpar (X) à direita, com 48px. Aparece só quando há texto.
+- Dica opcional.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.ComTexto} />
+
+## Acessibilidade
+
+- Papel `searchbox`, com o rótulo visível como nome.
+- Enter busca e Esc limpa o campo.
+- O botão de limpar tem nome ("Limpar busca") e some quando o campo está vazio, para não ser um botão que não faz nada.
+- A lupa fica escondida do leitor de tela.
+
+## Conteúdo
+
+O rótulo diz onde a busca acontece ("Buscar na bula").
+
+## Faça e não faça
+
+- Faça: "Buscar na bula".
+- Não faça: rótulo só "Buscar". A pessoa não sabe em que lugar está procurando.

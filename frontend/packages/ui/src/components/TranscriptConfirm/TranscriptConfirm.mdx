@@ -1,0 +1,47 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './TranscriptConfirm.stories';
+
+<Meta of={Stories} />
+
+# TranscriptConfirm
+
+"Entendi: … Está certo?" A confirmação da pergunta falada.
+
+## Exemplo
+
+<Canvas of={Stories.Entendeu} />
+
+## Quando usar
+
+Depois da gravação, quando o `/transcrever` (issue #24) responde.
+
+## Quando não usar
+
+Para a foto, use `OcrConfirm`.
+
+## Anatomia
+
+É um `CaptureConfirm` com os textos da voz: "Entendi", a pergunta entre aspas, "Está certo?", "Sim, perguntar" e "Não, vou escrever".
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+Com a transcrição vazia, a folha diz "Não consegui entender a gravação" e oferece "Gravar de novo" ou "Escrever a pergunta".
+
+<Canvas of={Stories.NaoEntendeu} />
+
+## Acessibilidade
+
+A mesma do `CaptureConfirm`. Tudo o que foi falado aparece escrito antes de virar pergunta.
+
+## Conteúdo
+
+Nenhum texto sobre o que acontece com o áudio entra aqui antes de a #24 decidir como a voz funciona. Quando entrar, precisa descrever exatamente o que o servidor faz.
+
+## Faça e não faça
+
+- Faça: mostre a transcrição como veio, para a pessoa conferir.
+- Não faça: corrigir a transcrição sozinho antes de perguntar.

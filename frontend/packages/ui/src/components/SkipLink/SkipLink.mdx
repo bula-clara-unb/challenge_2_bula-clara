@@ -1,0 +1,54 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './SkipLink.stories';
+
+<Meta of={Stories} />
+
+# SkipLink
+
+O primeiro item da página: um link que pula o cabeçalho e leva direto ao conteúdo. Some da tela até receber foco pelo teclado.
+
+<Canvas of={Stories.AparecePeloTeclado} />
+
+O link está aí em cima, escondido. Abra a story sozinha e aperte Tab para ele aparecer.
+
+## Quando usar
+
+Uma vez em cada página do app, como primeiro elemento do `body`, apontando para o `main`.
+
+## Quando não usar
+
+Para navegar entre seções da mesma página, use um índice de links visíveis. O `SkipLink` é só para pular o que se repete em toda página.
+
+## Anatomia
+
+- Link com o texto "Pular para o conteúdo".
+- Quando recebe foco: caixa branca no canto de cima, 48px de altura, texto azul em negrito e contorno de foco.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+Escondido (o normal) e visível com foco. A story **Aparece com o Tab** confere os dois.
+
+Para conferir na mão:
+
+1. Abra a story sozinha, fora desta página.
+2. Aperte Tab uma vez. O link aparece no canto de cima, com o contorno de foco.
+3. Aperte Enter. O foco vai para o conteúdo principal.
+
+## Acessibilidade
+
+- É lido pelo leitor de tela mesmo escondido, porque usa `sr-only`, e não `display: none`.
+- Com foco, fica por cima de tudo, com 48px de altura.
+- `href` aceita só uma âncora da própria página (`#conteudo`). O `main` precisa ter esse `id`.
+
+## Conteúdo
+
+"Pular para o conteúdo". Se mudar, mantenha o verbo e o destino.
+
+## Faça e não faça
+
+- Faça: `<SkipLink />` antes do cabeçalho, com `<main id="conteudo">` logo depois.
+- Não faça: deixar o link sempre visível ou sempre escondido. Ele aparece só com o foco.

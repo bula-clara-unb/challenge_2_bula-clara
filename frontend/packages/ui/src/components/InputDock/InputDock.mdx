@@ -1,0 +1,60 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './InputDock.stories';
+
+<Meta of={Stories} />
+
+# InputDock
+
+A caixa de pergunta fixa no rodapé, com texto, câmera e microfone, e a barra de navegação com três destinos.
+
+## Exemplo
+
+<Canvas of={Stories.Principal} />
+
+## Quando usar
+
+No rodapé de Perguntar e de cada resposta. Em Meus remédios e Sobre, só a barra de navegação (`mostrarCaixa={false}`), como nas telas aprovadas.
+
+## Quando não usar
+
+- Para a busca de remédios da lista, use o `ComboBox` do `MedicationList`.
+- Para pedir texto longo, use `TextArea`.
+
+## Anatomia
+
+- Botão da câmera ("Fotografar a caixa"), na variante primária.
+- O campo, com nome acessível ("Sua pergunta", ou "Outra pergunta" depois da primeira resposta) e um exemplo dentro.
+- Botão do microfone ("Perguntar falando"). Com texto no campo, ele vira "Perguntar", que envia.
+- A barra de navegação: Perguntar, Meus remédios e Sobre, cada um com ícone e texto.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.ComTexto} />
+
+<Canvas of={Stories.SoNavegacao} />
+
+<Canvas of={Stories.TextoGrande} />
+
+<Canvas of={Stories.AltoContraste} />
+
+## Acessibilidade
+
+- O rótulo do campo fica escondido da tela (`sr-only`) e é lido pelo leitor de tela. O exemplo nunca faz o papel do rótulo.
+- Enter envia, e o teclado do celular mostra "Enviar" (`enterKeyHint="send"`).
+- Câmera, microfone e enviar têm `aria-label` e 48px.
+- A navegação é um `nav` chamado "Principal", com links. O destino atual leva `aria-current="page"` e é marcado por cor, negrito e uma borda em cima, nunca só pela cor.
+- Cada destino tem 56px de altura e texto de 16px, que cresce com o A+.
+
+## Conteúdo
+
+Os textos são os das telas aprovadas: "Escreva sua pergunta…", "Fotografar a caixa", "Perguntar falando", "Perguntar", "Meus remédios" e "Sobre".
+
+## Faça e não faça
+
+- Faça: deixe a caixa sempre embaixo, para a próxima pergunta.
+- Não faça: um campo só com placeholder, sem nome acessível.
+- Não faça: abrir a câmera ou o microfone sem a pessoa tocar no botão.

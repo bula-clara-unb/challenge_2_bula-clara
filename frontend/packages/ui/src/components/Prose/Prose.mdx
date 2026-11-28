@@ -1,0 +1,47 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Prose.stories';
+
+<Meta of={Stories} />
+
+# Prose
+
+Caixa para texto corrido: limita a linha a 65 caracteres e dá espaço entre parágrafos, listas e links.
+
+<Canvas of={Stories.Explicacao} />
+
+## Quando usar
+
+Em explicações com mais de um parágrafo, como o texto da resposta e as seções da bula na ficha do remédio. Também serve para HTML simples vindo da API (parágrafos, listas, links e ênfase).
+
+## Quando não usar
+
+- Para uma frase só, use `Text`.
+- Para avisos, use `Alert`. Texto de segurança nunca fica perdido no meio de um parágrafo.
+
+## Anatomia
+
+Um `div` que estiliza o que está dentro: parágrafos com 12px entre eles, títulos com 24px antes, listas com marcador, links sublinhados e `strong` em negrito.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+Não tem estados próprios. Os links dentro dele mostram o contorno de foco pelo teclado.
+
+## Acessibilidade
+
+- 65 caracteres por linha, no máximo. A story confere a largura com a fonte já carregada.
+- As listas voltam a ter marcador, que o reset do Tailwind tira. O leitor de tela anuncia "lista, 2 itens".
+- Os links ficam sublinhados e com a cor de ação, e mudam de cor no hover. A cor nunca é o único sinal.
+- Com o A+ em 140%, a linha continua em 65 caracteres, porque a medida é em `ch`.
+
+## Conteúdo
+
+Frases curtas, uma ideia por parágrafo, e listas quando houver três itens ou mais. Valem as regras 2 e 3 de **Conteúdo e voz**: palavras do dia a dia e frases curtas.
+
+## Faça e não faça
+
+- Faça: quebrar "tontura e cansaço nos primeiros dias" numa lista.
+- Não faça: um parágrafo de seis linhas com todos os efeitos da bula.

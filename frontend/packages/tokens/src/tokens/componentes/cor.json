@@ -1,0 +1,97 @@
+{
+  "componente": {
+    "$type": "color",
+    "$description": "Terceira camada: cada token aponta para um semântico. No CSS sai como var(--bc-color-…), então segue o tema sozinho.",
+    "campo": {
+      "fundo": {
+        "$value": "{color.surface.default}"
+      },
+      "borda": {
+        "$value": "{color.border.field}"
+      },
+      "borda-invalida": {
+        "$value": "{color.danger.border}"
+      },
+      "texto-erro": {
+        "$value": "{color.danger.text}"
+      }
+    },
+    "selecao": {
+      "borda": {
+        "$value": "{color.border.field}"
+      },
+      "marcado": {
+        "$value": "{color.action.primary}"
+      },
+      "marca": {
+        "$value": "{color.text.on-solid}"
+      }
+    },
+    "chip": {
+      "fundo": {
+        "$value": "{color.action.primary-subtle}"
+      },
+      "texto": {
+        "$value": "{color.action.primary-strong}"
+      }
+    },
+    "aba": {
+      "indicador": {
+        "$value": "{color.action.primary}"
+      }
+    },
+    "painel": {
+      "fundo": {
+        "$value": "{color.surface.default}"
+      }
+    },
+    "sobreposicao": {
+      "fundo": {
+        "$value": "{color.overlay}"
+      }
+    },
+    "toast": {
+      "fundo": {
+        "$value": "{color.surface.default}"
+      },
+      "destaque": {
+        "$value": "{color.confirm}"
+      }
+    },
+    "esqueleto": {
+      "fundo": {
+        "$value": "{color.surface.info}"
+      },
+      "borda": {
+        "$value": "{color.border.subtle}"
+      }
+    },
+    "emergencia": {
+      "fundo": {
+        "$value": "{color.emergency.solid}"
+      },
+      "texto": {
+        "$value": "{color.text.on-solid}"
+      },
+      "botao-fundo": {
+        "$value": "{color.surface.default}"
+      },
+      "botao-texto": {
+        "$value": "{color.emergency.solid}"
+      }
+    },
+    "faixa-emergencia": {
+      "fundo": {
+        "$value": "{color.danger.bg}"
+      },
+      "texto": {
+        "$value": "{color.danger.text}"
+      }
+    },
+    "selo": {
+      "icone": {
+        "$value": "{color.confirm}"
+      }
+    }
+  }
+}

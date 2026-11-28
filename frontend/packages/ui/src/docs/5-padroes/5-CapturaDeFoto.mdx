@@ -1,0 +1,36 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './5-CapturaDeFoto.stories';
+
+<Meta of={Stories} />
+
+# Captura de foto
+
+Fotografar a caixa, conferir o que foi lido e só então perguntar.
+
+## Exemplo
+
+<Canvas of={Stories.ConfirmarAntesDePerguntar} />
+
+## O fluxo
+
+1. A pessoa toca em "Fotografar a caixa" (no corpo da primeira visita ou na caixa de pergunta).
+2. O `CameraCapture` pede a câmera traseira e mostra o visor com a moldura "Enquadre o nome do remédio aqui".
+3. "Tirar foto" entrega a imagem ao app, que chama o `POST /ler-caixa` (issue #24). Esse endpoint só lê: não monta pergunta nem chama a LLM.
+4. O `OcrConfirm` sobe com "Li na caixa", o nome lido e "É esse o remédio?".
+5. Só com "Sim, perguntar sobre ele" a pergunta vai para o `/perguntar`. "Não, vou digitar o nome" leva ao campo.
+
+Esse passo de confirmação protege contra responder sobre o remédio errado (risco R3).
+
+## Quando nada foi lido
+
+<Canvas of={Stories.NaoLeu} />
+
+## Câmera negada
+
+<Canvas of={Stories.CameraNegada} />
+
+## Regras
+
+- Nas stories, a câmera é simulada com um canvas desenhado. Nenhuma story pede permissão de verdade nem chama a rede.
+- A câmera desliga quando o visor sai da tela.
+- A foto não é guardada. A nota "A foto é usada só para ler o nome e não é guardada" depende de o `/ler-caixa` cumprir isso.

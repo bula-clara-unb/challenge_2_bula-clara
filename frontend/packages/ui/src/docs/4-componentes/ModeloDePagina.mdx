@@ -1,0 +1,86 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from '../../components/Button/Button.stories';
+import { ListaNumerada } from '../blocos/ListaNumerada';
+
+<Meta title="Componentes/Modelo de página" />
+
+# Modelo de página de componente
+
+Todo componente tem uma página de documentação, escrita junto com ele, no mesmo PR. A página fica na pasta do componente, ao lado das stories: `src/components/<Nome>/<Nome>.mdx`. Ela aparece no Storybook como "Docs", dentro do componente.
+
+## O que toda página tem
+
+Nesta ordem, e sem pular seção. Se uma seção não se aplica, escreva por quê numa frase.
+
+<ListaNumerada>
+
+1. **Nome e uma frase** dizendo o que o componente faz, do ponto de vista de quem usa o app.
+2. **Exemplo principal**, com a story mais comum (`<Canvas>`).
+3. **Quando usar.**
+4. **Quando não usar**, apontando o componente certo para cada caso. Exemplo: "Para confirmar uma ação, use `Toast`. Para avisar sobre o estado da tela, use `Alert`."
+5. **Anatomia:** as partes do componente, com o nome de cada uma. Uma lista basta.
+6. **Props**, com o bloco `<ArgTypes>`. Escreva um comentário `/** … */` em cada prop no `.tsx`, porque é dali que sai a descrição da tabela.
+7. **Estados**, com uma story para cada um: normal, foco, pressionado, desabilitado, carregando, erro, o que se aplicar.
+8. **Acessibilidade:** papel (`role`), nome acessível, o que o teclado faz, o que o leitor de tela anuncia e o que muda no alto contraste e no A+ de 140%.
+9. **Conteúdo:** que texto vai no componente e qual regra de **Conteúdo e voz** se aplica.
+10. **Faça e não faça**, com pelo menos um par.
+
+</ListaNumerada>
+
+## Esqueleto
+
+Copie e preencha. O `<Meta of>` liga a página às stories do componente.
+
+```mdx
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Nome.stories';
+
+<Meta of={Stories} />
+
+# Nome
+
+Uma frase sobre o que ele faz.
+
+<Canvas of={Stories.Principal} />
+
+## Quando usar
+
+## Quando não usar
+
+## Anatomia
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.Desabilitado} />
+
+## Acessibilidade
+
+## Conteúdo
+
+## Faça e não faça
+```
+
+## Como fica, usando o Button
+
+O exemplo principal do `Button`:
+
+<Canvas of={ButtonStories.Primaria} />
+
+E a tabela de props, gerada a partir do `.tsx`:
+
+<ArgTypes of={ButtonStories} />
+
+Uma seção de acessibilidade do `Button` ficaria assim:
+
+> Usa o `Button` do React Aria, que tem papel `button` e responde a Enter e a Espaço. O nome acessível é o texto do botão, que diz a ação ("Apagar tudo", e nunca "OK"). O ícone é decorativo e fica escondido do leitor de tela. O foco pelo teclado mostra o contorno de 3 px com halo. A área de toque tem pelo menos 48 px nos três tamanhos de texto. A variante `perigo` não depende só da cor: o texto já diz que a ação apaga.
+
+## Antes de dar a página por pronta
+
+- Todas as stories da página passam no axe (o teste falha se não passarem).
+- Os exemplos usam dados realistas: nomes de remédio da base, como losartana e metformina, e nunca "Lorem ipsum" ou "Remédio 1".
+- Os textos dos exemplos seguem **Conteúdo e voz**.
+- A página foi lida com o controle **Contraste** em "Alto contraste" e o **Texto** em 140%.

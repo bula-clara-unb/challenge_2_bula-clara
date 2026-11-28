@@ -1,0 +1,34 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './6-CapturaDeVoz.stories';
+
+<Meta of={Stories} />
+
+# Captura de voz
+
+Gravar a pergunta, conferir o que foi entendido e só então perguntar.
+
+## Exemplo
+
+<Canvas of={Stories.ConfirmarAntesDePerguntar} />
+
+## O fluxo
+
+1. A pessoa toca em "Perguntar falando".
+2. O `VoiceRecorder` começa a gravar e avisa por som, vibração e texto ("Ouvindo… fale sua pergunta").
+3. "Parar de gravar" (ou o limite de 30 segundos) entrega o áudio ao app, que chama o `POST /transcrever` (Whisper no nosso servidor, issue #24).
+4. O `TranscriptConfirm` sobe com "Entendi", a pergunta entre aspas e "Está certo?".
+5. Só com "Sim, perguntar" a pergunta vai para o `/perguntar`. "Não, vou escrever" leva ao campo.
+
+## Corrigir escrevendo
+
+<Canvas of={Stories.Corrigir} />
+
+## Microfone negado
+
+<Canvas of={Stories.MicrofoneNegado} />
+
+## Regras
+
+- A fala vira texto só no nosso servidor. A `SpeechRecognition` do navegador nunca é usada, porque no Chrome ela manda o áudio para o Google.
+- Nas stories, o microfone e o gravador são simulados. Nada é gravado nem enviado.
+- Tudo o que foi falado aparece escrito antes de virar pergunta.

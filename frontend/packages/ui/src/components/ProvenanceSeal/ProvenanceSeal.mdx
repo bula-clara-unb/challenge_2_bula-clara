@@ -1,0 +1,53 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './ProvenanceSeal.stories';
+
+<Meta of={Stories} />
+
+# ProvenanceSeal
+
+Selo de procedência: de qual bula oficial a informação veio e de quando ela é.
+
+## Exemplo
+
+<Canvas of={Stories.ComData} />
+
+## Quando usar
+
+Em toda resposta, depois dos chips de seção, com uma entrada para cada bula citada. Na ficha do remédio, logo abaixo do nome, sem repetir o nome.
+
+## Quando não usar
+
+Não use para fonte que não seja a bula oficial da ANVISA. Para a citação de um trecho, use `SourceChip`.
+
+## Anatomia
+
+- Ícone de selo, decorativo.
+- "Bula oficial ANVISA", seguido de cada bula com a versão ("Losartana, versão de 03/2025").
+
+## Props
+
+<ArgTypes of={Stories} />
+
+`versao` é `string | null`. O componente aceita o texto do backend ("03/2025") ou uma data ISO ("2025-03-01"), que vira "03/2025" por texto, sem passar por `Date`.
+
+## Estados
+
+<Canvas of={Stories.SemData} />
+
+<Canvas of={Stories.DuasBulas} />
+
+<Canvas of={Stories.NaFicha} />
+
+## Acessibilidade
+
+- Um parágrafo simples, lido na ordem da resposta.
+- Texto de apoio (16px, `text-muted`, 8:1).
+
+## Conteúdo
+
+Sem data registrada, o selo diz "data da versão não informada". Ele nunca mostra uma data inventada ou estimada (risco R5). Converter `2025-03-01` com `new Date` em Brasília daria 02/2025: por isso a conversão é só de texto.
+
+## Faça e não faça
+
+- Faça: "Bula oficial ANVISA · Hidroclorotiazida · data da versão não informada".
+- Não faça: usar a data de hoje, a data da coleta ou "recente" quando a versão não vier.

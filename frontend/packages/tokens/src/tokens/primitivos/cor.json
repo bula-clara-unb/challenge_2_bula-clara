@@ -1,0 +1,86 @@
+{
+  "primitivo": {
+    "cor": {
+      "$type": "color",
+      "branco": {
+        "$value": "#FFFFFF"
+      },
+      "preto": {
+        "$value": "#000000"
+      },
+      "azul": {
+        "50": {
+          "$value": "#EDF3FC"
+        },
+        "600": {
+          "$value": "#1351B4"
+        },
+        "800": {
+          "$value": "#0C326F"
+        }
+      },
+      "cinza": {
+        "50": {
+          "$value": "#F1F4F9"
+        },
+        "200": {
+          "$value": "#D6DFEA"
+        },
+        "500": {
+          "$value": "#6B7A90"
+        },
+        "700": {
+          "$value": "#40506A"
+        },
+        "950": {
+          "$value": "#0B1B33"
+        }
+      },
+      "ambar": {
+        "50": {
+          "$value": "#FFF5C2"
+        },
+        "300": {
+          "$value": "#FFD54A"
+        },
+        "700": {
+          "$value": "#9E6A00"
+        },
+        "950": {
+          "$value": "#3D2A00"
+        }
+      },
+      "vermelho": {
+        "50": {
+          "$value": "#FDECEA"
+        },
+        "700": {
+          "$value": "#A4221A"
+        },
+        "800": {
+          "$value": "#8A1C12"
+        },
+        "900": {
+          "$value": "#7A0E06"
+        }
+      },
+      "verde": {
+        "800": {
+          "$value": "#1A5E3C"
+        },
+        "900": {
+          "$value": "#0B3D24"
+        }
+      },
+      "veu": {
+        "$description": "Fundo semitransparente atrás de Dialog e Sheet. Nunca fica atrás de texto.",
+        "padrao": {
+          "$value": "#0B1B33B3"
+        },
+        "alto": {
+          "$value": "#000000D9"
+        }
+      }
+    }
+  }
+}

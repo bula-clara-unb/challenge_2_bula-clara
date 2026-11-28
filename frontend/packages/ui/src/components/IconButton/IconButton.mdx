@@ -1,0 +1,50 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './IconButton.stories';
+
+<Meta of={Stories} />
+
+# IconButton
+
+Botão só com ícone, para ações que já têm um ícone conhecido: microfone, câmera e fechar.
+
+<Canvas of={Stories.Microfone} />
+
+## Quando usar
+
+Na caixa de pergunta (câmera e microfone) e no X de fechar diálogos, folhas e toasts. São lugares com pouco espaço, onde o ícone é reconhecido por quase todo mundo.
+
+## Quando não usar
+
+- Quando houver espaço para texto, use `Button` com ícone. Texto visível ajuda quem tem pouca familiaridade com celular.
+- Para ações de perigo, como apagar, use `Button` na variante `perigo`. Uma lixeira sozinha é fácil de tocar sem querer.
+
+## Anatomia
+
+- Contêiner quadrado de 48px, com borda de 2px.
+- Ícone Phosphor de 24px, no peso `bold`.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.CameraNaCaixaDePergunta} />
+
+<Canvas of={Stories.Fechar} />
+
+## Acessibilidade
+
+- Papel `button`. O `aria-label` é obrigatório: sem ele, o código não compila, porque é o único nome que o leitor de tela anuncia.
+- O ícone fica escondido do leitor de tela.
+- 48px de largura e de altura, nos três tamanhos de texto.
+- Responde a Enter e a Espaço. O foco pelo teclado mostra o contorno de 3px com halo.
+
+## Conteúdo
+
+O `aria-label` diz a ação, igual ao texto de um `Button`: "Perguntar falando", "Fotografar a caixa", "Fechar". Nunca descreve o desenho ("Microfone", "Ícone de câmera").
+
+## Faça e não faça
+
+- Faça: `aria-label="Fotografar a caixa"`.
+- Não faça: `aria-label="Câmera"`. O nome descreve o ícone e não o que acontece.

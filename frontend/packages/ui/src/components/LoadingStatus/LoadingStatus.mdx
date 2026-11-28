@@ -1,0 +1,48 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './LoadingStatus.stories';
+
+<Meta of={Stories} />
+
+# LoadingStatus
+
+O status de espera enquanto a resposta é montada, que pode passar de 10 segundos.
+
+## Exemplo
+
+<Canvas of={Stories.Principal} />
+
+## Quando usar
+
+Abaixo das respostas anteriores, enquanto a nova é montada. O texto muda a cada etapa.
+
+## Quando não usar
+
+- Para espera curta dentro de um botão, como no `ListenButton`, o próprio botão mostra o círculo.
+- Para espera com passos conhecidos e contados, use `ProgressSteps`.
+
+## Anatomia
+
+Um círculo de carregamento (`Spinner`) com o texto da etapa ao lado, dentro de uma região `aria-live="polite"`.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.EtapaPorEtapa} />
+
+## Acessibilidade
+
+- É a única região `aria-live` da resposta. Quando a resposta chega, o foco vai para a frase-resposta (`AnswerHeadline`) e nada é lido duas vezes.
+- Monte o componente uma vez, vazio, e só troque o texto. Uma região `aria-live` que já nasce com texto nem sempre é anunciada.
+- Com movimento reduzido, o círculo fica parado.
+
+## Conteúdo
+
+As etapas da página Textos da interface: "Identificando os remédios…", "Lendo a bula…" (ou "Lendo a bula da losartana…"), "Checando interações…" e "Conferindo a segurança…".
+
+## Faça e não faça
+
+- Faça: diga o que está acontecendo agora.
+- Não faça: "Carregando…" sozinho por 10 segundos.

@@ -1,0 +1,48 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Spinner.stories';
+
+<Meta of={Stories} />
+
+# Spinner
+
+Círculo que gira, com um texto do que está acontecendo, para esperas sem prazo conhecido.
+
+<Canvas of={Stories.ComTexto} />
+
+## Quando usar
+
+Enquanto o app espera a API: lendo a bula, checando interações.
+
+## Quando não usar
+
+- Para mostrar em que passo de um fluxo a pessoa está, use `ProgressSteps`.
+- Para reservar o espaço do conteúdo, use `Skeleton`, junto com o `Spinner`.
+
+## Anatomia
+
+- Círculo de 24px, com o arco azul.
+- Texto ao lado, em texto de apoio.
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Estados
+
+<Canvas of={Stories.SoOCirculo} />
+
+## Acessibilidade
+
+- Papel `progressbar`, sem valor, com o `rotulo` como nome.
+- Não é região `aria-live`. Para anunciar cada etapa, ponha o `Spinner` dentro de um `aria-live="polite"`. É o que o `LoadingStatus` do plano 3 faz.
+- Com movimento reduzido, o círculo fica parado. O texto continua dizendo o que acontece.
+- Esconda o texto (`mostrarRotulo={false}`) só quando ele já aparece em outro lugar da tela.
+
+## Conteúdo
+
+O que o app está fazendo, com o nome do remédio quando houver ("Lendo a bula da losartana…"). Termine com reticências.
+
+## Faça e não faça
+
+- Faça: "Checando interações…".
+- Não faça: "Carregando…" quando dá para dizer o que está acontecendo.
