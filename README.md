@@ -25,7 +25,7 @@ pergunta ─► Segurança (pré) ─► Identificador ─► Recuperador (RAG) 
 | `bula_clara/agentes/` | um arquivo por agente + `orquestrador.py` |
 | `scripts/baixar_bulas.py` | baixa as bulas do Bulário Eletrônico |
 | `scripts/validar_bulas.py` | confere as 9 seções das bulas do MVP ([`docs/base-bulas.md`](docs/base-bulas.md)) |
-| `scripts/gerar_dataset_finetune.py` / `treinar_lora.py` | fine-tuning |
+| `scripts/gerar_dataset_finetune.py` / `treinar_lora.py` / `plotar_treino.py` | fine-tuning LoRA e gráfico de perda ([`docs/treino-lora.md`](docs/treino-lora.md)) |
 | `scripts/avaliar.py` | métricas: LLM puro × RAG × multiagentes |
 | `notebooks/treino_colab.ipynb` | treino no Colab (GPU T4 gratuita) |
 | `frontend/` | design system e interface web ([`frontend/README.md`](frontend/README.md)) |
