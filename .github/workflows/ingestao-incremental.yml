@@ -1,0 +1,147 @@
+name: Ingestão Incremental
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      pasta:
+        description: Pasta com as bulas (.pdf ou .txt)
+        required: false
+        default: tests/fixtures
+        type: string
+      forcar:
+        description: Forçar reprocessamento completo
+        required: false
+        default: false
+        type: boolean
+      dry_run:
+        description: Simular sem gravar arquivos de saída
+        required: false
+        default: false
+        type: boolean
+      falhar_em_quarentena:
+        description: Falhar caso algum arquivo entre em quarentena
+        required: false
+        default: true
+        type: boolean
+  push:
+    branches: [dev, main]
+    paths:
+      - bula_clara/ingestao.py
+      - bula_clara/secoes.py
+      - bula_clara/pipeline_ingestao.py
+      - bula_clara/recuperador.py
+      - scripts/rodar_ingestao.py
+      - .github/workflows/ingestao-incremental.yml
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - bula_clara/ingestao.py
+      - bula_clara/secoes.py
+      - bula_clara/pipeline_ingestao.py
+      - bula_clara/recuperador.py
+      - scripts/rodar_ingestao.py
+      - .github/workflows/ingestao-incremental.yml
+
+concurrency:
+  group: ingestao-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ingestao-incremental:
+    name: Pipeline incremental de ingestão
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Dependências Python
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pypdf scikit-learn
+
+      - name: Restaurar estado incremental anterior
+        uses: actions/cache@v4
+        with:
+          path: .ingestao-state
+          key: ingestao-state-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            ingestao-state-${{ github.ref_name }}-
+
+      - name: Executar pipeline incremental
+        env:
+          INGEST_PASTA: ${{ inputs.pasta }}
+          INGEST_FORCAR: ${{ inputs.forcar }}
+          INGEST_DRY_RUN: ${{ inputs.dry_run }}
+          INGEST_FALHAR_QUARENTENA: ${{ inputs.falhar_em_quarentena }}
+          BULA_RECUPERADOR: tfidf
+        run: |
+          mkdir -p .ingestao-state/relatorios
+          pasta="${INGEST_PASTA:-tests/fixtures}"
+          forcar="${INGEST_FORCAR:-false}"
+          dry_run="${INGEST_DRY_RUN:-false}"
+          falhar="${INGEST_FALHAR_QUARENTENA:-true}"
+
+          args=(
+            --pasta "$pasta"
+            --chunks .ingestao-state/chunks.jsonl
+            --manifesto .ingestao-state/manifesto.json
+            --relatorios .ingestao-state/relatorios
+            --sem-indice
+            --json
+          )
+          if [ "$forcar" = "true" ]; then
+            args+=(--forcar)
+          fi
+          if [ "$dry_run" = "true" ]; then
+            args+=(--dry-run)
+          fi
+          if [ "$falhar" = "true" ]; then
+            args+=(--falhar-em-quarentena)
+          fi
+
+          python -m bula_clara.pipeline_ingestao "${args[@]}" > .ingestao-state/ultimo_relatorio.json
+
+      - name: Resumo da execução
+        if: always()
+        run: |
+          if [ ! -f .ingestao-state/ultimo_relatorio.json ]; then
+            echo "Relatório não foi gerado." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          python - << 'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          with open(".ingestao-state/ultimo_relatorio.json", encoding="utf-8") as f:
+              r = json.load(f)
+          d = r["delta"]
+          print("### Ingestão Incremental — Bula Clara\n")
+          print("| Item | Valor |")
+          print("|---|---|")
+          print(f"| Pasta | `{r['pasta']}` |")
+          print(f"| Dry-run | `{r['dry_run']}` |")
+          print(f"| Reconstrução total | `{r['reconstrucao_total']}` |")
+          print(f"| Novos | {len(d['novos'])} |")
+          print(f"| Modificados | {len(d['modificados'])} |")
+          print(f"| Removidos | {len(d['removidos'])} |")
+          print(f"| Inalterados | {len(d['inalterados'])} |")
+          print(f"| Aprovados nesta execução | {len(r['aprovados'])} |")
+          print(f"| Em quarentena | {len(r['quarentena'])} |")
+          print(f"| Avisos | {len(r['avisos'])} |")
+          print(f"| Total de chunks ativos | {r['total_chunks']} |")
+          PY
+
+      - name: Publicar manifesto e relatório
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ingestao-relatorio
+          path: |
+            .ingestao-state/manifesto.json
+            .ingestao-state/ultimo_relatorio.json
+          retention-days: 14
+          if-no-files-found: ignore

@@ -5,6 +5,7 @@ Backend reserva: TF-IDF (scikit-learn) — usado nos testes ou se não houver se
 Escolha com BULA_RECUPERADOR=chroma|tfidf (padrão: chroma se instalado).
 """
 import os
+from contextlib import suppress
 
 from . import config
 from .ingestao import carregar_chunks
@@ -37,28 +38,83 @@ class RecuperadorTFIDF:
 class RecuperadorChroma:
     COLECAO = "bulas"
 
-    def __init__(self, chunks: list[dict] | None = None, reconstruir=False):
+    def __init__(self, chunks: list[dict] | None = None, reconstruir=False, pasta_indice=None, embedding_function=None):
         import chromadb
-        from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
-        cliente = chromadb.PersistentClient(path=str(config.PASTA_INDICE))
-        fe = SentenceTransformerEmbeddingFunction(model_name=config.MODELO_EMBEDDING)
+        from chromadb.utils.embedding_functions import (
+            SentenceTransformerEmbeddingFunction,
+        )
+        pasta = pasta_indice or config.PASTA_INDICE
+        self.cliente = chromadb.PersistentClient(path=str(pasta))
+        self.fe = embedding_function or SentenceTransformerEmbeddingFunction(model_name=config.MODELO_EMBEDDING)
         if reconstruir:
-            try:
-                cliente.delete_collection(self.COLECAO)
-            except Exception:
-                pass
-        self.col = cliente.get_or_create_collection(self.COLECAO, embedding_function=fe,
-                                                    metadata={"hnsw:space": "cosine"})
+            with suppress(Exception):
+                self.cliente.delete_collection(self.COLECAO)
+        self.col = self.cliente.get_or_create_collection(
+            self.COLECAO, embedding_function=self.fe, metadata={"hnsw:space": "cosine"}
+        )
         if self.col.count() == 0:
-            chunks = chunks or carregar_chunks()
-            for i in range(0, len(chunks), 256):
-                lote = chunks[i:i + 256]
-                self.col.add(
-                    ids=[c["id"] for c in lote],
-                    documents=[c["texto"] for c in lote],
-                    metadatas=[{k: c[k] for k in ("medicamento", "secao", "secao_nome", "fonte")} for c in lote],
-                )
-            print(f"Índice criado com {self.col.count()} chunks em {config.PASTA_INDICE}")
+            chunks = chunks if chunks is not None else carregar_chunks()
+            if chunks:
+                for i in range(0, len(chunks), 256):
+                    lote = chunks[i:i + 256]
+                    self.col.add(
+                        ids=[c["id"] for c in lote],
+                        documents=[c["texto"] for c in lote],
+                        metadatas=[self._metadata_chunk(c) for c in lote],
+                    )
+                print(f"Índice criado com {self.col.count()} chunks em {pasta}")
+
+    @staticmethod
+    def _metadata_chunk(c: dict) -> dict:
+        meta = {k: c[k] for k in ("medicamento", "secao", "secao_nome", "fonte")}
+        for extra in ("fabricante", "versao_bula"):
+            if c.get(extra) is not None:
+                meta[extra] = c[extra]
+        return meta
+
+    def remover_fontes(self, fontes: list[str]) -> int:
+        unicas = list(dict.fromkeys(fontes))
+        for fonte in unicas:
+            self.col.delete(where={"fonte": fonte})
+        return len(unicas)
+
+    def upsert_chunks(self, chunks: list[dict]) -> int:
+        for i in range(0, len(chunks), 256):
+            lote = chunks[i:i + 256]
+            self.col.upsert(
+                ids=[c["id"] for c in lote],
+                documents=[c["texto"] for c in lote],
+                metadatas=[self._metadata_chunk(c) for c in lote],
+            )
+        return len(chunks)
+
+    def sincronizar_incremental(
+        self,
+        chunks_novos: list[dict],
+        fontes_removidas: list[str],
+        fontes_alteradas: list[str],
+        reconstrucao_total: bool = False,
+    ) -> dict:
+        removidas_ou_alteradas = list(dict.fromkeys([*fontes_removidas, *fontes_alteradas]))
+        if reconstrucao_total:
+            with suppress(Exception):
+                self.cliente.delete_collection(self.COLECAO)
+            self.col = self.cliente.get_or_create_collection(
+                self.COLECAO, embedding_function=self.fe, metadata={"hnsw:space": "cosine"}
+            )
+            if chunks_novos:
+                self.upsert_chunks(chunks_novos)
+        else:
+            if removidas_ou_alteradas:
+                self.remover_fontes(removidas_ou_alteradas)
+            if chunks_novos:
+                self.upsert_chunks(chunks_novos)
+        return {
+            "status": "reconstruido" if reconstrucao_total else "atualizado",
+            "fontes_removidas": len(removidas_ou_alteradas),
+            "chunks_gravados": len(chunks_novos),
+            "total_indice": self.col.count(),
+        }
 
     def buscar(self, pergunta, k=config.TOP_K, medicamentos=None, secoes=None):
         filtros = []

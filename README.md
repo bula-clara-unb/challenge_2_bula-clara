@@ -18,6 +18,8 @@ pergunta ─► Segurança (pré) ─► Identificador ─► Recuperador (RAG) 
 | Pasta/arquivo | Conteúdo |
 |---|---|
 | `bula_clara/ingestao.py` | PDF → 9 seções da RDC 47/2009 → `data/chunks.jsonl` |
+| `bula_clara/pipeline_ingestao.py` | ingestão incremental com manifesto, quarentena e upsert ([`docs/pipeline-ingestao.md`](docs/pipeline-ingestao.md)) |
+| `bula_clara/catalogo.py` | catálogo ANVISA (`DADOS_ABERTOS_MEDICAMENTOS.csv`) com status `ok`/`pendente` e lotes |
 | `bula_clara/recuperador.py` | ChromaDB + embeddings multilíngues (reserva: TF-IDF) |
 | `bula_clara/llm.py` | backends `hf` (local + LoRA), `ollama`, `mock` |
 | `bula_clara/agentes/` | um arquivo por agente + `orquestrador.py` |

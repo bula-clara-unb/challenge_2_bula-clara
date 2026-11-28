@@ -36,6 +36,10 @@ env/
 # Dados e artefatos gerados
 data/bulas/*.pdf
 data/chunks.jsonl
+data/manifesto.json
+data/relatorios/
+data/DADOS_ABERTOS_MEDICAMENTOS.csv
+data/catalogo_medicamentos.json
 data/indice/
 data/finetune/
 modelos/
